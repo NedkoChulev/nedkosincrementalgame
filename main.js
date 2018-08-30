@@ -32,11 +32,11 @@ var upgrades = [
 ,];
 
 var skills = [
-	{name: "Skill 1", HTMLcost: document.getElementById("cost-skill0"), HTMLid: document.getElementById("skill0"), duration: 0, cost: 0, coolDown: 0},
-	{name: "Skill 2", HTMLcost: document.getElementById("cost-skill1"), HTMLid: document.getElementById("skill1"), duration: 0, cost: 0, coolDown: 0},
-	{name: "Skill 3", HTMLcost: document.getElementById("cost-skill2"), HTMLid: document.getElementById("skill2"), duration: 0, cost: 0, coolDown: 0},
-	{name: "Skill 4", HTMLcost: document.getElementById("cost-skill3"), HTMLid: document.getElementById("skill3"), duration: 0, cost: 0, coolDown: 0},
-	{name: "Skill 5", HTMLcost: document.getElementById("cost-skill4"), HTMLid: document.getElementById("skill4"), duration: 0, cost: 0, coolDown: 0}
+	{name: "Skill 1", HTMLcost: document.getElementById("cost-skill0"), HTMLid: document.getElementById("skill0"), duration: 0, cost: 100, coolDown: 0},
+	{name: "Skill 2", HTMLcost: document.getElementById("cost-skill1"), HTMLid: document.getElementById("skill1"), duration: 0, cost: 100, coolDown: 0},
+	{name: "Skill 3", HTMLcost: document.getElementById("cost-skill2"), HTMLid: document.getElementById("skill2"), duration: 0, cost: 100, coolDown: 0},
+	{name: "Skill 4", HTMLcost: document.getElementById("cost-skill3"), HTMLid: document.getElementById("skill3"), duration: 0, cost: 100, coolDown: 0},
+	{name: "Skill 5", HTMLcost: document.getElementById("cost-skill4"), HTMLid: document.getElementById("skill4"), duration: 0, cost: 100, coolDown: 0}
 ];
 
 var saveButton = document.getElementById("saveButton");
@@ -54,6 +54,7 @@ var alerts = document.getElementById("alerts");
 
 //Basically the main method that starts the game
 window.onload = function(){
+	window.addEventListener('keydown', handleFirstTab);
 	initiateUpgrades();
 	initiateRightClick();
 	initiateCombo();
@@ -94,19 +95,33 @@ function buyUpgrade(n) {
 	checkPrices();
 }
 
-// Checks if any of the upgrades are available for purchase
+// Checks if any of the upgrades and skills are available for purchase
 function checkPrices() {
 	for (let i = upgrades.length - 1; i >= 0; i--) {
 		if (clicks >= upgrades[i].cost) {
 			upgrades[i].HTMLid.classList.remove("disabled");
 			upgrades[i].HTMLid.classList.add("enabled");
+			upgrades[i].HTMLid.disabled = false;
 		} else {
 			upgrades[i].HTMLid.classList.remove("enabled");
 			upgrades[i].HTMLid.classList.add("disabled");
+			upgrades[i].HTMLid.disabled = true;
 		}
 
 		if (upgrades[i].amount > 0) {
 			upgrades[i].HTMLamount.style.color = "black";
+		}
+	}
+
+	for (var i = skills.length - 1; i >= 0; i--) {
+		if (clicks >= skills[i].cost) {
+			skills[i].HTMLid.classList.remove("disabled");
+			skills[i].HTMLid.classList.add("enabled");
+			skills[i].HTMLid.disabled = false;
+		} else {
+			skills[i].HTMLid.classList.remove("enabled");
+			skills[i].HTMLid.classList.add("disabled");
+			skills[i].HTMLid.disabled = true;
 		}
 	}
 }
@@ -364,4 +379,11 @@ function alertPlayer(message) {
 			alerts.classList.toggle("show");
 		},500);
 	}, 50);
+}
+
+function handleFirstTab(e) {
+    if (e.keyCode === 9) { // the "I am a keyboard user" key
+        document.body.classList.add('user-is-tabbing');
+        window.removeEventListener('keydown', handleFirstTab);
+    }
 }
