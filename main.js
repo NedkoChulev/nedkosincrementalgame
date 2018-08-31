@@ -42,6 +42,7 @@ var skills = [
 var saveButton = document.getElementById("saveButton");
 var loadButton = document.getElementById("loadButton");
 
+var canvas = document.getElementById("canvas");
 var comboSequence = document.getElementById("comboSequence");
 var comboPointsMessage = document.getElementById("comboPointsMessage");
 var clicksCountText = document.getElementById("clicksCount-text");
@@ -54,6 +55,7 @@ var alerts = document.getElementById("alerts");
 
 //Basically the main method that starts the game
 window.onload = function(){
+	drawCanvas();
 	window.addEventListener('keydown', handleFirstTab);
 	initiateUpgrades();
 	initiateRightClick();
@@ -387,3 +389,47 @@ function handleFirstTab(e) {
         window.removeEventListener('keydown', handleFirstTab);
     }
 }
+
+
+function drawCanvas() {
+
+      // Initialise an empty canvas and place it on the page
+      var context = canvas.getContext("2d");
+      canvas.width = 1100;
+      canvas.height = 750;
+
+      // Inital starting position
+      var posX = 20,
+          posY = canvas.height / 2;
+
+      // Initial velocities
+      var vx = 10,
+          vy = -10,
+          gravity = 1;
+
+      // Draw shapes on the canvas
+      setInterval(function() {
+        // Erase canvas
+        context.fillStyle = "black";//"#222";
+        context.fillRect(0,0,canvas.width, canvas.height);
+        posX += vx;
+        posY += vy;
+
+        if (posY > canvas.height * 0.75) {
+          vy *= -0.6;
+          vx *= 0.75;
+          posY = canvas.height * 0.75;
+        }
+
+        vy += gravity;
+
+        // Draw a circle particle on the canvas
+        context.beginPath();
+        context.fillStyle = "white";
+        // After setting the fill style, draw an arc on the canvas
+        context.arc(posX, posY, 10, 0, Math.PI*2, true); 
+        context.closePath();
+        context.fill();
+        
+      }, 30);
+    }
