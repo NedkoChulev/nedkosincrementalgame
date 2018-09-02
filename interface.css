@@ -26,16 +26,31 @@ body:not(.user-is-tabbing) button:focus, body:not(.user-is-tabbing) input:focus,
 
 button {
   border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.main {
+  height: 100%;
+  width: 1200px;
+  margin-left: calc(50% - 600px);
+  background: black;
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: 200px 700px 200px;
-  grid-template-rows: 100px 600px 50px;
+  /*grid-template-columns: 230px 700px 230px;
+  grid-template-rows: 100px 600px 100px 100px;*/
+  grid-template-columns: 230px 700px 230px;
+  grid-template-rows: 100px 510px 100px 100px;
   grid-gap: 0px;
   justify-content: center;
   justify-items: center;
   align-items: center;
+  width: 100%;
 }
 
 .grid-container-center {
@@ -48,19 +63,39 @@ button {
   align-items: center;
 }
 
-.grid-container-left {
+.grid-container-alerts {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-gap: 10px;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 0px;
   justify-content: center;
   justify-items: center;
   align-items: center;
 }
 
-.grid-container-right {
+.grid-container-upgrades {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-gap: 10px;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 1px;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.grid-container-upgrades-buttons-left {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 1px;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.grid-container-upgrades-buttons-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 1px;
   justify-content: center;
   justify-items: center;
   align-items: center;
@@ -69,7 +104,55 @@ button {
 .grid-container-skills {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 7px;
+  grid-gap: 1px;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.grid-container-combo {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-gap: 0px;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.grid-container-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 0px;
+  justify-content: center;
+  justify-items: center;
+  align-items: end;
+}
+
+.grid-container-marquee {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-column-span: 3;
+}
+
+.grid-container-menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 1px;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.grid-container-overlay {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
   justify-content: center;
   justify-items: center;
   align-items: center;
@@ -77,15 +160,16 @@ button {
 
 .grid-item {
   color: #eee;
-    font-size: 30px;
-    text-align: center;
+  font-size: 30px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
 #mainButton {
   background: #dddd22; /*#7681b9;*/
   width: 180px;
   height: 180px;
-  padding: 4px 0;
   border: 5px solid #aaaa22;
   border-radius: 100%;
   box-shadow: 0px 0px 50px rgba(200, 200, 100, 0.5);
@@ -96,7 +180,7 @@ button {
   box-shadow: 0px 0px 100px rgba(200, 200, 100, 1);
 }
 
-#combo {
+#comboSequence {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -104,7 +188,7 @@ button {
 }
 
 #loadingBarWrapper{
-  width: 400px;
+  width: 75%;
   margin: 0 auto;
 
 }
@@ -124,24 +208,23 @@ button {
   border-radius: 16px;
 }
 
-/* Popup container - can be anything you want */
 .comboPointsPopUp {
-    position: relative;
-    height: 30px;
+    width: 100%;
+    justify-self: end;
+    align-self: end;
+    line-height: 0px;
 }
 
 /* The actual popup */
 .comboPointsMessage {
     visibility: hidden;
-    width: 160px;
+    width: 100%;
     background-color: #555;
     color: #fff;
     border-radius: 6px;
-    padding: 5% 0px 1.5% 0px;
-    position: absolute;
+    padding: 10px 20px 0px 20px; /*top right bottom left*/
     z-index: 1;
-    bottom: 125%;
-    margin-left: -80px;
+    margin-left: 0;
 }
 
 /* Toggle this class - hide and show the popup */
@@ -179,15 +262,12 @@ button {
 
 .skill {
   background: #7681b9;
-  width: 120px;
-  height: 70px;
+  width: 100%;
   font-size: 18px;
   cursor: pointer;
 }
 
 .skill-text {
-  width: 100%;
-  height: 65%;
   padding-top: 15%;
   padding-bottom: 5%;
 }
@@ -195,11 +275,17 @@ button {
 .upgrade {
   width: 180px;
   height: 100px;
+  grid-row-end: span 3;
+}
+
+.upgrade button {
+  width: 100%;
+  height: 100%;
 }
 
 .upgrade-text {
   width: 100%;
-  height: 80%;
+  height: 100%;
   padding-top: 15%;
   padding-bottom: 5%;
 }
@@ -235,28 +321,289 @@ button {
   background-color: #777;
 }
 
-#canvas {
-  position: absolute;
-  margin-top: -50%;
-  margin-left: calc(50% - 558px);
-  z-index: -5;
+.buy-multiple {
+  justify-self: stretch;
+  align-self: stretch;
+}
+
+.buy-multiple button {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.buy-multiple button.enabled {
+  color: #eee;
+  background-color: #7681b9;
+  transition: box-shadow 500ms linear, 100ms ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.buy-multiple button.disabled {
+  color: #aaa;
+  background-color: #777;
+}
+
+.buy-multiple button.enabled:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.buy-multiple button.enabled:active {
+  transform: scale(0.9, 0.9);
 }
 
 .marquee {
-  background: green;
-  width: 1100px;
+  background: rgba(40, 40, 40, 0.5);
+  border: 2px solid rgba(118,129,185, 0.5);
+  border-left: none;
+  border-right: none;
+  width: 1200px;
+  height: 30px;
   line-height: 30px;
   white-space: nowrap;
   overflow: hidden;
-  box-sizing: border-box;
+  z-index: 1;
 }
+
 .marquee p {
-  width: 1100px;
+  font-size: 25px;
+  width: 700px;
+  height: 30px;
   display: inline-block;
-  margin-left: -110%;
-  animation: marquee 15s linear 5;
+  margin-top: 12px;
+  margin-left: -200%;
+  animation: marquee 50s linear infinite;
 }
+
 @keyframes marquee {
   0%   { transform: translate(0, 0); }
-  100% { transform: translate(110%, 0); }
+  100% { transform: translate(500%, 0); }
+}
+
+.overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.overlay-content {
+    background: #333;
+    margin: auto;
+    border: 5px solid #7681b9;
+    width: 700px;
+    height: 600px;
+}
+
+/* The Close Button of the overlay window*/
+.close {
+    color: #555;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 17px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.close-container{
+  align-self: start;
+  justify-self: end;
+}
+
+.close:hover{
+  color: #999;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #7681b9; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #6570a8; 
+}
+
+.overlay-headline {
+  color: #eee;
+  font-size: 35px;
+  padding-top: 20px;
+  padding-left: 10px;
+  justify-self: start;
+  align-self: start;
+}
+
+.overlay-headline-hr {
+  width: 150%;
+  margin-top: -6px;
+}
+
+.save-overlay-middle {
+  grid-column-end: span 3;
+}
+
+.save-overlay-middle p {
+  color: #eee;
+  font-size: 25px;
+}
+
+.save-overlay-middle input {
+  width: 100%;
+}
+
+.load-overlay-middle {
+  grid-column-end: span 3;
+}
+
+.load-overlay-middle p {
+  color: #eee;
+  font-size: 25px;
+}
+
+.load-overlay-middle input {
+  width: 100%;
+}
+
+.load-overlay-middle button {
+  width: 100px;
+  height: 50px;
+  margin-top: 20px;
+  margin-left: calc(50% - 50px);
+}
+
+.log-overlay-content {
+  grid-template-rows: 6% 47% 47%;
+}
+
+.log {
+  margin-top: 15px;
+}
+
+.log p {
+  color: #eee;
+  font-size: 20px;
+  line-height: 20px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 10px;
+}
+
+.log hr {
+  margin-bottom: 10px;
+  margin-top: -5px;
+  border: 2px solid #222;
+}
+
+.log-overlay-middle {
+  grid-column-end: span 3;
+  grid-row-end: span 2;
+  width: 100%;
+  height: 95%;
+  justify-self: start;
+  align-self: start;
+  overflow-y:auto
+}
+
+.log-overlay-middle input {
+  width: 100%;
+  height: 100%;
+}
+
+.button-feature0 {
+  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterI.jpg);
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+}
+
+.button-feature1 {
+  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterC.jpg);
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+}
+
+.button-feature2 {
+  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterA.jpg);
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+}
+
+.button-feature3 {
+  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterP.jpg);
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+}
+
+.button-feature4 {
+  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterQ.jpg);
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+}
+
+.button-feature5 {
+  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterR.jpg);
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+}
+
+.button-feature6 {
+  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/20d8f44ad658b9a72e99443ed2b83d7fef2529bc/images/letterE.jpg);
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+}
+
+.button-feature7 {
+  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterS.jpg);
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+}
+
+.menu {
+  width: 100%;
+  height: 100%;
+}
+
+.menu button {
+  width: 100%;
+  height: 68%;
+  color: #eee;
+  background-color: #445e23;
+  transition: box-shadow 500ms linear, 100ms ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.menu button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.menu button:active {
+  transform: scale(0.9, 0.9);
 }

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Incremental Game</title>
+
+	<link rel="stylesheet" type="text/css" href="interface.css" />
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
+</head>
+<body>
+	<div class="main">
+		
+		<button onclick="get1k()">1,000</button>
+		<button onclick="get10k()">10,000</button>
+		<button onclick="get100k()">100,000</button>
+	<div class="grid-container">
+
+<!-- ROW 1 -->
+		<div class="grid-item grid-container-features">
+			<div id="feature0"><button id="button-feature0" class="feature button-feature0"></button></div>
+			<div id="feature1"><button id="button-feature1" class="feature button-feature1"></button></div>
+			<div id="feature2"><button id="button-feature2" class="feature button-feature2"></button></div>
+			<div id="feature3"><button id="button-feature3" class="feature button-feature3"></button></div>
+		</div>
+
+		<div class="grid-item grid-container-combo">
+			<div></div> <!-- Spacer -->
+
+			<div id="comboSequence"></div>
+			<div id="loadingBarWrapper">
+				<div id="loadingBarLeft"></div>
+				<div id="loadingBarRight"></div>
+			</div>
+			<div class="comboPointsPopUp">
+	  			<span class="comboPointsMessage" id="comboPointsMessage">+1000</span>
+			</div>
+		</div>
+
+		<div class="grid-item grid-container-features">
+			<div id="feature4"><button id="button-feature4" class="feature button-feature4"></button></div>
+			<div id="feature5"><button id="button-feature5" class="feature button-feature5"></button></div>
+			<div id="feature6"><button id="button-feature6" class="feature button-feature6"></button></div>
+			<div id="feature7"><button id="button-feature7" class="feature button-feature7"></button></div>
+		</div>
+
+<!-- ROW 2 -->
+		<div class="grid-item grid-container-upgrades">
+			<div class="grid-container-upgrades-buttons-left">
+				<div class="buy-multiple"><button id="upgrade0x10">x10</button></div>
+				<div class="upgrade">
+					<button id="upgrade0">
+						<div class="upgrade-text">
+							Upgrade 1 [<span id="amount-upgrade0">0</span>]<br>(CPS: <span id="cps-upgrade0">0</span>)<br>Cost: <span id="cost-upgrade0">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade0x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade0xMAX">MAX</button></div>
+			</div>
+			<div class="grid-container-upgrades-buttons-left">
+				<div class="buy-multiple"><button id="upgrade1x10">x10</button></div>
+				<div class="upgrade">
+					<button id="upgrade1">
+						<div class="upgrade-text">
+							Upgrade 2 [<span id="amount-upgrade1">0</span>]<br>(CPS: <span id="cps-upgrade1">0</span>)<br>Cost: <span id="cost-upgrade1">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade1x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade1xMAX">MAX</button></div>
+			</div>
+			<div class="grid-container-upgrades-buttons-left">
+				<div class="buy-multiple"><button id="upgrade2x10">x10</button></div>
+				<div class="upgrade">
+					<button id="upgrade2">
+						<div class="upgrade-text">
+							Upgrade 3 [<span id="amount-upgrade2">0</span>]<br>(CPS: <span id="cps-upgrade2">0</span>)<br>Cost: <span id="cost-upgrade2">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade2x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade2xMAX">MAX</button></div>
+			</div>
+			<div class="grid-container-upgrades-buttons-left">
+				<div class="buy-multiple"><button id="upgrade3x10">x10</button></div>
+				<div class="upgrade">
+					<button id="upgrade3">
+						<div class="upgrade-text">
+							Upgrade 4 [<span id="amount-upgrade3">0</span>]<br>(CPS: <span id="cps-upgrade3">0</span>)<br>Cost: <span id="cost-upgrade3">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade3x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade3xMAX">MAX</button></div>
+			</div>
+			<div class="grid-container-upgrades-buttons-left">
+				<div class="buy-multiple"><button id="upgrade4x10">x10</button></div>
+				<div class="upgrade">
+					<button id="upgrade4">
+						<div class="upgrade-text">
+							Upgrade 5 [<span id="amount-upgrade4">0</span>]<br>(CPS: <span id="cps-upgrade4">0</span>)<br>Cost: <span id="cost-upgrade4">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade4x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade4xMAX">MAX</button></div>
+			</div>
+		</div>
+		
+		<div class="grid-item grid-container-center">
+
+			<div></div>
+			<div class="grid-container-alerts alerts">
+				<div id="clicksCount" class="grid-item">
+					Coins: <span id="clicksCount-text">0</span>
+				</div>
+				<div></div>
+				<div class="alert" id="alerts"></div>
+			</div>
+			<div></div>
+
+			<div></div>
+			<div id="mainButton" onclick="buttonClick()"></div>
+			<div></div>
+
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+		<div class="grid-item grid-container-upgrades">
+			<div class="grid-container-upgrades-buttons-right">
+				<div class="upgrade">
+					<button id="upgrade5">
+						<div class="upgrade-text">
+							Upgrade 6 [<span id="amount-upgrade5">0</span>]<br>(CPS: <span id="cps-upgrade5">0</span>)<br>Cost: <span id="cost-upgrade5">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade5x10">x10</button></div>
+				<div class="buy-multiple"><button id="upgrade5x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade5xMAX">MAX</button></div>
+			</div>
+			<div class="grid-container-upgrades-buttons-right">
+				<div class="upgrade">
+					<button id="upgrade6">
+						<div class="upgrade-text">
+							Upgrade 7 [<span id="amount-upgrade6">0</span>]<br>(CPS: <span id="cps-upgrade6">0</span>)<br>Cost: <span id="cost-upgrade6">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade6x10">x10</button></div>
+				<div class="buy-multiple"><button id="upgrade6x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade6xMAX">MAX</button></div>
+			</div>
+			<div class="grid-container-upgrades-buttons-right">
+				<div class="upgrade">
+					<button id="upgrade7">
+						<div class="upgrade-text">
+							Upgrade 8 [<span id="amount-upgrade7">0</span>]<br>(CPS: <span id="cps-upgrade7">0</span>)<br>Cost: <span id="cost-upgrade7">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade7x10">x10</button></div>
+				<div class="buy-multiple"><button id="upgrade7x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade7xMAX">MAX</button></div>
+			</div>
+			<div class="grid-container-upgrades-buttons-right">
+				<div class="upgrade">
+					<button id="upgrade8">
+						<div class="upgrade-text">
+							Upgrade 9 [<span id="amount-upgrade8">0</span>]<br>(CPS: <span id="cps-upgrade8">0</span>)<br>Cost: <span id="cost-upgrade8">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade8x10">x10</button></div>
+				<div class="buy-multiple"><button id="upgrade8x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade8xMAX">MAX</button></div>
+			</div>
+			<div class="grid-container-upgrades-buttons-right">
+				<div class="upgrade">
+					<button id="upgrade9">
+						<div class="upgrade-text">
+							Upgrade 10 [<span id="amount-upgrade9">0</span>]<br>(CPS: <span id="cps-upgrade9">0</span>)<br>Cost: <span id="cost-upgrade9">0</span>
+						</div>
+					</button>
+				</div>
+				<div class="buy-multiple"><button id="upgrade9x10">x10</button></div>
+				<div class="buy-multiple"><button id="upgrade9x100">x100</button></div>
+				<div class="buy-multiple"><button id="upgrade9xMAX">MAX</button></div>
+			</div>
+		</div>
+
+<!-- ROW 3 -->
+		<div class="grid-item"></div>
+
+		<div class="grid-item">
+			<div class="grid-container-skills" id="skills">
+				<button id="skill0" class="skill" onclick="doubleSpeed()">
+					<div class="skill-text">
+						2x Passive<br>Cost: <span id="cost-skill0">0</span>
+					</div>
+				</button>
+				<button id="skill1" class="skill" onclick="doubleCritDmg()">
+					<div class="skill-text">
+						2x Crit DMG<br>Cost: <span id="cost-skill1">0</span>
+					</div>
+				</button>
+				<button id="skill2" class="skill">
+					<div class="skill-text">
+						Placeholder<br>Cost: <span id="cost-skill2">0</span>
+					</div>
+			</button>
+				<button id="skill3" class="skill">
+					<div class="skill-text">
+						Placeholder<br>Cost: <span id="cost-skill3">0</span>
+					</div>
+				</button>
+				<button id="skill4" class="skill">
+					<div class="skill-text">
+						Placeholder<br>Cost: <span id="cost-skill4">0</span>
+					</div>
+				</button>
+			</div>			
+		</div>
+		
+		<div class="grid-item grid-container-menu">
+			<div class="menu" id="menu0"><button id="button-menu0">P</button></div>
+			<div class="menu" id="menu1"><button id="button-menu1">L</button></div>
+			<div class="menu" id="menu2"><button id="button-menu2">O</button></div>
+			<div class="menu" id="menu3"><button id="button-menu3" onclick="saveGame()">S</button></div>
+			<div class="menu" id="menu4"><button id="button-menu4" onclick="loadGame()">L</button></div>
+		</div>
+
+<!-- ROW 4 -->
+		<div class="grid-item"></div>
+
+		<div class="grid-item grid-container-marquee">
+			<div></div>
+			<div class="marquee">
+				<p id="marquee">Welcome!</p>
+			</div>
+			<div></div>
+		</div>
+
+		<div class="grid-item"></div>
+	</div>
+
+<!-- Menu Overlays -->
+	<div id="profile-overlay" class="overlay">
+	  <div id="profile-overlay-content" class="overlay-content grid-container-overlay">
+	  	<div class="overlay-headline">My Profile<hr class="overlay-headline-hr"></div>
+	  	<div></div>
+	  	<div class="close-container"><span id="close-profile-menu" class="close">Esc x</span></div>
+
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	  </div>
+	</div>
+
+	<div id="log-overlay" class="overlay">
+	  <div id="log-overlay-content" class="overlay-content grid-container-overlay log-overlay-content">
+	  	<div class="overlay-headline">System Log<hr class="overlay-headline-hr"></div>
+	  	<div></div>
+	  	<div class="close-container"><span id="close-log-menu" class="close">Esc x</span></div>
+	  	
+	  	<div class="log-overlay-middle">
+	  		<div id="log" class="log"></div>
+	  	</div>
+
+	    
+	  </div>
+	</div>
+
+	<div id="options-overlay" class="overlay">
+	  <div id="options-overlay-content" class="overlay-content grid-container-overlay">
+  		<div class="overlay-headline">Options<hr class="overlay-headline-hr"></div>
+  		<div></div>
+  		<div class="close-container"><span id="close-options-menu" class="close">Esc x</span></div>
+
+  		<div></div>
+  		<div>
+  			<label class="switch">
+  				Alphabetic
+  				<input id="number-notation-toggle" type="checkbox">
+  				Scientific
+			  <span class="slider round"></span>
+			</label>
+  		</div>
+  		<div></div>
+
+  		<div></div>
+  		<div></div>
+  		<div></div>
+	  </div>
+	</div>
+
+	<div id="save-overlay" class="overlay">
+	  <div id="save-overlay-content" class="overlay-content grid-container-overlay">
+	  	<div class="overlay-headline">Save Game<hr class="overlay-headline-hr"></div>
+	  	<div></div>
+	  	<div class="close-container"><span id="close-save-menu" class="close">Esc x</span></div>
+
+	  	<div class="save-overlay-middle">
+	  		<label>
+				<p>Copy this code and use it to load your game next time!</p>
+	    		<input type="text" name="save-code" value="">
+	    	</label>
+		</div>
+
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	    
+
+	  </div>
+	</div>
+
+	<div id="load-overlay" class="overlay">
+	  <div id="load-overlay-content" class="overlay-content grid-container-overlay">
+	  	<div class="overlay-headline">Load Game<hr class="overlay-headline-hr"></div>
+	  	<div></div>
+	  	<div class="close-container"><span id="close-load-menu" class="close">Esc x</span></div>
+
+	  	<div class="load-overlay-middle">
+	  		<label>
+				<p>Paste your code here and get back to clickin'!</p>
+	    		<input type="text" name="load-code" value="">
+	    		<button id="load-game-button">Load</button>
+	    	</label>
+		</div>
+
+	  	<div></div>
+	  	<div></div>
+	  	<div></div>
+	    
+	  </div>
+	</div>	
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
