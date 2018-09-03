@@ -22,16 +22,16 @@ var timestamp;
 var numbersNotation = true; //True = Scientific; False = Alphabetical
 
 var upgrades = [
-	{name: "Upgrade 1", HTMLamount: document.getElementById("amount-upgrade0"), HTMLcps: document.getElementById("cps-upgrade0"), HTMLcost: document.getElementById("cost-upgrade0"), HTMLid: document.getElementById("upgrade0"), buttonx10: document.getElementById("upgrade0x10"), buttonx100: document.getElementById("upgrade0x100"), buttonxMAX: document.getElementById("upgrade0xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 50},
-	{name: "Upgrade 2", HTMLamount: document.getElementById("amount-upgrade1"), HTMLcps: document.getElementById("cps-upgrade1"), HTMLcost: document.getElementById("cost-upgrade1"), HTMLid: document.getElementById("upgrade1"), buttonx10: document.getElementById("upgrade1x10"), buttonx100: document.getElementById("upgrade1x100"), buttonxMAX: document.getElementById("upgrade1xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 250},
-	{name: "Upgrade 3", HTMLamount: document.getElementById("amount-upgrade2"), HTMLcps: document.getElementById("cps-upgrade2"), HTMLcost: document.getElementById("cost-upgrade2"), HTMLid: document.getElementById("upgrade2"), buttonx10: document.getElementById("upgrade2x10"), buttonx100: document.getElementById("upgrade2x100"), buttonxMAX: document.getElementById("upgrade2xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 1000},
-	{name: "Upgrade 4", HTMLamount: document.getElementById("amount-upgrade3"), HTMLcps: document.getElementById("cps-upgrade3"), HTMLcost: document.getElementById("cost-upgrade3"), HTMLid: document.getElementById("upgrade3"), buttonx10: document.getElementById("upgrade3x10"), buttonx100: document.getElementById("upgrade3x100"), buttonxMAX: document.getElementById("upgrade3xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 4000},
-	{name: "Upgrade 5", HTMLamount: document.getElementById("amount-upgrade4"), HTMLcps: document.getElementById("cps-upgrade4"), HTMLcost: document.getElementById("cost-upgrade4"), HTMLid: document.getElementById("upgrade4"), buttonx10: document.getElementById("upgrade4x10"), buttonx100: document.getElementById("upgrade4x100"), buttonxMAX: document.getElementById("upgrade4xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 20000},
-	{name: "Upgrade 6", HTMLamount: document.getElementById("amount-upgrade5"), HTMLcps: document.getElementById("cps-upgrade5"), HTMLcost: document.getElementById("cost-upgrade5"), HTMLid: document.getElementById("upgrade5"), buttonx10: document.getElementById("upgrade5x10"), buttonx100: document.getElementById("upgrade5x100"), buttonxMAX: document.getElementById("upgrade5xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 100000},
-	{name: "Upgrade 7", HTMLamount: document.getElementById("amount-upgrade6"), HTMLcps: document.getElementById("cps-upgrade6"), HTMLcost: document.getElementById("cost-upgrade6"), HTMLid: document.getElementById("upgrade6"), buttonx10: document.getElementById("upgrade6x10"), buttonx100: document.getElementById("upgrade6x100"), buttonxMAX: document.getElementById("upgrade6xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 400000},
-	{name: "Upgrade 8", HTMLamount: document.getElementById("amount-upgrade7"), HTMLcps: document.getElementById("cps-upgrade7"), HTMLcost: document.getElementById("cost-upgrade7"), HTMLid: document.getElementById("upgrade7"), buttonx10: document.getElementById("upgrade7x10"), buttonx100: document.getElementById("upgrade7x100"), buttonxMAX: document.getElementById("upgrade7xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 2500000},
-	{name: "Upgrade 9", HTMLamount: document.getElementById("amount-upgrade8"), HTMLcps: document.getElementById("cps-upgrade8"), HTMLcost: document.getElementById("cost-upgrade8"), HTMLid: document.getElementById("upgrade8"), buttonx10: document.getElementById("upgrade8x10"), buttonx100: document.getElementById("upgrade8x100"), buttonxMAX: document.getElementById("upgrade8xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 15000000},
-	{name: "Upgrade 10",HTMLamount: document.getElementById("amount-upgrade9"), HTMLcps: document.getElementById("cps-upgrade9"), HTMLcost: document.getElementById("cost-upgrade9"), HTMLid: document.getElementById("upgrade9"), buttonx10: document.getElementById("upgrade9x10"), buttonx100: document.getElementById("upgrade9x100"), buttonxMAX: document.getElementById("upgrade9xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 100000000}
+	{name: "Upgrade 1",  amount: 0, multiplier: 1.07, cps: 5, cost: 0, baseCost: 50, HTMLamount: document.getElementById("amount-upgrade0"), HTMLcps: document.getElementById("cps-upgrade0"), HTMLcost: document.getElementById("cost-upgrade0"), HTMLid: document.getElementById("upgrade0"), buttonx10: document.getElementById("upgrade0x10"), buttonx100: document.getElementById("upgrade0x100"), buttonxMAX: document.getElementById("upgrade0xMAX")},
+	{name: "Upgrade 2",  amount: 0, multiplier: 1.07, cps: 22, cost: 0, baseCost: 250, HTMLamount: document.getElementById("amount-upgrade1"), HTMLcps: document.getElementById("cps-upgrade1"), HTMLcost: document.getElementById("cost-upgrade1"), HTMLid: document.getElementById("upgrade1"), buttonx10: document.getElementById("upgrade1x10"), buttonx100: document.getElementById("upgrade1x100"), buttonxMAX: document.getElementById("upgrade1xMAX")},
+	{name: "Upgrade 3",  amount: 0, multiplier: 1.07, cps: 74, cost: 0, baseCost: 1000, HTMLamount: document.getElementById("amount-upgrade2"), HTMLcps: document.getElementById("cps-upgrade2"), HTMLcost: document.getElementById("cost-upgrade2"), HTMLid: document.getElementById("upgrade2"), buttonx10: document.getElementById("upgrade2x10"), buttonx100: document.getElementById("upgrade2x100"), buttonxMAX: document.getElementById("upgrade2xMAX")},
+	{name: "Upgrade 4",  amount: 0, multiplier: 1.07, cps: 245, cost: 0, baseCost: 4000, HTMLamount: document.getElementById("amount-upgrade3"), HTMLcps: document.getElementById("cps-upgrade3"), HTMLcost: document.getElementById("cost-upgrade3"), HTMLid: document.getElementById("upgrade3"), buttonx10: document.getElementById("upgrade3x10"), buttonx100: document.getElementById("upgrade3x100"), buttonxMAX: document.getElementById("upgrade3xMAX")},
+	{name: "Upgrade 5",  amount: 0, multiplier: 1.07, cps: 976, cost: 0, baseCost: 20000, HTMLamount: document.getElementById("amount-upgrade4"), HTMLcps: document.getElementById("cps-upgrade4"), HTMLcost: document.getElementById("cost-upgrade4"), HTMLid: document.getElementById("upgrade4"), buttonx10: document.getElementById("upgrade4x10"), buttonx100: document.getElementById("upgrade4x100"), buttonxMAX: document.getElementById("upgrade4xMAX")},
+	{name: "Upgrade 6",  amount: 0, multiplier: 1.07, cps: 3725, cost: 0, baseCost: 100000, HTMLamount: document.getElementById("amount-upgrade5"), HTMLcps: document.getElementById("cps-upgrade5"), HTMLcost: document.getElementById("cost-upgrade5"), HTMLid: document.getElementById("upgrade5"), buttonx10: document.getElementById("upgrade5x10"), buttonx100: document.getElementById("upgrade5x100"), buttonxMAX: document.getElementById("upgrade5xMAX")},
+	{name: "Upgrade 7",  amount: 0, multiplier: 1.07, cps: 100000, cost: 0, baseCost: 400000, HTMLamount: document.getElementById("amount-upgrade6"), HTMLcps: document.getElementById("cps-upgrade6"), HTMLcost: document.getElementById("cost-upgrade6"), HTMLid: document.getElementById("upgrade6"), buttonx10: document.getElementById("upgrade6x10"), buttonx100: document.getElementById("upgrade6x100"), buttonxMAX: document.getElementById("upgrade6xMAX")},
+	{name: "Upgrade 8",  amount: 0, multiplier: 1.07, cps: 400000, cost: 0, baseCost: 2500000, HTMLamount: document.getElementById("amount-upgrade7"), HTMLcps: document.getElementById("cps-upgrade7"), HTMLcost: document.getElementById("cost-upgrade7"), HTMLid: document.getElementById("upgrade7"), buttonx10: document.getElementById("upgrade7x10"), buttonx100: document.getElementById("upgrade7x100"), buttonxMAX: document.getElementById("upgrade7xMAX")},
+	{name: "Upgrade 9",  amount: 0, multiplier: 1.07, cps: 2500000, cost: 0, baseCost: 15000000, HTMLamount: document.getElementById("amount-upgrade8"), HTMLcps: document.getElementById("cps-upgrade8"), HTMLcost: document.getElementById("cost-upgrade8"), HTMLid: document.getElementById("upgrade8"), buttonx10: document.getElementById("upgrade8x10"), buttonx100: document.getElementById("upgrade8x100"), buttonxMAX: document.getElementById("upgrade8xMAX")},
+	{name: "Upgrade 10", amount: 0, multiplier: 1.07, cps: 15000000, cost: 0, baseCost: 100000000, HTMLamount: document.getElementById("amount-upgrade9"), HTMLcps: document.getElementById("cps-upgrade9"), HTMLcost: document.getElementById("cost-upgrade9"), HTMLid: document.getElementById("upgrade9"), buttonx10: document.getElementById("upgrade9x10"), buttonx100: document.getElementById("upgrade9x100"), buttonxMAX: document.getElementById("upgrade9xMAX")}
 ,];
 
 var skills = [
@@ -65,6 +65,8 @@ var options = [
 	{name: "Number Notations Toggle", HTMLinput: document.getElementById("number-notation-toggle")}
 ];
 
+const leftSkyScraper =		document.getElementById("leftSkyScraper");
+const rightSkyScraper =		document.getElementById("rightSkyScraper");
 var comboSequence =			document.getElementById("comboSequence");
 var comboPointsMessage =	document.getElementById("comboPointsMessage");
 var clicksCountText =		document.getElementById("clicksCount-text");
@@ -80,6 +82,7 @@ var log =					document.getElementById("log");
 //Basically the main method that starts the game
 window.onload = function(){
 	window.addEventListener('keydown', handleFirstTab);
+	initiateSkyScrapers();
 	
 	//System initiation
 	initiateCloseAllWindows();
@@ -118,8 +121,9 @@ function loop() {
 // Updates the upgrade's count text
 // Updates the clicks count and the CPS of all upgrades
 function buyUpgrade(n) {
-	clicks -= upgrades[n].cost;
+	upgrades[n].cost = Math.floor(Math.pow(upgrades[n].multiplier, upgrades[n].amount) * upgrades[n].baseCost);
 	console.log(upgrades[n].cost);
+	clicks -= upgrades[n].cost;
 
 	upgrades[n].amount++;
 	upgrades[n].HTMLamount.innerHTML = upgrades[n].amount;
@@ -132,7 +136,7 @@ function buyUpgrade(n) {
 function checkPrices() {
 	for (let i = upgrades.length - 1; i >= 0; i--) {
 		//Check prices for x1
-		if (clicks >= upgrades[i].cost) {
+		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
 			upgrades[i].HTMLid.classList.remove("disabled");
 			upgrades[i].HTMLid.classList.add("enabled");
 			upgrades[i].HTMLid.disabled = false;
@@ -143,7 +147,7 @@ function checkPrices() {
 		}
 
 		//Check prices for x10
-		if (clicks >= upgrades[i].cost) {
+		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
 			upgrades[i].buttonx10.classList.remove("disabled");
 			upgrades[i].buttonx10.classList.add("enabled");
 			upgrades[i].buttonx10.disabled = false;
@@ -154,7 +158,7 @@ function checkPrices() {
 		}
 
 		//Check prices for x100
-		if (clicks >= upgrades[i].cost) {
+		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
 			upgrades[i].buttonx100.classList.remove("disabled");
 			upgrades[i].buttonx100.classList.add("enabled");
 			upgrades[i].buttonx100.disabled = false;
@@ -165,7 +169,7 @@ function checkPrices() {
 		}
 
 		//Check prices for xMAX
-		if (clicks >= upgrades[i].cost) {
+		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
 			upgrades[i].buttonxMAX.classList.remove("disabled");
 			upgrades[i].buttonxMAX.classList.add("enabled");
 			upgrades[i].buttonxMAX.disabled = false;
@@ -191,7 +195,7 @@ function checkPrices() {
 
 // Updates the upgrades' price texts
 function drawElements() {
-	clicksCountText.innerHTML = numeral(clicks).format('0a');//clicks.toExponential(2);//.toLocaleString("en-EN");
+	clicksCountText.innerHTML = numeral(clicks).format('0.00a');//clicks.toExponential(2);//.toLocaleString("en-EN");
 	
 	// Loops through all upgrade buttons and updates their CPS value
 	for (var i = upgrades.length - 1; i >= 0; i--) {
@@ -347,7 +351,7 @@ function initiateUpgrades() {
 				}
 			});
 
-			upgrades[i].HTMLcost.innerHTML = upgrades[i].cost.toLocaleString("en-EN");;
+			upgrades[i].HTMLcost.innerHTML = upgrades[i].baseCost.toLocaleString("en-EN");;
 			upgrades[i].HTMLcps.innerHTML = upgrades[i].cps.toLocaleString("en-EN");;
 	}
 }
@@ -533,5 +537,39 @@ function resetOptions() {
 function saveOptions() {
 	if (options[0].HTMLinput.checked) {
 
+	}
+}
+
+function initiateSkyScrapers() {
+	for (let i = 0; i <= 99; i++) {
+		var container = document.createElement("DIV");
+		var divx10 = document.createElement("DIV");
+		var divx100 = document.createElement("DIV");
+		var divxMAX = document.createElement("DIV");
+		var btnx10 = document.createElement("BUTTON");
+		var btnx100 = document.createElement("BUTTON");
+		var btnxMAX = document.createElement("BUTTON");
+		var upgradeContainer = document.createElement("DIV");
+		var btnUpgrade = document.createElement("BUTTON");
+		var upgradeTextContainer = document.createElement("DIV");
+		var upgradeAmount = document.createElement("SPAN");
+		var upgradeCPS = document.createElement("SPAN");
+		var upgradeCost = document.createElement("SPAN");
+
+		container.classList.add("grid-container-upgrades-buttons-left");
+		upgradeTextContainer.classList.add("upgrade-text");
+		divx10.classList.add("buy-multiple");
+		divx100.classList.add("buy-multiple");
+		divxMAX.classList.add("buy-multiple");
+
+		btnx10.id = "upgrade" + i + "x10";
+		btnx100.id = "upgrade" + i + "x100";
+		btnxMAX.id = "upgrade" + i + "xMAX";
+		btnUpgrade.id = "upgrade" + i;
+		upgradeAmount.id = "amount-upgrade" + i;
+		upgradeCPS.id = "cps-upgrade" + i;
+		upgradeCost.id = "cost-upgrade" + i;
+
+		leftSkyScraper.appendChild();
 	}
 }
