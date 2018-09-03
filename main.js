@@ -50,7 +50,7 @@ var features = [
 	{name: "Quests",		HTMLbutton: document.getElementById("button-feature4"), HTMLid: document.getElementById("feature4")},
 	{name: "Roulette",		HTMLbutton: document.getElementById("button-feature5"), HTMLid: document.getElementById("feature5")},
 	{name: "Events",		HTMLbutton: document.getElementById("button-feature6"), HTMLid: document.getElementById("feature6")},
-	{name: "Shop",			HTMLbutton: document.getElementById("button-feature7"), HTMLid: document.getElementById("feature7")}
+	{name: "Skill-Tree",	HTMLbutton: document.getElementById("button-feature7"), HTMLid: document.getElementById("feature7")}
 ];
 
 var menu = [
@@ -210,7 +210,7 @@ function get10k() {
 	checkPrices();
 }
 function get100k() {
-	clicks += 100000;
+	clicks += 1000000000000000000;
 	drawElements();
 	checkPrices();
 }
@@ -463,7 +463,7 @@ function alertPlayer(message) {
 	const logEntry = document.createElement("P");
 
 	ts.innerHTML = timestamp + ": ";
-	ts.style.color = "#aaa";
+	ts.classList.add("timestamp");
 	e.innerHTML = message;
 	logEntry.appendChild(ts);
 	logEntry.appendChild(e);
@@ -532,6 +532,6 @@ function resetOptions() {
 
 function saveOptions() {
 	if (options[0].HTMLinput.checked) {
-		
+
 	}
 }
