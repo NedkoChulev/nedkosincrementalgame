@@ -31,6 +31,7 @@
 		<p>Currencies</p>
 		<p>Combo points</p>
 	</div>
+
 	<div class="main">
 		
 		<button onclick="get1k()">1,000</button>
@@ -68,68 +69,7 @@
 		</div>
 
 <!-- ROW 2 -->
-		<div class="grid-item grid-container-upgrades">
-			<div class="grid-container-upgrades-buttons-left">
-				<div class="buy-multiple"><button id="upgrade0x10">x10</button></div>
-				<div class="upgrade">
-					<button id="upgrade0">
-						<div class="upgrade-text">
-							Upgrade 1 [<span id="amount-upgrade0">0</span>]<br>(CPS: <span id="cps-upgrade0">0</span>)<br>Cost: <span id="cost-upgrade0">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade0x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade0xMAX">MAX</button></div>
-			</div>
-			<div class="grid-container-upgrades-buttons-left">
-				<div class="buy-multiple"><button id="upgrade1x10">x10</button></div>
-				<div class="upgrade">
-					<button id="upgrade1">
-						<div class="upgrade-text">
-							Upgrade 2 [<span id="amount-upgrade1">0</span>]<br>(CPS: <span id="cps-upgrade1">0</span>)<br>Cost: <span id="cost-upgrade1">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade1x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade1xMAX">MAX</button></div>
-			</div>
-			<div class="grid-container-upgrades-buttons-left">
-				<div class="buy-multiple"><button id="upgrade2x10">x10</button></div>
-				<div class="upgrade">
-					<button id="upgrade2">
-						<div class="upgrade-text">
-							Upgrade 3 [<span id="amount-upgrade2">0</span>]<br>(CPS: <span id="cps-upgrade2">0</span>)<br>Cost: <span id="cost-upgrade2">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade2x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade2xMAX">MAX</button></div>
-			</div>
-			<div class="grid-container-upgrades-buttons-left">
-				<div class="buy-multiple"><button id="upgrade3x10">x10</button></div>
-				<div class="upgrade">
-					<button id="upgrade3">
-						<div class="upgrade-text">
-							Upgrade 4 [<span id="amount-upgrade3">0</span>]<br>(CPS: <span id="cps-upgrade3">0</span>)<br>Cost: <span id="cost-upgrade3">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade3x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade3xMAX">MAX</button></div>
-			</div>
-			<div class="grid-container-upgrades-buttons-left">
-				<div class="buy-multiple"><button id="upgrade4x10">x10</button></div>
-				<div class="upgrade">
-					<button id="upgrade4">
-						<div class="upgrade-text">
-							Upgrade 5 [<span id="amount-upgrade4">0</span>]<br>(CPS: <span id="cps-upgrade4">0</span>)<br>Cost: <span id="cost-upgrade4">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade4x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade4xMAX">MAX</button></div>
-			</div>
-		</div>
+		<div id="leftSkyScraper" class="grid-item grid-container-upgrades-left"></div>
 		
 		<div class="grid-item grid-container-center">
 
@@ -152,75 +92,10 @@
 			<div></div>
 		</div>
 
-		<div class="grid-item grid-container-upgrades">
-			<div class="grid-container-upgrades-buttons-right">
-				<div class="upgrade">
-					<button id="upgrade5">
-						<div class="upgrade-text">
-							Upgrade 6 [<span id="amount-upgrade5">0</span>]<br>(CPS: <span id="cps-upgrade5">0</span>)<br>Cost: <span id="cost-upgrade5">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade5x10">x10</button></div>
-				<div class="buy-multiple"><button id="upgrade5x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade5xMAX">MAX</button></div>
-			</div>
-			<div class="grid-container-upgrades-buttons-right">
-				<div class="upgrade">
-					<button id="upgrade6">
-						<div class="upgrade-text">
-							Upgrade 7 [<span id="amount-upgrade6">0</span>]<br>(CPS: <span id="cps-upgrade6">0</span>)<br>Cost: <span id="cost-upgrade6">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade6x10">x10</button></div>
-				<div class="buy-multiple"><button id="upgrade6x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade6xMAX">MAX</button></div>
-			</div>
-			<div class="grid-container-upgrades-buttons-right">
-				<div class="upgrade">
-					<button id="upgrade7">
-						<div class="upgrade-text">
-							Upgrade 8 [<span id="amount-upgrade7">0</span>]<br>(CPS: <span id="cps-upgrade7">0</span>)<br>Cost: <span id="cost-upgrade7">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade7x10">x10</button></div>
-				<div class="buy-multiple"><button id="upgrade7x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade7xMAX">MAX</button></div>
-			</div>
-			<div class="grid-container-upgrades-buttons-right">
-				<div class="upgrade">
-					<button id="upgrade8">
-						<div class="upgrade-text">
-							Upgrade 9 [<span id="amount-upgrade8">0</span>]<br>(CPS: <span id="cps-upgrade8">0</span>)<br>Cost: <span id="cost-upgrade8">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade8x10">x10</button></div>
-				<div class="buy-multiple"><button id="upgrade8x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade8xMAX">MAX</button></div>
-			</div>
-			<div class="grid-container-upgrades-buttons-right">
-				<div class="upgrade">
-					<button id="upgrade9">
-						<div class="upgrade-text">
-							Upgrade 10 [<span id="amount-upgrade9">0</span>]<br>(CPS: <span id="cps-upgrade9">0</span>)<br>Cost: <span id="cost-upgrade9">0</span>
-						</div>
-					</button>
-				</div>
-				<div class="buy-multiple"><button id="upgrade9x10">x10</button></div>
-				<div class="buy-multiple"><button id="upgrade9x100">x100</button></div>
-				<div class="buy-multiple"><button id="upgrade9xMAX">MAX</button></div>
-			</div>
-		</div>
+		<div id="rightSkyScraper" class="grid-item grid-container-upgrades-right"></div>
 
 <!-- ROW 3 -->
-		<div class="grid-item">
-			<button class="shop">
-				<span>SHOP</span>
-			</button>
-		</div>
+		<div class="grid-item"></div>
 
 		<div class="grid-item">
 			<div class="grid-container-skills" id="skills">
@@ -261,6 +136,21 @@
 		</div>
 
 <!-- ROW 4 -->
+		<div class="grid-item"></div>
+
+		<div class="grid-item grid-container-chart">
+			<div class="chart">
+				<canvas id="eggMarket"></canvas>
+			</div>
+		</div>
+
+		<div class="grid-item">
+			<button class="shop">
+				<span>SHOP</span>
+			</button>
+		</div>
+
+<!-- ROW 5 -->
 		<div class="grid-item"></div>
 
 		<div class="grid-item grid-container-marquee">
@@ -370,8 +260,10 @@
 	  </div>
 	</div>	
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>
-<script type="text/javascript" src="main.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>
+	<script type="text/javascript" src="main.js"></script>
 </body>
 </html>

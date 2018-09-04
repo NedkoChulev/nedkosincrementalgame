@@ -1,39 +1,5 @@
 var storage = window.localStorage;
 
-var clickPower = 1;
-var critRate = 1;
-var critDmgMultiplier = 2;
-
-var combo;
-var comboReward = 1000;
-var comboCounter = 0;
-var comboActiveColor = "#EC6F28";
-var comboInactiveColor = "#eee";
-
-var comboIntervalSpeed = 50;
-var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
-var loadingBarWidth = 1;
-
-var clicks = 0;
-var gameSpeed = 1000;
-var gameLoop = setInterval(loop, gameSpeed);
-var date;
-var timestamp;
-var numbersNotation = true; //True = Scientific; False = Alphabetical
-
-var upgrades = [
-	{name: "Upgrade 1", HTMLamount: document.getElementById("amount-upgrade0"), HTMLcps: document.getElementById("cps-upgrade0"), HTMLcost: document.getElementById("cost-upgrade0"), HTMLid: document.getElementById("upgrade0"), buttonx10: document.getElementById("upgrade0x10"), buttonx100: document.getElementById("upgrade0x100"), buttonxMAX: document.getElementById("upgrade0xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 50},
-	{name: "Upgrade 2", HTMLamount: document.getElementById("amount-upgrade1"), HTMLcps: document.getElementById("cps-upgrade1"), HTMLcost: document.getElementById("cost-upgrade1"), HTMLid: document.getElementById("upgrade1"), buttonx10: document.getElementById("upgrade1x10"), buttonx100: document.getElementById("upgrade1x100"), buttonxMAX: document.getElementById("upgrade1xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 250},
-	{name: "Upgrade 3", HTMLamount: document.getElementById("amount-upgrade2"), HTMLcps: document.getElementById("cps-upgrade2"), HTMLcost: document.getElementById("cost-upgrade2"), HTMLid: document.getElementById("upgrade2"), buttonx10: document.getElementById("upgrade2x10"), buttonx100: document.getElementById("upgrade2x100"), buttonxMAX: document.getElementById("upgrade2xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 1000},
-	{name: "Upgrade 4", HTMLamount: document.getElementById("amount-upgrade3"), HTMLcps: document.getElementById("cps-upgrade3"), HTMLcost: document.getElementById("cost-upgrade3"), HTMLid: document.getElementById("upgrade3"), buttonx10: document.getElementById("upgrade3x10"), buttonx100: document.getElementById("upgrade3x100"), buttonxMAX: document.getElementById("upgrade3xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 4000},
-	{name: "Upgrade 5", HTMLamount: document.getElementById("amount-upgrade4"), HTMLcps: document.getElementById("cps-upgrade4"), HTMLcost: document.getElementById("cost-upgrade4"), HTMLid: document.getElementById("upgrade4"), buttonx10: document.getElementById("upgrade4x10"), buttonx100: document.getElementById("upgrade4x100"), buttonxMAX: document.getElementById("upgrade4xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 20000},
-	{name: "Upgrade 6", HTMLamount: document.getElementById("amount-upgrade5"), HTMLcps: document.getElementById("cps-upgrade5"), HTMLcost: document.getElementById("cost-upgrade5"), HTMLid: document.getElementById("upgrade5"), buttonx10: document.getElementById("upgrade5x10"), buttonx100: document.getElementById("upgrade5x100"), buttonxMAX: document.getElementById("upgrade5xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 100000},
-	{name: "Upgrade 7", HTMLamount: document.getElementById("amount-upgrade6"), HTMLcps: document.getElementById("cps-upgrade6"), HTMLcost: document.getElementById("cost-upgrade6"), HTMLid: document.getElementById("upgrade6"), buttonx10: document.getElementById("upgrade6x10"), buttonx100: document.getElementById("upgrade6x100"), buttonxMAX: document.getElementById("upgrade6xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 400000},
-	{name: "Upgrade 8", HTMLamount: document.getElementById("amount-upgrade7"), HTMLcps: document.getElementById("cps-upgrade7"), HTMLcost: document.getElementById("cost-upgrade7"), HTMLid: document.getElementById("upgrade7"), buttonx10: document.getElementById("upgrade7x10"), buttonx100: document.getElementById("upgrade7x100"), buttonxMAX: document.getElementById("upgrade7xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 2500000},
-	{name: "Upgrade 9", HTMLamount: document.getElementById("amount-upgrade8"), HTMLcps: document.getElementById("cps-upgrade8"), HTMLcost: document.getElementById("cost-upgrade8"), HTMLid: document.getElementById("upgrade8"), buttonx10: document.getElementById("upgrade8x10"), buttonx100: document.getElementById("upgrade8x100"), buttonxMAX: document.getElementById("upgrade8xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 15000000},
-	{name: "Upgrade 10",HTMLamount: document.getElementById("amount-upgrade9"), HTMLcps: document.getElementById("cps-upgrade9"), HTMLcost: document.getElementById("cost-upgrade9"), HTMLid: document.getElementById("upgrade9"), buttonx10: document.getElementById("upgrade9x10"), buttonx100: document.getElementById("upgrade9x100"), buttonxMAX: document.getElementById("upgrade9xMAX"), amount: 0, multiplier: 1.07, cps: 1, cost: 100000000}
-,];
-
 var skills = [
 	{name: "Skill 1", HTMLcost: document.getElementById("cost-skill0"), HTMLid: document.getElementById("skill0"), duration: 0, cost: 100, coolDown: 0},
 	{name: "Skill 2", HTMLcost: document.getElementById("cost-skill1"), HTMLid: document.getElementById("skill1"), duration: 0, cost: 100, coolDown: 0},
@@ -65,6 +31,8 @@ var options = [
 	{name: "Number Notations Toggle", HTMLinput: document.getElementById("number-notation-toggle")}
 ];
 
+var leftSkyScraper =		document.getElementById("leftSkyScraper");
+var rightSkyScraper =		document.getElementById("rightSkyScraper");
 var comboSequence =			document.getElementById("comboSequence");
 var comboPointsMessage =	document.getElementById("comboPointsMessage");
 var clicksCountText =		document.getElementById("clicksCount-text");
@@ -74,6 +42,29 @@ var loadingBarRight =		document.getElementById("loadingBarRight");
 var alerts =				document.getElementById("alerts");
 var marquee =				document.getElementById("marquee");
 var log =					document.getElementById("log");
+
+var clickPower = 1;
+var critRate = 1;
+var critDmgMultiplier = 2;
+
+var combo;
+var comboReward = 1000;
+var comboCounter = 0;
+var comboActiveColor = "#EC6F28";
+var comboInactiveColor = "#eee";
+
+var comboIntervalSpeed = 50;
+var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
+var loadingBarWidth = 1;
+
+var clicks = 0;
+var gameSpeed = 1000;
+var gameLoop = setInterval(loop, gameSpeed);
+var date;
+var timestamp;
+var numbersNotation = true; //True = Scientific; False = Alphabetical
+
+var upgrades = initiateSkyScrapers();
 
 
 
@@ -118,8 +109,8 @@ function loop() {
 // Updates the upgrade's count text
 // Updates the clicks count and the CPS of all upgrades
 function buyUpgrade(n) {
+	upgrades[n].cost = Math.floor(Math.pow(upgrades[n].multiplier, upgrades[n].amount) * upgrades[n].baseCost);
 	clicks -= upgrades[n].cost;
-	console.log(upgrades[n].cost);
 
 	upgrades[n].amount++;
 	upgrades[n].HTMLamount.innerHTML = upgrades[n].amount;
@@ -132,7 +123,7 @@ function buyUpgrade(n) {
 function checkPrices() {
 	for (let i = upgrades.length - 1; i >= 0; i--) {
 		//Check prices for x1
-		if (clicks >= upgrades[i].cost) {
+		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
 			upgrades[i].HTMLid.classList.remove("disabled");
 			upgrades[i].HTMLid.classList.add("enabled");
 			upgrades[i].HTMLid.disabled = false;
@@ -143,7 +134,7 @@ function checkPrices() {
 		}
 
 		//Check prices for x10
-		if (clicks >= upgrades[i].cost) {
+		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
 			upgrades[i].buttonx10.classList.remove("disabled");
 			upgrades[i].buttonx10.classList.add("enabled");
 			upgrades[i].buttonx10.disabled = false;
@@ -154,7 +145,7 @@ function checkPrices() {
 		}
 
 		//Check prices for x100
-		if (clicks >= upgrades[i].cost) {
+		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
 			upgrades[i].buttonx100.classList.remove("disabled");
 			upgrades[i].buttonx100.classList.add("enabled");
 			upgrades[i].buttonx100.disabled = false;
@@ -165,7 +156,7 @@ function checkPrices() {
 		}
 
 		//Check prices for xMAX
-		if (clicks >= upgrades[i].cost) {
+		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
 			upgrades[i].buttonxMAX.classList.remove("disabled");
 			upgrades[i].buttonxMAX.classList.add("enabled");
 			upgrades[i].buttonxMAX.disabled = false;
@@ -191,7 +182,7 @@ function checkPrices() {
 
 // Updates the upgrades' price texts
 function drawElements() {
-	clicksCountText.innerHTML = numeral(clicks).format('0a');//clicks.toExponential(2);//.toLocaleString("en-EN");
+	clicksCountText.innerHTML = numeral(clicks).format('0.00a');//clicks.toExponential(2);//.toLocaleString("en-EN");
 	
 	// Loops through all upgrade buttons and updates their CPS value
 	for (var i = upgrades.length - 1; i >= 0; i--) {
@@ -347,7 +338,7 @@ function initiateUpgrades() {
 				}
 			});
 
-			upgrades[i].HTMLcost.innerHTML = upgrades[i].cost.toLocaleString("en-EN");;
+			upgrades[i].HTMLcost.innerHTML = upgrades[i].baseCost.toLocaleString("en-EN");;
 			upgrades[i].HTMLcps.innerHTML = upgrades[i].cps.toLocaleString("en-EN");;
 	}
 }
@@ -535,3 +526,166 @@ function saveOptions() {
 
 	}
 }
+
+function initiateSkyScrapers() {
+	let upgradesArray = [];
+	for (let i = 9; i >= 0; i--) {
+		let container = document.createElement("DIV");
+		let divx10 = document.createElement("DIV");
+		let divx100 = document.createElement("DIV");
+		let divxMAX = document.createElement("DIV");
+		let btnx10 = document.createElement("BUTTON");
+		let btnx100 = document.createElement("BUTTON");
+		let btnxMAX = document.createElement("BUTTON");
+		let upgradeContainer = document.createElement("DIV");
+		let btnUpgrade = document.createElement("BUTTON");
+		let upgradeTextContainer = document.createElement("DIV");
+		let upgradeAmount = document.createElement("SPAN");
+		let upgradeCPS = document.createElement("SPAN");
+		let upgradeCost = document.createElement("SPAN");
+
+		container.classList.add("grid-container-upgrades-buttons-left");
+		upgradeContainer.classList.add("upgrade");
+		upgradeTextContainer.classList.add("upgrade-text");
+		divx10.classList.add("buy-multiple");
+		divx100.classList.add("buy-multiple");
+		divxMAX.classList.add("buy-multiple");
+
+		btnx10.id = "upgrade" + i + "x10";
+		btnx10.innerHTML = "x10";
+		btnx100.id = "upgrade" + i + "x100";
+		btnx100.innerHTML = "x100";
+		btnxMAX.id = "upgrade" + i + "xMAX";
+		btnxMAX.innerHTML = "MAX";
+		btnUpgrade.id = "upgrade" + i;
+		upgradeAmount.id = "amount-upgrade" + i;
+		upgradeCPS.id = "cps-upgrade" + i;
+		upgradeCost.id = "cost-upgrade" + i;
+
+		upgradeTextContainer.innerHTML = "Upgrade " + i + " [";
+		upgradeTextContainer.appendChild(upgradeAmount);
+		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + "]<br>" + "(CPS: ";
+		upgradeTextContainer.appendChild(upgradeCPS);
+		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + ")<br>" + "Cost: ";
+		upgradeTextContainer.appendChild(upgradeCost);
+
+		btnUpgrade.appendChild(upgradeTextContainer);
+		upgradeContainer.appendChild(btnUpgrade);
+
+		divx10.appendChild(btnx10);
+		divx100.appendChild(btnx100);
+		divxMAX.appendChild(btnxMAX);
+
+		container.appendChild(divx10);
+		container.appendChild(upgradeContainer);
+		container.appendChild(divx100);
+		container.appendChild(divxMAX);
+
+		leftSkyScraper.appendChild(container);
+
+		let elem = {name: "Upgrade " + i,  amount: 0, multiplier: 1.07, cps: 5, cost: 0, baseCost: 50, HTMLamount: upgradeAmount, HTMLcps: upgradeCPS, HTMLcost: upgradeCost, HTMLid: btnUpgrade, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
+		upgradesArray.push(elem);
+	}
+
+	for (let j = 19; j >= 10; j--) {
+		let container = document.createElement("DIV");
+		let divx10 = document.createElement("DIV");
+		let divx100 = document.createElement("DIV");
+		let divxMAX = document.createElement("DIV");
+		let btnx10 = document.createElement("BUTTON");
+		let btnx100 = document.createElement("BUTTON");
+		let btnxMAX = document.createElement("BUTTON");
+		let upgradeContainer = document.createElement("DIV");
+		let btnUpgrade = document.createElement("BUTTON");
+		let upgradeTextContainer = document.createElement("DIV");
+		let upgradeAmount = document.createElement("SPAN");
+		let upgradeCPS = document.createElement("SPAN");
+		let upgradeCost = document.createElement("SPAN");
+
+		container.classList.add("grid-container-upgrades-buttons-left");
+		upgradeContainer.classList.add("upgrade");
+		upgradeTextContainer.classList.add("upgrade-text");
+		divx10.classList.add("buy-multiple");
+		divx100.classList.add("buy-multiple");
+		divxMAX.classList.add("buy-multiple");
+
+		btnx10.id = "upgrade" + j + "x10";
+		btnx10.innerHTML = "x10";
+		btnx100.id = "upgrade" + j + "x100";
+		btnx100.innerHTML = "x100";
+		btnxMAX.id = "upgrade" + j + "xMAX";
+		btnxMAX.innerHTML = "MAX";
+		btnUpgrade.id = "upgrade" + j;
+		upgradeAmount.id = "amount-upgrade" + j;
+		upgradeCPS.id = "cps-upgrade" + j;
+		upgradeCost.id = "cost-upgrade" + j;
+
+		upgradeTextContainer.innerHTML = "Upgrade " + j + " [";
+		upgradeTextContainer.appendChild(upgradeAmount);
+		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + "]<br>" + "(CPS: ";
+		upgradeTextContainer.appendChild(upgradeCPS);
+		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + ")<br>" + "Cost: ";
+		upgradeTextContainer.appendChild(upgradeCost);
+
+		btnUpgrade.appendChild(upgradeTextContainer);
+		upgradeContainer.appendChild(btnUpgrade);
+
+		divx10.appendChild(btnx10);
+		divx100.appendChild(btnx100);
+		divxMAX.appendChild(btnxMAX);
+
+		container.appendChild(divx10);
+		container.appendChild(upgradeContainer);
+		container.appendChild(divx100);
+		container.appendChild(divxMAX);
+
+		rightSkyScraper.appendChild(container);
+
+		let elem = {name: "Upgrade " + j,  amount: 0, multiplier: 1.07, cps: 5, cost: 0, baseCost: 50, HTMLamount: upgradeAmount, HTMLcps: upgradeCPS, HTMLcost: upgradeCost, HTMLid: btnUpgrade, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
+		upgradesArray.push(elem);
+	}
+
+	leftSkyScraper.scrollTop = leftSkyScraper.scrollHeight;
+	leftSkyScraper.addEventListener("mouseover", function() {
+		leftSkyScraper.style.overflowY = "scroll";
+	})
+	leftSkyScraper.addEventListener("mouseout", function() {
+		leftSkyScraper.style.overflowY = "hidden";
+	})
+
+	rightSkyScraper.scrollTop = rightSkyScraper.scrollHeight;
+	rightSkyScraper.addEventListener("mouseover", function() {
+		rightSkyScraper.style.overflowY = "scroll";
+	})
+	rightSkyScraper.addEventListener("mouseout", function() {
+		rightSkyScraper.style.overflowY = "hidden";
+	})
+	return upgradesArray
+}
+
+var ctx = document.getElementById("eggMarket").getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ["0", "0", "0", "0", "0"],
+        datasets: [{
+            label: "My First dataset",
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30],
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+    	legend: {
+    		display: false
+    	},
+    configuration: {
+    		responsive: true,
+    		responsiveAnimationDuration: true
+    	}
+    }
+});
