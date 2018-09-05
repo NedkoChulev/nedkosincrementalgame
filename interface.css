@@ -13,7 +13,7 @@ Highlight: EC6F28
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
     font-family: 'Baloo Tammudu', cursive;
-    line-height: 20px;
+    /*line-height: 20px;*/
 }
 
 body {
@@ -74,27 +74,21 @@ button:hover {
 
 .grid-container-upgrades-left {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1px;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
   overflow-y: scroll;
   overflow-x: hidden;
   direction: rtl;
-  font-size: 1px !important;
+  font-size: 0px !important;
+  line-height: 0px;
 }
 
 .grid-container-upgrades-right {
   display: grid;
-  grid-template-rows: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px;
   grid-gap: 1px;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
   overflow-y: scroll;
   overflow-x: hidden;
   font-size: 1px !important;
+  line-height: 0px;
 }
 
 .grid-container-upgrades-left::-webkit-scrollbar {
@@ -127,6 +121,9 @@ button:hover {
   justify-content: center;
   justify-items: center;
   align-items: center;
+  justify-self: end;
+  width: 100%;
+  margin-left: 10px;
 }
 
 .grid-container-upgrades-buttons-right {
@@ -382,7 +379,7 @@ button:hover {
 
 .upgrade {
   width: 180px;
-  height: 100px;
+  height: 122px;
   grid-row-end: span 3;
 }
 
@@ -398,7 +395,8 @@ button:hover {
   text-align: center;
   direction: ltr;
   width: 180px;
-  height: 100px;
+  height: 120px;
+  line-height: 20px;
 }
 
 .enabled {
