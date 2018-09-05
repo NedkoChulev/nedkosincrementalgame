@@ -1,11 +1,11 @@
 var storage = window.localStorage;
 
 var skills = [
-	{name: "Skill 1", HTMLcost: document.getElementById("cost-skill0"), HTMLid: document.getElementById("skill0"), duration: 0, cost: 100, coolDown: 0},
-	{name: "Skill 2", HTMLcost: document.getElementById("cost-skill1"), HTMLid: document.getElementById("skill1"), duration: 0, cost: 100, coolDown: 0},
-	{name: "Skill 3", HTMLcost: document.getElementById("cost-skill2"), HTMLid: document.getElementById("skill2"), duration: 0, cost: 100, coolDown: 0},
-	{name: "Skill 4", HTMLcost: document.getElementById("cost-skill3"), HTMLid: document.getElementById("skill3"), duration: 0, cost: 100, coolDown: 0},
-	{name: "Skill 5", HTMLcost: document.getElementById("cost-skill4"), HTMLid: document.getElementById("skill4"), duration: 0, cost: 100, coolDown: 0}
+	{name: "2x Passive", HTMLid: document.getElementById("skill0"), duration: 0, coolDown: 3000},
+	{name: "2x Crit DMG", HTMLid: document.getElementById("skill1"), duration: 0, coolDown: 5000},
+	{name: "Skill 3", HTMLid: document.getElementById("skill2"), duration: 0, coolDown: 10000},
+	{name: "Skill 4", HTMLid: document.getElementById("skill3"), duration: 0, coolDown: 50000},
+	{name: "Skill 5", HTMLid: document.getElementById("skill4"), duration: 0, coolDown: 60000}
 ];
 
 var features = [
@@ -78,6 +78,7 @@ window.onload = function(){
 	initiateUpgrades();
 	initiateRightClick();
 	initiateCombo();
+	skillsCooldown();
 
 	//Visuals initiation
 	drawElements();
@@ -167,7 +168,7 @@ function checkPrices() {
 		}
 	}
 
-	for (var i = skills.length - 1; i >= 0; i--) {
+/*	for (var i = skills.length - 1; i >= 0; i--) {
 		if (clicks >= skills[i].cost) {
 			skills[i].HTMLid.classList.remove("disabled");
 			skills[i].HTMLid.classList.add("enabled");
@@ -177,7 +178,7 @@ function checkPrices() {
 			skills[i].HTMLid.classList.add("disabled");
 			skills[i].HTMLid.disabled = true;
 		}
-	}
+	}*/
 }
 
 // Updates the upgrades' price texts
@@ -250,6 +251,7 @@ function initiateRightClick() {
 }
 
 function hit() {
+	alertPlayer("click");
 	if (Math.random()*100 <= critRate) {
 		clicks = clicks + clickPower * critDmgMultiplier;
 	} else {
@@ -646,20 +648,7 @@ function initiateSkyScrapers() {
 	}
 
 	leftSkyScraper.scrollTop = leftSkyScraper.scrollHeight;
-	leftSkyScraper.addEventListener("mouseover", function() {
-		leftSkyScraper.style.overflowY = "scroll";
-	})
-	leftSkyScraper.addEventListener("mouseout", function() {
-		leftSkyScraper.style.overflowY = "hidden";
-	})
-
 	rightSkyScraper.scrollTop = rightSkyScraper.scrollHeight;
-	rightSkyScraper.addEventListener("mouseover", function() {
-		rightSkyScraper.style.overflowY = "scroll";
-	})
-	rightSkyScraper.addEventListener("mouseout", function() {
-		rightSkyScraper.style.overflowY = "hidden";
-	})
 	return upgradesArray
 }
 
@@ -689,3 +678,36 @@ var chart = new Chart(ctx, {
     	}
     }
 });
+
+function disableSkills() {
+	for (var i = skills.length - 1; i >= 0; i--) {
+		skills[i].HTMLid.disabled = !skills[i].HTMLid.disabled;
+	}
+}
+
+function skillsCooldown() {
+	for (let i = skills.length - 1; i >= 0; i--) {
+		skills[i].HTMLid.addEventListener("click", function() {
+			let c = skills[i].coolDown/1000;
+			skills[i].HTMLid.innerHTML = c + "s";
+			skills[i].HTMLid.style.fontSize = "30px";
+			skills[i].HTMLid.style.color = "#EC6F28";
+
+			let int = setInterval(function () {
+				c--;
+				skills[i].HTMLid.innerHTML = c + "s";
+				if (c == 0) {
+					clearInterval(int);
+				}
+			}, 1000);
+
+			skills[i].HTMLid.disabled = true;
+			setTimeout(function(){
+    			skills[i].HTMLid.disabled = false;
+				skills[i].HTMLid.innerHTML = skills[i].name;
+				skills[i].HTMLid.style.fontSize = "18px";
+				skills[i].HTMLid.style.color = "#eee";
+			}, skills[i].coolDown);
+		});
+	}
+}
