@@ -711,3 +711,24 @@ function skillsCooldown() {
 		});
 	}
 }
+
+function gridToggle() {
+	let gridElements = document.getElementsByClassName("grid-item");
+	let toggleCheck = document.getElementById("gridToggle");
+
+	if (toggleCheck.innerHTML == "ON") {
+		for (var i = gridElements.length - 1; i >= 0; i--) {
+			gridElements[i].style.border = "none";
+		}
+		toggleCheck.innerHTML = "OFF";
+		return;
+	}
+
+	if (toggleCheck.innerHTML == "OFF") {
+		for (var i = gridElements.length - 1; i >= 0; i--) {
+			gridElements[i].style.border = "1px solid darkmagenta";
+		}
+		toggleCheck.innerHTML = "ON";
+		return;
+	}
+}

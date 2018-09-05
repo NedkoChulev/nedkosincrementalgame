@@ -34,6 +34,7 @@
 
 	<div class="main">
 		
+		<button onclick="gridToggle()">Grid <span id="gridToggle">ON</span></button>
 		<button onclick="get1k()">1,000</button>
 		<button onclick="get10k()">10,000</button>
 		<button onclick="get100k()">100,000</button>
@@ -43,30 +44,30 @@
 
 <!-- ROW 1 -->
 		<div class="grid-item grid-container-features">
-			<div id="feature0"><button id="button-feature0" class="feature button-feature0"></button></div>
-			<div id="feature1"><button id="button-feature1" class="feature button-feature1"></button></div>
-			<div id="feature2"><button id="button-feature2" class="feature button-feature2"></button></div>
-			<div id="feature3"><button id="button-feature3" class="feature button-feature3"></button></div>
+			<div class="grid-item" id="feature0"><button id="button-feature0" class="feature button-feature0"></button></div>
+			<div class="grid-item" id="feature1"><button id="button-feature1" class="feature button-feature1"></button></div>
+			<div class="grid-item" id="feature2"><button id="button-feature2" class="feature button-feature2"></button></div>
+			<div class="grid-item" id="feature3"><button id="button-feature3" class="feature button-feature3"></button></div>
 		</div>
 
 		<div class="grid-item grid-container-combo">
-			<div></div> <!-- Spacer -->
+			<div class="grid-item"></div> <!-- Spacer -->
 
-			<div id="comboSequence"></div>
-			<div id="loadingBarWrapper">
+			<div class="grid-item" id="comboSequence"></div>
+			<div class="grid-item" id="loadingBarWrapper">
 				<div id="loadingBarLeft"></div>
 				<div id="loadingBarRight"></div>
 			</div>
-			<div class="comboPointsPopUp">
+			<div class="grid-item comboPointsPopUp">
 	  			<span class="comboPointsMessage" id="comboPointsMessage">+1000</span>
 			</div>
 		</div>
 
 		<div class="grid-item grid-container-features">
-			<div id="feature4"><button id="button-feature4" class="feature button-feature4"></button></div>
-			<div id="feature5"><button id="button-feature5" class="feature button-feature5"></button></div>
-			<div id="feature6"><button id="button-feature6" class="feature button-feature6"></button></div>
-			<div id="feature7"><button id="button-feature7" class="feature button-feature7"></button></div>
+			<div id="feature4"><button id="button-feature4" class="feature grid-item button-feature4"></button></div>
+			<div id="feature5"><button id="button-feature5" class="feature grid-item button-feature5"></button></div>
+			<div id="feature6"><button id="button-feature6" class="feature grid-item button-feature6"></button></div>
+			<div id="feature7"><button id="button-feature7" class="feature grid-item button-feature7"></button></div>
 		</div>
 
 <!-- ROW 2 -->
@@ -74,23 +75,21 @@
 		
 		<div class="grid-item grid-container-center">
 
-			<div></div>
-			<div class="grid-container-alerts alerts">
-				<div id="clicksCount" class="grid-item">
-					Coins: <span id="clicksCount-text">0</span>
-				</div>
-				<div></div>
-				<div class="alert" id="alerts"></div>
+			<div class="grid-item"></div>
+			<div class="grid-container-alerts alerts grid-item">
+				<div class="grid-item"></div>
+				<div class="grid-item"></div>
+				<div class="alert grid-item" id="alerts"></div>
 			</div>
-			<div></div>
+			<div class="grid-item"></div>
 
-			<div></div>
-			<div id="mainButton" onclick="buttonClick()"></div>
-			<div></div>
+			<div class="grid-item"></div>
+			<div class="grid-item" id="mainButton" onclick="buttonClick()"></div>
+			<div class="grid-item"></div>
 
-			<div></div>
-			<div></div>
-			<div></div>
+			<div class="grid-item"></div>
+			<div class="grid-item"></div>
+			<div class="grid-item"></div>
 		</div>
 
 		<div id="rightSkyScraper" class="grid-item grid-container-upgrades-right"></div>
@@ -100,27 +99,27 @@
 
 		<div class="grid-item">
 			<div class="grid-container-skills" id="skills">
-				<button id="skill0" class="skill" onclick="doubleSpeed()">
+				<button id="skill0" class="skill grid-item" onclick="doubleSpeed()">
 					<span class="skill-text">
 						2x Passive
 					</span>
 				</button>
-				<button id="skill1" class="skill" onclick="doubleCritDmg()">
+				<button id="skill1" class="skill grid-item" onclick="doubleCritDmg()">
 					<span class="skill-text">
 						2x Crit DMG
 					</span>
 				</button>
-				<button id="skill2" class="skill">
+				<button id="skill2" class="skill grid-item">
 					<span class="skill-text">
 						Placeholder
 					</span>
 			</button>
-				<button id="skill3" class="skill">
+				<button id="skill3" class="skill grid-item">
 					<span class="skill-text">
 						Placeholder
 					</span>
 				</button>
-				<button id="skill4" class="skill">
+				<button id="skill4" class="skill grid-item">
 					<span class="skill-text">
 						Placeholder
 					</span>
@@ -129,18 +128,24 @@
 		</div>
 		
 		<div class="grid-item grid-container-menu">
-			<div class="menu" id="menu0"><button id="button-menu0">P</button></div>
-			<div class="menu" id="menu1"><button id="button-menu1">L</button></div>
-			<div class="menu" id="menu2"><button id="button-menu2">O</button></div>
-			<div class="menu" id="menu3"><button id="button-menu3" onclick="saveGame()">S</button></div>
-			<div class="menu" id="menu4"><button id="button-menu4" onclick="loadGame()">L</button></div>
+			<div class="menu grid-item" id="menu0"><button id="button-menu0">P</button></div>
+			<div class="menu grid-item" id="menu1"><button id="button-menu1">L</button></div>
+			<div class="menu grid-item" id="menu2"><button id="button-menu2">O</button></div>
+			<div class="menu grid-item" id="menu3"><button id="button-menu3" onclick="saveGame()">S</button></div>
+			<div class="menu grid-item" id="menu4"><button id="button-menu4" onclick="loadGame()">L</button></div>
 		</div>
 
 <!-- ROW 4 -->
-		<div class="grid-item"></div>
+		<div class="grid-item grid-container-currencies">
+			<div id="clicksCount" class="grid-item">
+					Coins: <span id="clicksCount-text">0</span>
+			</div>
+			<div id="eggs" class="grid-item">Eggs: </div>
+			<div id="bread" class="grid-item">Bread: </div>
+		</div>
 
 		<div class="grid-item grid-container-chart">
-			<div class="chart">
+			<div class="chart grid-item">
 				<canvas id="eggMarket"></canvas>
 			</div>
 		</div>
@@ -168,27 +173,27 @@
 <!-- Menu Overlays -->
 	<div id="profile-overlay" class="overlay">
 	  <div id="profile-overlay-content" class="overlay-content grid-container-overlay">
-	  	<div class="overlay-headline">My Profile<hr class="overlay-headline-hr"></div>
-	  	<div></div>
-	  	<div class="close-container"><span id="close-profile-menu" class="close">Esc x</span></div>
+	  	<div class="overlay-headline grid-item">My Profile<hr class="overlay-headline-hr"></div>
+	  	<div class="grid-item"></div>
+	  	<div class="close-container grid-item"><span id="close-profile-menu" class="close">Esc x</span></div>
 
-	  	<div></div>
-	  	<div></div>
-	  	<div></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
 
-	  	<div></div>
-	  	<div></div>
-	  	<div></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
 	  </div>
 	</div>
 
 	<div id="log-overlay" class="overlay">
 	  <div id="log-overlay-content" class="overlay-content grid-container-overlay log-overlay-content">
-	  	<div class="overlay-headline">System Log<hr class="overlay-headline-hr"></div>
-	  	<div></div>
-	  	<div class="close-container"><span id="close-log-menu" class="close">Esc x</span></div>
+	  	<div class="overlay-headline grid-item">System Log<hr class="overlay-headline-hr"></div>
+	  	<div class="grid-item"></div>
+	  	<div class="close-container grid-item"><span id="close-log-menu" class="close">Esc x</span></div>
 	  	
-	  	<div class="log-overlay-middle">
+	  	<div class="log-overlay-middle grid-item">
 	  		<div id="log" class="log"></div>
 	  	</div>
 
@@ -198,12 +203,12 @@
 
 	<div id="options-overlay" class="overlay">
 	  <div id="options-overlay-content" class="overlay-content grid-container-overlay">
-  		<div class="overlay-headline">Options<hr class="overlay-headline-hr"></div>
-  		<div></div>
-  		<div class="close-container"><span id="close-options-menu" class="close">Esc x</span></div>
+  		<div class="overlay-headline grid-item">Options<hr class="overlay-headline-hr"></div>
+  		<div class="grid-item"></div>
+  		<div class="close-container grid-item"><span id="close-options-menu" class="close">Esc x</span></div>
 
-  		<div></div>
-  		<div>
+  		<div class="grid-item"></div>
+  		<div class="grid-item">
   			<label class="switch">
   				Alphabetic
   				<input id="number-notation-toggle" type="checkbox">
@@ -211,30 +216,30 @@
   				Scientific
 			</label>
   		</div>
-  		<div></div>
+  		<div class="grid-item"></div>
 
-  		<div></div>
-  		<div></div>
-  		<div></div>
+  		<div class="grid-item"></div>
+  		<div class="grid-item"></div>
+  		<div class="grid-item"></div>
 	  </div>
 	</div>
 
 	<div id="save-overlay" class="overlay">
 	  <div id="save-overlay-content" class="overlay-content grid-container-overlay">
-	  	<div class="overlay-headline">Save Game<hr class="overlay-headline-hr"></div>
-	  	<div></div>
-	  	<div class="close-container"><span id="close-save-menu" class="close">Esc x</span></div>
+	  	<div class="overlay-headline grid-item">Save Game<hr class="overlay-headline-hr"></div>
+	  	<div class="grid-item"></div>
+	  	<div class="close-container grid-item"><span id="close-save-menu" class="close">Esc x</span></div>
 
-	  	<div class="save-overlay-middle">
+	  	<div class="save-overlay-middle grid-item">
 	  		<label>
 				<p>Copy this code and use it to load your game next time!</p>
 	    		<input type="text" name="save-code" value="">
 	    	</label>
 		</div>
 
-	  	<div></div>
-	  	<div></div>
-	  	<div></div>
+	  	<div class="grid-item"></div>
+  		<div class="grid-item"></div>
+  		<div class="grid-item"></div>
 	    
 
 	  </div>
@@ -242,11 +247,11 @@
 
 	<div id="load-overlay" class="overlay">
 	  <div id="load-overlay-content" class="overlay-content grid-container-overlay">
-	  	<div class="overlay-headline">Load Game<hr class="overlay-headline-hr"></div>
-	  	<div></div>
-	  	<div class="close-container"><span id="close-load-menu" class="close">Esc x</span></div>
+	  	<div class="overlay-headline grid-item">Load Game<hr class="overlay-headline-hr"></div>
+	  	<div class="grid-item"></div>
+	  	<div class="close-container grid-item"><span id="close-load-menu" class="close">Esc x</span></div>
 
-	  	<div class="load-overlay-middle">
+	  	<div class="load-overlay-middle grid-item">
 	  		<label>
 				<p>Paste your code here and get back to clickin'!</p>
 	    		<input type="text" name="load-code" value="">
@@ -254,9 +259,9 @@
 	    	</label>
 		</div>
 
-	  	<div></div>
-	  	<div></div>
-	  	<div></div>
+	  	<div class="grid-item"></div>
+  		<div class="grid-item"></div>
+  		<div class="grid-item"></div>
 	    
 	  </div>
 	</div>	
