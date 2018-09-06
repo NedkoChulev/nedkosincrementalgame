@@ -57,6 +57,8 @@ var comboIntervalSpeed = 50;
 var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
 var loadingBarWidth = 1;
 
+var marketUpdate = setInterval(updateMarket, 1000/*300000*/);
+
 var clicks = 0;
 var gameSpeed = 1000;
 var gameLoop = setInterval(loop, gameSpeed);
@@ -66,7 +68,32 @@ var numbersNotation = true; //True = Scientific; False = Alphabetical
 
 var upgrades = initiateSkyScrapers();
 
+var ctx = document.getElementById("eggMarket").getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
 
+    // The data for our dataset
+    data: {
+        labels: ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
+        datasets: [{
+            label: "EGM",
+            borderColor: 'rgb(255, 99, 132)',
+            data: [15, 10, 5, 2, 20, 30],
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+    	legend: {
+    		display: false
+    	},
+    configuration: {
+    		responsive: true,
+    		responsiveAnimationDuration: true
+    	}
+    }
+});
 
 //Basically the main method that starts the game
 window.onload = function(){
@@ -114,7 +141,7 @@ function buyUpgrade(n) {
 	clicks -= upgrades[n].cost;
 
 	upgrades[n].amount++;
-	upgrades[n].HTMLamount.innerHTML = upgrades[n].amount;
+	document.getElementById(upgrades[n].HTMLamount.id).innerHTML = upgrades[n].amount;
 	upgrades[n].HTMLcost.innerHTML = upgrades[n].cost + upgrades[n].amount;
 	drawElements();
 	checkPrices();
@@ -604,7 +631,7 @@ function initiateSkyScrapers() {
 		let upgradeCPS = document.createElement("SPAN");
 		let upgradeCost = document.createElement("SPAN");
 
-		container.classList.add("grid-container-upgrades-buttons-left");
+		container.classList.add("grid-container-upgrades-buttons-right");
 		upgradeContainer.classList.add("upgrade");
 		upgradeTextContainer.classList.add("upgrade-text");
 		divx10.classList.add("buy-multiple");
@@ -650,39 +677,6 @@ function initiateSkyScrapers() {
 	leftSkyScraper.scrollTop = leftSkyScraper.scrollHeight;
 	rightSkyScraper.scrollTop = rightSkyScraper.scrollHeight;
 	return upgradesArray
-}
-
-var ctx = document.getElementById("eggMarket").getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-        labels: ["0", "0", "0", "0", "0"],
-        datasets: [{
-            label: "My First dataset",
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30],
-        }]
-    },
-
-    // Configuration options go here
-    options: {
-    	legend: {
-    		display: false
-    	},
-    configuration: {
-    		responsive: true,
-    		responsiveAnimationDuration: true
-    	}
-    }
-});
-
-function disableSkills() {
-	for (var i = skills.length - 1; i >= 0; i--) {
-		skills[i].HTMLid.disabled = !skills[i].HTMLid.disabled;
-	}
 }
 
 function skillsCooldown() {
@@ -731,4 +725,21 @@ function gridToggle() {
 		toggleCheck.innerHTML = "ON";
 		return;
 	}
+}
+
+function updateMarket() {
+	chart.data.labels.push("1");
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(Math.floor(Math.random() * 100));
+    });
+    chart.update();
+
+    chart.data.labels.shift();
+    chart.data.datasets[0].data.shift();
+    chart.update();
+    //chart.data.datasets[2].data.unshift();
+    /*chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });*/
+    //chart.update();
 }

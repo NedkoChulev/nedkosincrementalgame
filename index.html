@@ -7,7 +7,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
 </head>
 <body>
-	<div style="position: absolute; color: white;">TO-DOs:
+	<div style="position: absolute; color: white; z-index: -50;">TO-DOs:
 		<p>Formula for prices</p>
 		<p>Formula for CPS</p>
 		<p>Options menu</p>
@@ -38,7 +38,6 @@
 		<button onclick="get1k()">1,000</button>
 		<button onclick="get10k()">10,000</button>
 		<button onclick="get100k()">100,000</button>
-		<button onclick="disableSkills()">Disable Skills</button>
 
 	<div class="grid-container">
 
@@ -51,15 +50,10 @@
 		</div>
 
 		<div class="grid-item grid-container-combo">
-			<div class="grid-item"></div> <!-- Spacer -->
-
-			<div class="grid-item" id="comboSequence"></div>
+			<div class="comboSequence grid-item" id="comboSequence"></div>
 			<div class="grid-item" id="loadingBarWrapper">
 				<div id="loadingBarLeft"></div>
 				<div id="loadingBarRight"></div>
-			</div>
-			<div class="grid-item comboPointsPopUp">
-	  			<span class="comboPointsMessage" id="comboPointsMessage">+1000</span>
 			</div>
 		</div>
 
@@ -78,13 +72,15 @@
 			<div class="grid-item"></div>
 			<div class="grid-container-alerts alerts grid-item">
 				<div class="grid-item"></div>
-				<div class="grid-item"></div>
+				<div class="grid-item comboPointsPopUp">
+	  				<span class="comboPointsMessage" id="comboPointsMessage"></span>
+				</div>
 				<div class="alert grid-item" id="alerts"></div>
 			</div>
 			<div class="grid-item"></div>
 
 			<div class="grid-item"></div>
-			<div class="grid-item" id="mainButton" onclick="buttonClick()"></div>
+			<div class="grid-item" id="mainButton" onclick="buttonClick()"><img id="bread-image" src="images/bread.png"></div>
 			<div class="grid-item"></div>
 
 			<div class="grid-item"></div>
@@ -145,9 +141,19 @@
 		</div>
 
 		<div class="grid-item grid-container-chart">
+			<div class="grid-item">
+				<button id="sell-stock" class="sell-stock">Sell Stock</button>
+			</div>
+			
 			<div class="chart grid-item">
 				<canvas id="eggMarket"></canvas>
 			</div>
+			
+			<div class="grid-item">
+				<button id="buy-stock" class="buy-stock">Buy Stock</button>
+			</div>
+
+			<div></div>
 		</div>
 
 		<div class="grid-item">
