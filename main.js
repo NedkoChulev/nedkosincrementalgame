@@ -57,7 +57,11 @@ var comboIntervalSpeed = 50;
 var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
 var loadingBarWidth = 1;
 
-var marketUpdate = setInterval(updateMarket, 1000/*300000*/);
+var marketUpdateTime = 300000;
+var countdown = marketUpdateTime;
+var marketUpdate = setInterval(updateMarket, marketUpdateTime);
+
+var marketTimerInterval = setInterval(updateMarketTimer, 1000);
 
 var clicks = 0;
 var gameSpeed = 1000;
@@ -68,6 +72,14 @@ var numbersNotation = true; //True = Scientific; False = Alphabetical
 
 var upgrades = initiateSkyScrapers();
 
+var marketTimer = document.getElementById("market-timer")
+var chartOverlayContent = document.getElementById("chart-overlay-content");
+var chartClose = document.getElementById("close-chart-menu");
+var chartZoom = document.getElementById("chart-zoom");
+var chartWindow = document.getElementById("chart-overlay");
+var zoomedChart = document.getElementById("zoomed-chart");
+var zoomedChartMenu = document.getElementById("zoomed-chart-menu");
+var chartContainer = document.getElementById("chart-container");
 var ctx = document.getElementById("eggMarket").getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -75,7 +87,7 @@ var chart = new Chart(ctx, {
 
     // The data for our dataset
     data: {
-        labels: ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
+        labels: ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
         datasets: [{
             label: "EGM",
             borderColor: 'rgb(255, 99, 132)',
@@ -106,6 +118,7 @@ window.onload = function(){
 	initiateRightClick();
 	initiateCombo();
 	skillsCooldown();
+	initiateChartZoom();
 
 	//Visuals initiation
 	drawElements();
@@ -530,16 +543,17 @@ function initiateMenuButtons() {
 		});
 
 		menu[i].HTMLcontent.addEventListener("click", function(e) {
-			event.stopPropagation();
-		})
+			e.stopPropagation(); //clicking inside the window does not close it
+		});
 	}
 }
 
 function initiateCloseAllWindows() {
 	window.addEventListener("keydown", function(e) {
 		if (e.keyCode == 27) {
+			chartWindow.style.display = "none";
 			for (var i = menu.length - 1; i >= 0; i--) {
-				menu[i].HTMLwindow.style.display = "none";
+				closeChart();
 			}
 		}
 	});
@@ -742,4 +756,41 @@ function updateMarket() {
         dataset.data.pop();
     });*/
     //chart.update();
+}
+
+function updateMarketTimer() {
+	countdown = countdown - 1;
+	var minutes = Math.floor(countdown / 60000);
+	var seconds = ((countdown % 60000) / 1000).toFixed(0);
+	marketTimer.innerHTML = minutes + ":" + seconds;
+	console.log(minutes)
+	if (countdown <= 0) {
+		countdown = marketUpdateTime;
+	}
+}
+
+function initiateChartZoom() {
+	chartZoom.addEventListener("click", function() {
+		chartWindow.style.display = "block";
+		zoomedChart.appendChild(document.getElementById("eggMarket"));
+	});
+
+	chartWindow.addEventListener("click", function() {
+		chartWindow.style.display = "none";
+		chartContainer.appendChild(document.getElementById("eggMarket"));
+	});
+
+	chartClose.addEventListener("click", function() {
+		chartWindow.style.display = "none";
+		chartContainer.appendChild(document.getElementById("eggMarket"));
+	});
+
+	chartOverlayContent.addEventListener("click", function(e) {
+		e.stopPropagation();
+	});
+}
+
+function closeChart() {
+	chartWindow.style.display = "none";
+	chartContainer.appendChild(document.getElementById("eggMarket"));
 }

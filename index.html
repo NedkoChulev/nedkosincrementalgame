@@ -145,8 +145,11 @@
 				<button id="sell-stock" class="sell-stock">Sell Stock</button>
 			</div>
 			
-			<div class="chart grid-item">
+			<div id="chart-container" class="chart grid-item">
 				<canvas id="eggMarket"></canvas>
+				<div class="chart-zoom" id="chart-zoom">
+					<span><p>+</p></span>
+				</div>
 			</div>
 			
 			<div class="grid-item">
@@ -270,8 +273,26 @@
   		<div class="grid-item"></div>
 	    
 	  </div>
-	</div>	
-</div>
+	</div>
+		<div id="chart-overlay" class="overlay">
+	  		<div id="chart-overlay-content" class="overlay-content grid-container-overlay chart-overlay-content">
+	  			<div class="overlay-headline grid-item">Egg Market<hr class="overlay-headline-hr"></div>
+	  			<div class="grid-item"></div>
+	  			<div class="close-container grid-item"><span id="close-chart-menu" class="close">Esc x</span></div>
+
+	  			<div id="zoomed-chart" class="grid-item zoomed-chart"></div>
+
+	  			<div class="grid-item">
+	  				Time until next update:
+	  			</div>
+  				<div id="market-timer" class="grid-item market-timer"></div>
+
+  				<div class="grid-item"></div>
+  				<div class="grid-item"></div>
+  				<div class="grid-item"></div>
+			</div>
+		</div>	
+	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
