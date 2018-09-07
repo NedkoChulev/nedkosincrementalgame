@@ -57,13 +57,17 @@ var comboIntervalSpeed = 50;
 var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
 var loadingBarWidth = 1;
 
-var marketUpdateTime = 300000;
-var countdown = marketUpdateTime;
+const marketUpdateTime = 6000; //301000
+let countdown = marketUpdateTime;
 var marketUpdate = setInterval(updateMarket, marketUpdateTime);
 
 var marketTimerInterval = setInterval(updateMarketTimer, 1000);
 
 var clicks = 0;
+const baseEggPrice = 100;
+var currentEggPrice = baseEggPrice;
+var marketChange;
+
 var gameSpeed = 1000;
 var gameLoop = setInterval(loop, gameSpeed);
 var date;
@@ -87,11 +91,11 @@ var chart = new Chart(ctx, {
 
     // The data for our dataset
     data: {
-        labels: ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
+        labels: ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
         datasets: [{
             label: "EGM",
             borderColor: 'rgb(255, 99, 132)',
-            data: [15, 10, 5, 2, 20, 30],
+            data: [baseEggPrice],
         }]
     },
 
@@ -744,26 +748,25 @@ function gridToggle() {
 function updateMarket() {
 	chart.data.labels.push("1");
     chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(Math.floor(Math.random() * 100));
+    	marketChange = Math.floor(currentEggPrice * ((Math.random() * 99)/100) * (Math.floor(Math.random()*2) == 1 ? 1 : -1));
+    	currentEggPrice = currentEggPrice + marketChange;
+        dataset.data.push(currentEggPrice);
+        console.log(marketChange + "%");
+        console.log(currentEggPrice);
     });
     chart.update();
 
     chart.data.labels.shift();
     chart.data.datasets[0].data.shift();
     chart.update();
-    //chart.data.datasets[2].data.unshift();
-    /*chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-    });*/
-    //chart.update();
 }
 
 function updateMarketTimer() {
-	countdown = countdown - 1;
-	var minutes = Math.floor(countdown / 60000);
-	var seconds = ((countdown % 60000) / 1000).toFixed(0);
-	marketTimer.innerHTML = minutes + ":" + seconds;
-	console.log(minutes)
+	let minutes, seconds;
+	countdown-=1000;
+	seconds = Math.floor(countdown / 1000);
+	minutes = Math.floor(seconds / 60);
+	marketTimer.innerHTML = ("0" + minutes).slice(-2) + ":" + ("0" + (seconds % 60)).slice(-2);
 	if (countdown <= 0) {
 		countdown = marketUpdateTime;
 	}
