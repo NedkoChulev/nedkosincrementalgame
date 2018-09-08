@@ -3,6 +3,8 @@
 <head>
 	<title>Incremental Game</title>
 
+	<meta name="viewport" content="width=1200px, maximum-scale=1.0" />
+
 	<link rel="stylesheet" type="text/css" href="interface.css" />
 	<link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
 </head>
@@ -36,7 +38,7 @@
 
 	<div class="main">
 		
-		<button onclick="gridToggle()">Grid <span id="gridToggle">ON</span></button>
+		<button onclick="gridToggle()">Grid <span id="gridToggle">OFF</span></button>
 		<button onclick="get1k()">1,000</button>
 		<button onclick="get10k()">10,000</button>
 		<button onclick="get100k()">100,000</button>
@@ -52,6 +54,9 @@
 		</div>
 
 		<div class="grid-item grid-container-combo">
+			<div class="grid-item comboPointsPopUp">
+	  				<span class="comboPointsMessage" id="comboPointsMessage"></span>
+			</div>
 			<div class="comboSequence grid-item" id="comboSequence"></div>
 			<div class="grid-item" id="loadingBarWrapper">
 				<div id="loadingBarLeft"></div>
@@ -70,13 +75,10 @@
 		<div id="leftSkyScraper" class="grid-item grid-container-upgrades-left"></div>
 		
 		<div class="grid-item grid-container-center">
-
 			<div class="grid-item"></div>
 			<div class="grid-container-alerts alerts grid-item">
 				<div class="grid-item"></div>
-				<div class="grid-item comboPointsPopUp">
-	  				<span class="comboPointsMessage" id="comboPointsMessage"></span>
-				</div>
+				
 				<div class="alert grid-item" id="alerts"></div>
 			</div>
 			<div class="grid-item"></div>
@@ -135,8 +137,8 @@
 
 <!-- ROW 4 -->
 		<div class="grid-item grid-container-currencies">
-			<div id="clicksCount" class="grid-item">
-				Bread: <span id="clicksCount-text">0</span>
+			<div id="bread-count" class="grid-item">
+				Bread: <span id="bread-count-text">0</span>
 			</div>
 			<div id="eggs" class="grid-item">
 				Eggs: <span id="eggs-count-text">0</span>
@@ -147,8 +149,10 @@
 		</div>
 
 		<div class="grid-item grid-container-chart">
-			<div class="grid-item">
-				<button id="sell-stock-button" class="sell-stock" onclick="sellEggStock(this)">Sell Stock</button>
+			<!-- Chart Row 1-->
+			<div class="grid-item market-index">
+				<h2>Index</h2>
+				<p id="market-index">0.00%</p>
 			</div>
 			
 			<div id="chart-container" class="chart grid-item">
@@ -157,16 +161,20 @@
 					<span><p>+</p></span>
 				</div>
 			</div>
-			
+
+			<!-- Chart Row 2-->
+			<div class="grid-item">
+				<button id="sell-stock-button" class="sell-stock" onclick="sellEggStock(this)">Sell Stock</button>
+			</div>
+
+			<!-- Chart Row 3-->
 			<div class="grid-item">
 				<button id="buy-stock-button" class="buy-stock" onclick="buyEggStock(this)">Buy Stock</button>
 			</div>
-
-			<div></div>
 		</div>
 
 		<div class="grid-item">
-			<button class="shop">
+			<button class="shop-button">
 				<span>SHOP</span>
 			</button>
 		</div>
@@ -183,103 +191,103 @@
 		</div>
 
 		<div class="grid-item"></div>
-	</div>
+		</div>
 
 <!-- Menu Overlays -->
-	<div id="profile-overlay" class="overlay">
-	  <div id="profile-overlay-content" class="overlay-content grid-container-overlay">
-	  	<div class="overlay-headline grid-item">My Profile<hr class="overlay-headline-hr"></div>
-	  	<div class="grid-item"></div>
-	  	<div class="close-container grid-item"><span id="close-profile-menu" class="close">Esc x</span></div>
+		<div id="profile-overlay" class="overlay">
+		  <div id="profile-overlay-content" class="overlay-content grid-container-overlay">
+		  	<div class="overlay-headline grid-item">My Profile<hr class="overlay-headline-hr"></div>
+		  	<div class="grid-item"></div>
+		  	<div class="close-container grid-item"><span id="close-profile-menu" class="close">Esc x</span></div>
 
-		<div class="grid-item"></div>
-		<div class="grid-item"></div>
-		<div class="grid-item"></div>
+			<div class="grid-item"></div>
+			<div class="grid-item"></div>
+			<div class="grid-item"></div>
 
-		<div class="grid-item"></div>
-		<div class="grid-item"></div>
-		<div class="grid-item"></div>
-	  </div>
-	</div>
-
-	<div id="log-overlay" class="overlay">
-	  <div id="log-overlay-content" class="overlay-content grid-container-overlay log-overlay-content">
-	  	<div class="overlay-headline grid-item">System Log<hr class="overlay-headline-hr"></div>
-	  	<div class="grid-item"></div>
-	  	<div class="close-container grid-item"><span id="close-log-menu" class="close">Esc x</span></div>
-	  	
-	  	<div class="log-overlay-middle grid-item">
-	  		<div id="log" class="log"></div>
-	  	</div>
-
-	    
-	  </div>
-	</div>
-
-	<div id="options-overlay" class="overlay">
-	  <div id="options-overlay-content" class="overlay-content grid-container-overlay">
-  		<div class="overlay-headline grid-item">Options<hr class="overlay-headline-hr"></div>
-  		<div class="grid-item"></div>
-  		<div class="close-container grid-item"><span id="close-options-menu" class="close">Esc x</span></div>
-
-  		<div class="grid-item"></div>
-  		<div class="grid-item">
-  			<label class="switch">
-  				Alphabetic
-  				<input id="number-notation-toggle" type="checkbox">
-			  	<span class="slider round"></span>
-  				Scientific
-			</label>
-  		</div>
-  		<div class="grid-item"></div>
-
-  		<div class="grid-item"></div>
-  		<div class="grid-item"></div>
-  		<div class="grid-item"></div>
-	  </div>
-	</div>
-
-	<div id="save-overlay" class="overlay">
-	  <div id="save-overlay-content" class="overlay-content grid-container-overlay">
-	  	<div class="overlay-headline grid-item">Save Game<hr class="overlay-headline-hr"></div>
-	  	<div class="grid-item"></div>
-	  	<div class="close-container grid-item"><span id="close-save-menu" class="close">Esc x</span></div>
-
-	  	<div class="save-overlay-middle grid-item">
-	  		<label>
-				<p>Copy this code and use it to load your game next time!</p>
-	    		<input type="text" name="save-code" value="">
-	    	</label>
+			<div class="grid-item"></div>
+			<div class="grid-item"></div>
+			<div class="grid-item"></div>
+		  </div>
 		</div>
 
-	  	<div class="grid-item"></div>
-  		<div class="grid-item"></div>
-  		<div class="grid-item"></div>
-	    
+		<div id="log-overlay" class="overlay">
+		  <div id="log-overlay-content" class="overlay-content grid-container-overlay log-overlay-content">
+		  	<div class="overlay-headline grid-item">System Log<hr class="overlay-headline-hr"></div>
+		  	<div class="grid-item"></div>
+		  	<div class="close-container grid-item"><span id="close-log-menu" class="close">Esc x</span></div>
+		  	
+		  	<div class="log-overlay-middle grid-item">
+		  		<div id="log" class="log"></div>
+		  	</div>
 
-	  </div>
-	</div>
-
-	<div id="load-overlay" class="overlay">
-	  <div id="load-overlay-content" class="overlay-content grid-container-overlay">
-	  	<div class="overlay-headline grid-item">Load Game<hr class="overlay-headline-hr"></div>
-	  	<div class="grid-item"></div>
-	  	<div class="close-container grid-item"><span id="close-load-menu" class="close">Esc x</span></div>
-
-	  	<div class="load-overlay-middle grid-item">
-	  		<label>
-				<p>Paste your code here and get back to clickin'!</p>
-	    		<input type="text" name="load-code" value="">
-	    		<button id="load-game-button">Load</button>
-	    	</label>
+		    
+		  </div>
 		</div>
 
-	  	<div class="grid-item"></div>
-  		<div class="grid-item"></div>
-  		<div class="grid-item"></div>
-	    
-	  </div>
-	</div>
+		<div id="options-overlay" class="overlay">
+		  <div id="options-overlay-content" class="overlay-content grid-container-overlay">
+	  		<div class="overlay-headline grid-item">Options<hr class="overlay-headline-hr"></div>
+	  		<div class="grid-item"></div>
+	  		<div class="close-container grid-item"><span id="close-options-menu" class="close">Esc x</span></div>
+
+	  		<div class="grid-item"></div>
+	  		<div class="grid-item">
+	  			<label class="switch">
+	  				Alphabetic
+	  				<input id="number-notation-toggle" type="checkbox">
+				  	<span class="slider round"></span>
+	  				Scientific
+				</label>
+	  		</div>
+	  		<div class="grid-item"></div>
+
+	  		<div class="grid-item"></div>
+	  		<div class="grid-item"></div>
+	  		<div class="grid-item"></div>
+		  </div>
+		</div>
+
+		<div id="save-overlay" class="overlay">
+		  <div id="save-overlay-content" class="overlay-content grid-container-overlay">
+		  	<div class="overlay-headline grid-item">Save Game<hr class="overlay-headline-hr"></div>
+		  	<div class="grid-item"></div>
+		  	<div class="close-container grid-item"><span id="close-save-menu" class="close">Esc x</span></div>
+
+		  	<div class="save-overlay-middle grid-item">
+		  		<label>
+					<p>Copy this code and use it to load your game next time!</p>
+		    		<input type="text" name="save-code" value="">
+		    	</label>
+			</div>
+
+		  	<div class="grid-item"></div>
+	  		<div class="grid-item"></div>
+	  		<div class="grid-item"></div>
+		    
+
+		  </div>
+		</div>
+
+		<div id="load-overlay" class="overlay">
+		  <div id="load-overlay-content" class="overlay-content grid-container-overlay">
+		  	<div class="overlay-headline grid-item">Load Game<hr class="overlay-headline-hr"></div>
+		  	<div class="grid-item"></div>
+		  	<div class="close-container grid-item"><span id="close-load-menu" class="close">Esc x</span></div>
+
+		  	<div class="load-overlay-middle grid-item">
+		  		<label>
+					<p>Paste your code here and get back to clickin'!</p>
+		    		<input type="text" name="load-code" value="">
+		    		<button id="load-game-button">Load</button>
+		    	</label>
+			</div>
+
+		  	<div class="grid-item"></div>
+	  		<div class="grid-item"></div>
+	  		<div class="grid-item"></div>
+		    
+		  </div>
+		</div>
 		<div id="chart-overlay" class="overlay">
 	  		<div id="chart-overlay-content" class="overlay-content grid-container-overlay chart-overlay-content">
 	  			<div class="overlay-headline grid-item">Egg Market<hr class="overlay-headline-hr"></div>
@@ -293,16 +301,32 @@
 	  			</div>
   				<div id="market-timer" class="grid-item market-timer">00:00</div>
 
-  				<div class="grid-item"></div>
+  				<div class="grid-item market-index-overlay">
+					<span>Index: </span>
+					<p id="market-index-overlay">0.00%</p>
+				</div>
   				<div class="grid-item">
   					<button id="overlay-buy-stock-button" onclick="buyEggStock(this)">Buy Stock</button>
+  					<button id="overlay-sell-stock-button" onclick="sellEggStock(this)">Sell Stock</button>
   				</div>
   				<div class="grid-item">
-  					<button id="overlay-sell-stock-button" onclick="sellEggStock(this)">Sell Stock</button>
+  					<button id="market-history-button" onclick="openMarketHistory()">History</button>
   				</div>
 			</div>
 		</div>	
+		<div id="market-history-overlay" class="overlay">
+			  <div id="market-history-overlay-content" class="overlay-content grid-container-overlay market-history-overlay-content">
+			  	<div class="overlay-headline grid-item">History<hr class="overlay-headline-hr"></div>
+			  	<div class="grid-item"></div>
+			  	<div class="close-container grid-item"><span id="close-market-history-menu" class="close">Esc x</span></div>
+			  	
+			  	<div class="market-history-overlay-middle grid-item">
+			  		<div id="market-history" class="market-history"></div>
+			  	</div>
+			  </div>
+		</div>
 	</div>
+
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>

@@ -49,7 +49,7 @@ button:hover {
   display: grid;
   /*grid-template-columns: 230px 700px 230px;
   grid-template-rows: 100px 600px 100px 100px;*/
-  grid-template-columns: 230px 700px 230px;
+  grid-template-columns: 230px 58% 230px;
   grid-template-rows: 100px 400px 68px 250px 100px;
   grid-gap: 5px;
   justify-content: center;
@@ -154,7 +154,7 @@ button:hover {
 .grid-container-combo {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 10fr 1fr;
+  grid-template-rows: 1fr 10fr 1fr;
   grid-gap: 0px;
   justify-content: center;
   justify-items: center;
@@ -202,7 +202,7 @@ button:hover {
 .grid-container-chart {
   display: grid;
   grid-template-columns: 1fr 7fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   height: 100%;
 }
 
@@ -219,7 +219,6 @@ button:hover {
   color: #eee;
   width: 100%;
   height: 100%;
-  border: 1px solid darkmagenta;
 }
 
 #mainButton {
@@ -248,6 +247,7 @@ button:hover {
   text-align: center;
   height: 40px;
   font-size: 40px;
+  line-height: 55px;
 }
 
 #loadingBarWrapper{
@@ -276,20 +276,22 @@ button:hover {
 /* The actual popup */
 .comboPointsMessage {
     visibility: hidden;
-    width: 100%;
+    display: inline-block;
+    text-align: center;
+    width: 30%;
+    margin-left: 35%;
+    padding-top: 5px;
     background-color: #555;
     color: #fff;
     border-radius: 6px;
-    padding: 10px 20px 0px 20px; /*top right bottom left*/
     z-index: 1;
-    margin-left: 0;
 }
 
 /* Toggle this class - hide and show the popup */
 .comboPointsPopUp .show {
     visibility: visible;
     opacity: 1;
-    transition: opacity 1s linear;
+    transition: opacity 2s linear;
 }
 
 .comboPointsPopUp .hide {
@@ -764,17 +766,18 @@ button:hover {
   transform: scale(0.9, 0.9);
 }
 
-.shop {
-  width: 100%;
-  height: 100%;
+.shop-button {
+  width: 80%;
+  height: 30%;
+  margin-left: 10%;
+  margin-top: 35%;
   text-align: center;
 }
 
-.shop span {
-  position: absolute;
+.shop-button span {
+  display: inline-block;
   font-size: 30px;
-  padding-bottom: 0px;
-  margin-left: -2%;
+  margin-top: 7%;
 }
 
 .switch {
@@ -840,7 +843,7 @@ canvas {
 
 .chart {
   position: relative;
-  grid-row-end: span 2;
+  grid-row-end: span 3;
   width: 100%;
   height: 100%;
 }
@@ -879,4 +882,86 @@ canvas {
   line-height: 100px;
   border: 5px solid;
   border-radius: 20px;
+}
+
+.market-index h2 {
+  text-align: center;
+  margin: 0px;
+  padding-top: 10px;
+  line-height: 35px;
+}
+
+.market-index p {
+  text-align: center;
+  margin: 0px;
+  line-height: 20px;
+}
+
+.market-index-overlay span {
+  margin: 0px;
+}
+
+.market-index-overlay p {
+  margin: 0px;
+  display: inline-block;
+}
+
+.market-history-overlay-content {
+  grid-template-rows: 6% 47% 47%;
+}
+
+/* width */
+.market-history-overlay-middle::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+.market-history-overlay-middle::-webkit-scrollbar-track {
+    /*box-shadow: inset 0 0 5px grey; */
+    border-radius: 10px;
+}
+ 
+/* Handle */
+.market-history-overlay-middle::-webkit-scrollbar-thumb {
+    background: #7681b9; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.market-history-overlay-middle::-webkit-scrollbar-thumb:hover {
+    background: #6570a8; 
+}
+
+.market-history-overlay-middle {
+  grid-column-end: span 3;
+  grid-row-end: span 2;
+  width: 100%;
+  height: 95%;
+  justify-self: start;
+  align-self: start;
+  overflow-y:auto
+}
+
+.market-history-overlay-middle input {
+  width: 100%;
+  height: 100%;
+}
+
+.market-history {
+  margin-top: 15px;
+}
+
+.market-history p {
+  color: #eee;
+  font-size: 20px;
+  line-height: 20px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 10px;
+}
+
+.market-history hr {
+  margin-bottom: 10px;
+  margin-top: -5px;
+  border: 2px solid #222;
 }

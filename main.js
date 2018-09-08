@@ -35,7 +35,7 @@ var leftSkyScraper =			document.getElementById("leftSkyScraper");
 var rightSkyScraper =			document.getElementById("rightSkyScraper");
 var comboSequence =				document.getElementById("comboSequence");
 var comboPointsMessage =		document.getElementById("comboPointsMessage");
-var clicksCountText =			document.getElementById("clicksCount-text");
+var breadCountText =			document.getElementById("bread-count-text");
 var eggsCountText =				document.getElementById("eggs-count-text");
 var goldCountText =				document.getElementById("gold-count-text");
 var mainButton =				document.getElementById("mainButton");
@@ -48,14 +48,23 @@ var sellStockButton =			document.getElementById("sell-stock-button");
 var buyStockButton =			document.getElementById("buy-stock-button");
 var overlaySellStockButton =	document.getElementById("overlay-sell-stock-button");
 var overlayBuyStockButton =		document.getElementById("overlay-buy-stock-button");
+var marketHistoryLog =			document.getElementById("market-history");
+var marketIndex =				document.getElementById("market-index");
+var marketIndexOverlay =		document.getElementById("market-index-overlay");
+var marketOverlayWindow = 		document.getElementById("market-history-overlay");
+var marketOverlayContent = 		document.getElementById("market-history-overlay-content");
+var marketOverlayClose =		document.getElementById("close-market-history-menu");
 
 var clickPower = 1;
 var critRate = 1;
 var critDmgMultiplier = 2;
 
 var combo;
-var comboReward = 1000;
+var baseComboReward = 100;
+var combinedComboReward = 0;
 var comboCounter = 0;
+var comboLength = 0;
+var multipleCombos = 0;
 var comboActiveColor = "#EC6F28";
 var comboInactiveColor = "#eee";
 
@@ -69,7 +78,7 @@ var marketUpdate = setInterval(updateMarket, marketUpdateTime);
 
 var marketTimerInterval = setInterval(updateMarketTimer, 1000);
 
-var clicks = 0;
+var bread = 0;
 var eggs = 0;
 var gold = 0;
 
@@ -77,14 +86,9 @@ var demand = 1;
 const baseEggPrice = 100;
 const minEggPrice = 20;
 var currentEggPrice = baseEggPrice;
-var marketChange;
 
 var gameSpeed = 1000;
 var gameLoop = setInterval(loop, gameSpeed);
-var date;
-var timestamp;
-var marketDate;
-var marketTimestamp;
 var numbersNotation = true; //True = Scientific; False = Alphabetical
 
 var upgrades = initiateSkyScrapers();
@@ -161,7 +165,7 @@ function buttonClick() {
 	checkPrices();
 }
 
-// Game's main loop - passively adds clicks from the upgrades
+// Game's main loop - passively adds bread from the upgrades
 function loop() {
 	for (var i = upgrades.length - 1; i >= 0; i--) {
 		eggs += upgrades[i].amount * upgrades[i].multiplier;
@@ -173,10 +177,10 @@ function loop() {
 // Subtracts listed price from click count
 // Adds 1 to the current amount of upgrades in the upgrades array
 // Updates the upgrade's count text
-// Updates the clicks count and the CPS of all upgrades
+// Updates the bread count and the CPS of all upgrades
 function buyUpgrade(n) {
 	upgrades[n].cost = Math.floor(Math.pow(upgrades[n].multiplier, upgrades[n].amount) * upgrades[n].baseCost);
-	clicks -= upgrades[n].cost;
+	bread -= upgrades[n].cost;
 
 	upgrades[n].amount++;
 	document.getElementById(upgrades[n].HTMLamount.id).innerHTML = upgrades[n].amount;
@@ -189,7 +193,7 @@ function buyUpgrade(n) {
 function checkPrices() {
 	for (let i = upgrades.length - 1; i >= 0; i--) {
 		//Check prices for x1
-		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
+		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
 			upgrades[i].HTMLid.classList.remove("disabled");
 			upgrades[i].HTMLid.classList.add("enabled");
 			upgrades[i].HTMLid.disabled = false;
@@ -200,7 +204,7 @@ function checkPrices() {
 		}
 
 		//Check prices for x10
-		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
+		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
 			upgrades[i].buttonx10.classList.remove("disabled");
 			upgrades[i].buttonx10.classList.add("enabled");
 			upgrades[i].buttonx10.disabled = false;
@@ -211,7 +215,7 @@ function checkPrices() {
 		}
 
 		//Check prices for x100
-		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
+		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
 			upgrades[i].buttonx100.classList.remove("disabled");
 			upgrades[i].buttonx100.classList.add("enabled");
 			upgrades[i].buttonx100.disabled = false;
@@ -222,7 +226,7 @@ function checkPrices() {
 		}
 
 		//Check prices for xMAX
-		if (clicks >= upgrades[i].cost && clicks >= upgrades[i].baseCost) {
+		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
 			upgrades[i].buttonxMAX.classList.remove("disabled");
 			upgrades[i].buttonxMAX.classList.add("enabled");
 			upgrades[i].buttonxMAX.disabled = false;
@@ -244,7 +248,7 @@ function checkPrices() {
 	if (eggs > 0){overlaySellStockButton.disabled = false;}
 
 /*	for (var i = skills.length - 1; i >= 0; i--) {
-		if (clicks >= skills[i].cost) {
+		if (bread >= skills[i].cost) {
 			skills[i].HTMLid.classList.remove("disabled");
 			skills[i].HTMLid.classList.add("enabled");
 			skills[i].HTMLid.disabled = false;
@@ -258,28 +262,29 @@ function checkPrices() {
 
 // Updates the upgrades' price texts
 function drawElements() {
-	clicksCountText.innerHTML = numeral(clicks).format('0.00a');//clicks.toExponential(2);//.toLocaleString("en-EN");
+	breadCountText.innerHTML = numeral(bread).format('0.00a');//bread.toExponential(2);//.toLocaleString("en-EN");
 	eggsCountText.innerHTML = numeral(eggs).format('0.00a');
 	goldCountText.innerHTML = numeral(gold).format('0.00a');
 
 	// Loops through all upgrade buttons and updates their CPS value
-	for (var i = upgrades.length - 1; i >= 0; i--) {
-		upgrades[i].HTMLcps.innerHTML = upgrades[i].amount;
+	for (let i = upgrades.length - 1; i >= 0; i--) {
+		document.getElementById(upgrades[i].HTMLcps.id).innerHTML = upgrades[i].cps * upgrades[i].amount;
+		document.getElementById(upgrades[i].HTMLamount.id).innerHTML = upgrades[i].amount;
 	}
 }
 
 function get1k() {
-	clicks += 1000;
+	bread += 1000;
 	drawElements();
 	checkPrices();
 }
 function get10k() {
-	clicks += 10000;
+	bread += 10000;
 	drawElements();
 	checkPrices();
 }
 function get100k() {
-	clicks += 100000;
+	bread += 100000;
 	drawElements();
 	checkPrices();
 }
@@ -304,12 +309,12 @@ function doubleCritDmg() {
 
 
 function saveGame() {
-	localStorage.setItem('Clicks', clicks);
+	localStorage.setItem('Bread', bread);
 	localStorage.setItem('CritRate', critRate);
 }
 
 function loadGame() {
-	clicks = parseInt(localStorage.getItem('Clicks'));
+	bread = parseInt(localStorage.getItem('Bread'));
 	critRate = parseInt(localStorage.getItem('CritRate'));
 	drawElements();
 	checkPrices();
@@ -330,9 +335,9 @@ function initiateRightClick() {
 function hit() {
 	alertPlayer("click");
 	if (Math.random()*100 <= critRate) {
-		clicks = clicks + clickPower * critDmgMultiplier;
+		bread = bread + clickPower * critDmgMultiplier;
 	} else {
-		clicks = clicks + clickPower;
+		bread = bread + clickPower;
 	}
 }
 
@@ -341,52 +346,60 @@ function initiateCombo() {
 	document.addEventListener('keydown', (event) => {
 	switch(event.key){
 		case "ArrowLeft":
-			if (combo[comboCounter] == 1) {
-	      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-	      	comboCounter++;
-	      	} else {
-	      		for (var i = 0; i <= combo.length - 1; i++) {
-	      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-	      		}
-		      	comboCounter = 0;
-	      	}
-	      	checkComboCounter();
+			if (comboSequence.firstChild) {
+				if (combo[comboCounter] == 1) {
+		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
+		      	comboCounter++;
+		      	} else {
+		      		for (var i = 0; i <= combo.length - 1; i++) {
+		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
+		      		}
+			      	comboCounter = 0;
+		      	}
+		      	checkComboCounter();
+		      }
 			break;
 		case "ArrowRight":
-			if (combo[comboCounter] == 2) {
-	      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-	      	comboCounter++;
-	      	} else {
-	      		for (var i = 0; i <= combo.length - 1; i++) {
-	      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-	      		}
-		      	comboCounter = 0;
-	      	}
-	      	checkComboCounter();
+			if (comboSequence.firstChild) {
+				if (combo[comboCounter] == 2) {
+		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
+		      	comboCounter++;
+		      	} else {
+		      		for (var i = 0; i <= combo.length - 1; i++) {
+		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
+		      		}
+			      	comboCounter = 0;
+		      	}
+		      	checkComboCounter();
+		      }
 			break;
 		case "ArrowUp":
-			if (combo[comboCounter] == 3) {
-	      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-	      	comboCounter++;
-	      	} else {
-	      		for (var i = 0; i <= combo.length - 1; i++) {
-	      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-	      		}
-		      	comboCounter = 0;
-	      	}
-	      	checkComboCounter();
+			if (comboSequence.firstChild) {
+				if (combo[comboCounter] == 3) {
+		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
+		      	comboCounter++;
+		      	} else {
+		      		for (var i = 0; i <= combo.length - 1; i++) {
+		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
+		      		}
+			      	comboCounter = 0;
+		      	}
+		      	checkComboCounter();
+		      }
 			break;
 		case "ArrowDown":
-			if (combo[comboCounter] == 4) {
-	      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-	      	comboCounter++;
-	      	} else {
-	      		for (var i = 0; i <= combo.length - 1; i++) {
-	      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-	      		}
-		      	comboCounter = 0;
-	      	}
-	      	checkComboCounter();
+			if (comboSequence.firstChild) {
+				if (combo[comboCounter] == 4) {
+		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
+		      	comboCounter++;
+		      	} else {
+		      		for (var i = 0; i <= combo.length - 1; i++) {
+		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
+		      		}
+			      	comboCounter = 0;
+		      	}
+		      	checkComboCounter();
+		      }
 			break;
 		}
 	});
@@ -424,9 +437,10 @@ function initiateUpgrades() {
 
 function checkComboCounter() {
 	if (comboCounter >= combo.length) {
-		clicks += comboReward;
-		alertPlayer("Combo!");
-		comboPointsAnimation();
+		multipleCombos++;
+		combinedComboReward = baseComboReward * comboLength * multipleCombos;
+		bread = bread + combinedComboReward;
+		comboPointsAnimation(combinedComboReward, multipleCombos);
 		drawElements();
 		while (comboSequence.firstChild) {
     		comboSequence.removeChild(comboSequence.firstChild);
@@ -439,11 +453,15 @@ function checkComboCounter() {
 //Generates a random combo between 5 and 10 moves long
 function comboSpawner() {
 	comboCounter = 0;
+	if (comboSequence.firstChild) {
+		multipleCombos = 0;
+	}
 	while (comboSequence.firstChild) {
     	comboSequence.removeChild(comboSequence.firstChild);
 	}
 
 	combo = new Array(Math.floor(Math.random() * 10) + 5);
+	comboLength = combo.length;
 	for (var i = 0; i <= combo.length - 1; i++) {
 		combo[i] = Math.floor(Math.random() * 4) + 1;
 
@@ -474,7 +492,6 @@ function comboSpawner() {
 				break;
 		}
 	}
-
 }
 
 function drawComboCooldown() {
@@ -508,8 +525,9 @@ function animateButton() {
 	});
 }
 
-function comboPointsAnimation() {
-	comboPointsMessage.innerHTML = "+" + comboReward;
+function comboPointsAnimation(n, m) {
+	comboPointsMessage.innerHTML = "+" + n;
+	alertPlayer("Combo X" + m + " [+" + n + "]");
 
 	comboPointsMessage.classList.toggle("show");
 	setTimeout(function() {
@@ -548,8 +566,8 @@ function alertPlayer(message) {
 		setTimeout(function() {
 			alerts.classList.toggle("hide");
 			alerts.classList.toggle("show");
-		},500);
-	}, 50);
+		},2000);
+	}, 1000);
 }
 
 function handleFirstTab(e) {
@@ -707,6 +725,7 @@ function initiateSkyScrapers() {
 		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + ")<br>" + "Cost: ";
 		upgradeTextContainer.appendChild(upgradeCost);
 
+
 		btnUpgrade.appendChild(upgradeTextContainer);
 		upgradeContainer.appendChild(btnUpgrade);
 
@@ -779,13 +798,27 @@ function gridToggle() {
 }
 
 function updateMarket() {
-	marketDate = new Date();
-	marketTimestamp = ("0" + marketDate.getHours()).slice(-2) + ":" + ("0" + marketDate.getMinutes()).slice(-2);
-   	marketChange = (Math.random() * 49) * (Math.floor(Math.random()*2) == 1 ? 1 : -1)/100;
+	let marketDirection;
+	const marketDate = new Date();
+	const marketTimestamp = ("0" + marketDate.getHours()).slice(-2) + ":" + ("0" + marketDate.getMinutes()).slice(-2);
+   	const marketChange = (Math.random() * 49) * (Math.floor(Math.random()*2) == 1 ? 1 : -1)/100;
    	currentEggPrice = Math.floor((currentEggPrice + currentEggPrice * marketChange) * demand);
    	if (currentEggPrice < 20) { currentEggPrice = 20;}
-   	if (marketChange > 0) {alertPlayer("EGM &uarr; " + (marketChange*100).toFixed(2) + "%");}
-   	if (marketChange < 0) {alertPlayer("EGM &darr; " + (marketChange*100).toFixed(2) + "%");}
+   	if (marketChange > 0) {
+   		marketDirection = " &uarr; ";
+		marketIndex.style.color = "#599643";
+		marketIndexOverlay.style.color = "#599643";
+		archiveMarket("EGM" + marketDirection + (marketChange*100).toFixed(2) + "%", 1);
+   	}
+   	if (marketChange < 0) {
+   		marketDirection = " &darr; ";
+   		marketIndex.style.color = "#db3a2b";
+		marketIndexOverlay.style.color = "#db3a2b";
+		archiveMarket("EGM" + marketDirection + (marketChange*100).toFixed(2) + "%", 0);
+   	}
+	marketIndex.innerHTML = marketDirection + (marketChange*100).toFixed(2) + "%";
+	marketIndexOverlay.innerHTML = marketDirection + (marketChange*100).toFixed(2) + "%";
+
 
     chart.data.datasets[0].data[25] = currentEggPrice;
     chart.update();
@@ -854,4 +887,41 @@ function initiateChartZoom() {
 function closeChart() {
 	chartWindow.style.display = "none";
 	chartContainer.appendChild(document.getElementById("eggMarket"));
+}
+
+function openMarketHistory() {
+	marketOverlayWindow.style.display = "block";
+
+	marketOverlayClose.addEventListener("click", function () {
+		marketOverlayWindow.style.display = "none";
+	});
+
+	marketOverlayWindow.addEventListener("click", function() {
+	    marketOverlayWindow.style.display = "none";
+	});
+
+	marketOverlayContent.addEventListener("click", function(e) {
+		e.stopPropagation(); //clicking inside the window does not close it
+	});
+}
+
+function archiveMarket(message, direction) {
+	const date = new Date();
+	const timestamp = "[" + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2) + "]";
+
+	const ts = document.createElement("SPAN");
+	const entry = document.createElement("SPAN");
+	const entryContainer = document.createElement("P");
+
+	if (direction == 1) {entry.style.color = "#599643";}
+	if (direction == 0) {entry.style.color = "#db3a2b";}
+
+	ts.innerHTML = timestamp + ": ";
+	ts.classList.add("timestamp");
+	entry.innerHTML = message;
+	entryContainer.appendChild(ts);
+	entryContainer.appendChild(entry);
+
+	marketHistoryLog.appendChild(document.createElement("HR"));
+	marketHistoryLog.appendChild(entryContainer);
 }
