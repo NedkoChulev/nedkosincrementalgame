@@ -16,7 +16,11 @@ Highlight: EC6F28
     /*line-height: 20px;*/
 }
 
-html, body {
+html {
+  height: 100%;
+}
+
+body {
   height: 100%;
   background: #222;
 }
@@ -675,6 +679,7 @@ button:hover {
 }
 
 .zoomed-chart {
+  background: #aaa;
   grid-column: span 3;
   width: 99%;
   height: auto;
@@ -866,12 +871,12 @@ canvas {
 }
 
 .chart-zoom span p {
+  font-family: arial;
   display: table-cell;
   text-align: center;
   vertical-align: middle;
   font-size: 80px;
   line-height: 100px;
-  padding-top: 30px;
   border: 5px solid;
   border-radius: 20px;
 }

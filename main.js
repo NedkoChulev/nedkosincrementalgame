@@ -31,17 +31,23 @@ var options = [
 	{name: "Number Notations Toggle", HTMLinput: document.getElementById("number-notation-toggle")}
 ];
 
-var leftSkyScraper =		document.getElementById("leftSkyScraper");
-var rightSkyScraper =		document.getElementById("rightSkyScraper");
-var comboSequence =			document.getElementById("comboSequence");
-var comboPointsMessage =	document.getElementById("comboPointsMessage");
-var clicksCountText =		document.getElementById("clicksCount-text");
-var mainButton =			document.getElementById("mainButton");
-var loadingBarLeft =		document.getElementById("loadingBarLeft");
-var loadingBarRight =		document.getElementById("loadingBarRight");
-var alerts =				document.getElementById("alerts");
-var marquee =				document.getElementById("marquee");
-var log =					document.getElementById("log");
+var leftSkyScraper =			document.getElementById("leftSkyScraper");
+var rightSkyScraper =			document.getElementById("rightSkyScraper");
+var comboSequence =				document.getElementById("comboSequence");
+var comboPointsMessage =		document.getElementById("comboPointsMessage");
+var clicksCountText =			document.getElementById("clicksCount-text");
+var eggsCountText =				document.getElementById("eggs-count-text");
+var goldCountText =				document.getElementById("gold-count-text");
+var mainButton =				document.getElementById("mainButton");
+var loadingBarLeft =			document.getElementById("loadingBarLeft");
+var loadingBarRight =			document.getElementById("loadingBarRight");
+var alerts =					document.getElementById("alerts");
+var marquee =					document.getElementById("marquee");
+var log =						document.getElementById("log");
+var sellStockButton =			document.getElementById("sell-stock-button");
+var buyStockButton =			document.getElementById("buy-stock-button");
+var overlaySellStockButton =	document.getElementById("overlay-sell-stock-button");
+var overlayBuyStockButton =		document.getElementById("overlay-buy-stock-button");
 
 var clickPower = 1;
 var critRate = 1;
@@ -57,14 +63,19 @@ var comboIntervalSpeed = 50;
 var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
 var loadingBarWidth = 1;
 
-const marketUpdateTime = 6000; //301000
+const marketUpdateTime = 60000;
 let countdown = marketUpdateTime;
 var marketUpdate = setInterval(updateMarket, marketUpdateTime);
 
 var marketTimerInterval = setInterval(updateMarketTimer, 1000);
 
 var clicks = 0;
+var eggs = 0;
+var gold = 0;
+
+var demand = 1;
 const baseEggPrice = 100;
+const minEggPrice = 20;
 var currentEggPrice = baseEggPrice;
 var marketChange;
 
@@ -72,6 +83,8 @@ var gameSpeed = 1000;
 var gameLoop = setInterval(loop, gameSpeed);
 var date;
 var timestamp;
+var marketDate;
+var marketTimestamp;
 var numbersNotation = true; //True = Scientific; False = Alphabetical
 
 var upgrades = initiateSkyScrapers();
@@ -91,11 +104,19 @@ var chart = new Chart(ctx, {
 
     // The data for our dataset
     data: {
-        labels: ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"],
+        labels: [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
+        		 " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
+        		 " ", " ", " ", " ", " "
+        ],
         datasets: [{
             label: "EGM",
             borderColor: 'rgb(255, 99, 132)',
-            data: [baseEggPrice],
+            data: [baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
+            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
+            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
+            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
+            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice
+            ],
         }]
     },
 
@@ -143,7 +164,7 @@ function buttonClick() {
 // Game's main loop - passively adds clicks from the upgrades
 function loop() {
 	for (var i = upgrades.length - 1; i >= 0; i--) {
-		clicks += upgrades[i].amount * upgrades[i].multiplier;
+		eggs += upgrades[i].amount * upgrades[i].multiplier;
 		drawElements();
 		checkPrices();
 	}
@@ -212,6 +233,16 @@ function checkPrices() {
 		}
 	}
 
+	if (gold < currentEggPrice){buyStockButton.disabled = true;}
+	if (gold < currentEggPrice){overlayBuyStockButton.disabled = true;}
+	if (gold >= currentEggPrice){buyStockButton.disabled = false;}
+	if (gold >= currentEggPrice){overlayBuyStockButton.disabled = false;}
+
+	if (eggs <= 0){sellStockButton.disabled = true;}
+	if (eggs <= 0){overlaySellStockButton.disabled = true;}
+	if (eggs > 0){sellStockButton.disabled = false;}
+	if (eggs > 0){overlaySellStockButton.disabled = false;}
+
 /*	for (var i = skills.length - 1; i >= 0; i--) {
 		if (clicks >= skills[i].cost) {
 			skills[i].HTMLid.classList.remove("disabled");
@@ -228,7 +259,9 @@ function checkPrices() {
 // Updates the upgrades' price texts
 function drawElements() {
 	clicksCountText.innerHTML = numeral(clicks).format('0.00a');//clicks.toExponential(2);//.toLocaleString("en-EN");
-	
+	eggsCountText.innerHTML = numeral(eggs).format('0.00a');
+	goldCountText.innerHTML = numeral(gold).format('0.00a');
+
 	// Loops through all upgrade buttons and updates their CPS value
 	for (var i = upgrades.length - 1; i >= 0; i--) {
 		upgrades[i].HTMLcps.innerHTML = upgrades[i].amount;
@@ -246,7 +279,7 @@ function get10k() {
 	checkPrices();
 }
 function get100k() {
-	clicks += 1000000000000000000;
+	clicks += 100000;
 	drawElements();
 	checkPrices();
 }
@@ -746,19 +779,43 @@ function gridToggle() {
 }
 
 function updateMarket() {
-	chart.data.labels.push("1");
-    chart.data.datasets.forEach((dataset) => {
-    	marketChange = Math.floor(currentEggPrice * ((Math.random() * 99)/100) * (Math.floor(Math.random()*2) == 1 ? 1 : -1));
-    	currentEggPrice = currentEggPrice + marketChange;
-        dataset.data.push(currentEggPrice);
-        console.log(marketChange + "%");
-        console.log(currentEggPrice);
-    });
+	marketDate = new Date();
+	marketTimestamp = ("0" + marketDate.getHours()).slice(-2) + ":" + ("0" + marketDate.getMinutes()).slice(-2);
+   	marketChange = (Math.random() * 49) * (Math.floor(Math.random()*2) == 1 ? 1 : -1)/100;
+   	currentEggPrice = Math.floor((currentEggPrice + currentEggPrice * marketChange) * demand);
+   	if (currentEggPrice < 20) { currentEggPrice = 20;}
+   	if (marketChange > 0) {alertPlayer("EGM &uarr; " + (marketChange*100).toFixed(2) + "%");}
+   	if (marketChange < 0) {alertPlayer("EGM &darr; " + (marketChange*100).toFixed(2) + "%");}
+
+    chart.data.datasets[0].data[25] = currentEggPrice;
     chart.update();
 
+	chart.data.labels.push(marketTimestamp);
     chart.data.labels.shift();
     chart.data.datasets[0].data.shift();
     chart.update();
+}
+
+function buyEggStock(b) {
+	b.startPropagation;
+
+	demand += 0.001;
+	eggs++;
+	gold = gold - currentEggPrice;
+
+	checkPrices();
+	drawElements();
+}
+
+function sellEggStock(b) {
+	b.startPropagation;
+
+	if (demand > 1) {demand -= 0.001;}
+	eggs--;
+	gold = gold + currentEggPrice;
+
+	checkPrices();
+	drawElements();
 }
 
 function updateMarketTimer() {
@@ -767,6 +824,7 @@ function updateMarketTimer() {
 	seconds = Math.floor(countdown / 1000);
 	minutes = Math.floor(seconds / 60);
 	marketTimer.innerHTML = ("0" + minutes).slice(-2) + ":" + ("0" + (seconds % 60)).slice(-2);
+
 	if (countdown <= 0) {
 		countdown = marketUpdateTime;
 	}

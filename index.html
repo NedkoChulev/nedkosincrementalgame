@@ -30,6 +30,8 @@
 		<p>Shop</p>
 		<p>Currencies</p>
 		<p>Combo points</p>
+		<p>Stock Market Events</p>
+		<p>Assets</p>
 	</div>
 
 	<div class="main">
@@ -134,15 +136,19 @@
 <!-- ROW 4 -->
 		<div class="grid-item grid-container-currencies">
 			<div id="clicksCount" class="grid-item">
-					Coins: <span id="clicksCount-text">0</span>
+				Bread: <span id="clicksCount-text">0</span>
 			</div>
-			<div id="eggs" class="grid-item">Eggs: </div>
-			<div id="bread" class="grid-item">Bread: </div>
+			<div id="eggs" class="grid-item">
+				Eggs: <span id="eggs-count-text">0</span>
+			</div>
+			<div id="gold" class="grid-item">
+				Gold: <span id="gold-count-text">0</span>
+			</div>
 		</div>
 
 		<div class="grid-item grid-container-chart">
 			<div class="grid-item">
-				<button id="sell-stock" class="sell-stock">Sell Stock</button>
+				<button id="sell-stock-button" class="sell-stock" onclick="sellEggStock(this)">Sell Stock</button>
 			</div>
 			
 			<div id="chart-container" class="chart grid-item">
@@ -153,7 +159,7 @@
 			</div>
 			
 			<div class="grid-item">
-				<button id="buy-stock" class="buy-stock">Buy Stock</button>
+				<button id="buy-stock-button" class="buy-stock" onclick="buyEggStock(this)">Buy Stock</button>
 			</div>
 
 			<div></div>
@@ -288,8 +294,12 @@
   				<div id="market-timer" class="grid-item market-timer">00:00</div>
 
   				<div class="grid-item"></div>
-  				<div class="grid-item"></div>
-  				<div class="grid-item"></div>
+  				<div class="grid-item">
+  					<button id="overlay-buy-stock-button" onclick="buyEggStock(this)">Buy Stock</button>
+  				</div>
+  				<div class="grid-item">
+  					<button id="overlay-sell-stock-button" onclick="sellEggStock(this)">Sell Stock</button>
+  				</div>
 			</div>
 		</div>	
 	</div>
