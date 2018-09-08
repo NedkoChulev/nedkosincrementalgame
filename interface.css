@@ -191,12 +191,15 @@ button:hover {
 
 .grid-container-overlay {
   display: grid;
+  grid-template-rows: 6% 47% 47%;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 10px;
   justify-content: center;
   justify-items: center;
   align-items: center;
+  height: 95%;
+  width: 96%;
+  margin-left: 2%
 }
 
 .grid-container-chart {
@@ -521,7 +524,6 @@ button:hover {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -530,12 +532,23 @@ button:hover {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+.overlay:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
 .overlay-content {
-    background: #333;
-    margin: auto;
-    border: 5px solid #7681b9;
-    width: 700px;
-    height: 600px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  background: #333;
+  border: 5px solid #7681b9;
+  width: 50%;
+  height: 70%;
+  margin: 0 auto;
+  left: 25%;
 }
 
 /* The Close Button of the overlay window*/
@@ -654,7 +667,7 @@ button:hover {
   grid-column-end: span 3;
   grid-row-end: span 2;
   width: 100%;
-  height: 95%;
+  height: 100%;
   justify-self: start;
   align-self: start;
   overflow-y:auto
@@ -674,6 +687,7 @@ button:hover {
 .chart-overlay-content {
   grid-template-rows: 6% 73% 7% 7%;
   grid-gap: 10px;
+  height: 100%;
 }
 
 .market-timer {
@@ -907,7 +921,9 @@ canvas {
 }
 
 .market-history-overlay-content {
-  grid-template-rows: 6% 47% 47%;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 /* width */

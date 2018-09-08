@@ -606,9 +606,9 @@ function initiateMenuButtons() {
 function initiateCloseAllWindows() {
 	window.addEventListener("keydown", function(e) {
 		if (e.keyCode == 27) {
-			chartWindow.style.display = "none";
+			closeChart();
 			for (var i = menu.length - 1; i >= 0; i--) {
-				closeChart();
+				menu[i].HTMLwindow.style.display = "none";
 			}
 		}
 	});
@@ -885,6 +885,7 @@ function initiateChartZoom() {
 }
 
 function closeChart() {
+	marketOverlayWindow.style.display = "none";
 	chartWindow.style.display = "none";
 	chartContainer.appendChild(document.getElementById("eggMarket"));
 }
