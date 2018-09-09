@@ -9,7 +9,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
 </head>
 <body>
-	<div style="position: absolute; color: white; z-index: -50;">TO-DOs:
+	<div style="position: absolute; color: white; z-index: -50; display: none;">TO-DOs:
+		<button onclick="get1k()">1,000</button>
+		<button onclick="get10k()">10,000</button>
+		<button onclick="get100k()">100,000</button>
 		<p>Formula for prices</p>
 		<p>Formula for CPS</p>
 		<p>Options menu</p>
@@ -38,10 +41,6 @@
 
 	<div class="main">
 		
-		<button onclick="gridToggle()">Grid <span id="gridToggle">OFF</span></button>
-		<button onclick="get1k()">1,000</button>
-		<button onclick="get10k()">10,000</button>
-		<button onclick="get100k()">100,000</button>
 
 	<div class="grid-container">
 
@@ -87,17 +86,6 @@
 			<div class="grid-item" id="mainButton" onclick="buttonClick()"><img id="bread-image" src="https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/bread.png"></div>
 			<div class="grid-item"></div>
 
-			<div class="grid-item"></div>
-			<div class="grid-item"></div>
-			<div class="grid-item"></div>
-		</div>
-
-		<div id="rightSkyScraper" class="grid-item grid-container-upgrades-right"></div>
-
-<!-- ROW 3 -->
-		<div class="grid-item"></div>
-
-		<div class="grid-item">
 			<div class="grid-container-skills" id="skills">
 				<button id="skill0" class="skill grid-item" onclick="doubleSpeed()">
 					<span class="skill-text">
@@ -124,7 +112,35 @@
 						Placeholder
 					</span>
 				</button>
-			</div>			
+			</div>	
+		</div>
+
+		<div id="rightSkyScraper" class="grid-item grid-container-upgrades-right"></div>
+
+<!-- ROW 3 -->
+		<div class="grid-item"></div>
+
+		<div class="grid-item grid-container-chart">
+			<!-- Chart Row 1-->
+			<div class="grid-item market-index">
+				<h2>Index</h2>
+				<p id="market-index">0.00%</p>
+			</div>
+			
+			<div id="chart-container" class="chart grid-item">
+				<canvas id="eggMarket"></canvas>
+				<div class="chart-zoom" id="chart-zoom"><span><p>+</p></span></div>
+			</div>
+
+			<!-- Chart Row 2-->
+			<div class="grid-item">
+				<button id="sell-stock-button" class="sell-stock" onclick="sellEggStock(this)">Sell Stock</button>
+			</div>
+
+			<!-- Chart Row 3-->
+			<div class="grid-item">
+				<button id="buy-stock-button" class="buy-stock" onclick="buyEggStock(this)">Buy Stock</button>
+			</div>
 		</div>
 		
 		<div class="grid-item grid-container-menu">
@@ -148,49 +164,19 @@
 			</div>
 		</div>
 
-		<div class="grid-item grid-container-chart">
-			<!-- Chart Row 1-->
-			<div class="grid-item market-index">
-				<h2>Index</h2>
-				<p id="market-index">0.00%</p>
-			</div>
-			
-			<div id="chart-container" class="chart grid-item">
-				<canvas id="eggMarket"></canvas>
-				<div class="chart-zoom" id="chart-zoom">
-					<span><p>+</p></span>
-				</div>
-			</div>
-
-			<!-- Chart Row 2-->
-			<div class="grid-item">
-				<button id="sell-stock-button" class="sell-stock" onclick="sellEggStock(this)">Sell Stock</button>
-			</div>
-
-			<!-- Chart Row 3-->
-			<div class="grid-item">
-				<button id="buy-stock-button" class="buy-stock" onclick="buyEggStock(this)">Buy Stock</button>
-			</div>
-		</div>
-
-		<div class="grid-item">
+		<div class="grid-item shop-button-container">
 			<button class="shop-button">
 				<span>SHOP</span>
 			</button>
 		</div>
 
 <!-- ROW 5 -->
-		<div class="grid-item"></div>
-
-		<div class="grid-item grid-container-marquee">
-			<div></div>
-			<div class="marquee">
-				<p id="marquee">Welcome!</p>
+			<div class="grid-item grid-container-marquee">
+				<div class="marquee">
+					<p id="marquee">Welcome!</p>
+				</div>
 			</div>
-			<div></div>
-		</div>
 
-		<div class="grid-item"></div>
 		</div>
 
 <!-- Menu Overlays -->
@@ -331,7 +317,7 @@
 			  <div id="market-history-overlay-content" class="market-history-overlay-content grid-container-overlay">
 			  	<div class="overlay-headline grid-item">History<hr class="overlay-headline-hr"></div>
 			  	<div class="grid-item"></div>
-			  	<div class="close-container grid-item"><span id="close-market-history-menu" class="close">Esc x</span></div>
+			  	<div class="close-container grid-item"><span id="close-market-history-menu" class="close">&lt;&lt;Back</span></div>
 			  	
 			  	<div class="market-history-overlay-middle grid-item">
 			  		<div id="market-history" class="market-history"></div>
@@ -340,9 +326,9 @@
 			</div>
 		</div>
 	</div>
+<button onclick="gridToggle()">Grid <span id="gridToggle">OFF</span></button>
 
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script src="https://www.chartjs.org/dist/master/Chart.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>
 	<script type="text/javascript" src="main.js"></script>

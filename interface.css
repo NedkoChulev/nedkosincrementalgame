@@ -21,8 +21,8 @@ html {
 }
 
 body {
-  height: 100%;
-  background: #222;
+  height: 95%;
+  background: black;
 }
 
 body:not(.user-is-tabbing) button:focus, body:not(.user-is-tabbing) input:focus, body:not(.user-is-tabbing) select:focus, body:not(.user-is-tabbing) textarea:focus {
@@ -40,18 +40,22 @@ button:hover {
 
 .main {
   height: 100%;
-  width: 1200px;
-  margin-left: calc(50% - 600px);
-  background: black;
+  width: 100%;
+}
+
+.grid-item {
+  color: #eee;
+  width: 100%;
+  height: 100%;
 }
 
 .grid-container {
   display: grid;
-  /*grid-template-columns: 230px 700px 230px;
-  grid-template-rows: 100px 600px 100px 100px;*/
-  grid-template-columns: 230px 58% 230px;
-  grid-template-rows: 100px 400px 68px 250px 100px;
-  grid-gap: 5px;
+  /*grid-template-columns: 230px 58% 230px;
+  grid-template-rows: 100px 400px 68px auto 100px;*/
+  grid-template-columns: 20% 50% 20%;
+  grid-template-rows: 10% 50% 5% 15% 5%;
+  grid-gap: 2%;
   justify-content: center;
   justify-items: center;
   align-items: center;
@@ -61,7 +65,7 @@ button:hover {
 
 .grid-container-center {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 5fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0px;
   justify-content: center;
@@ -84,8 +88,8 @@ button:hover {
   overflow-y: scroll;
   overflow-x: hidden;
   direction: rtl;
-  font-size: 0px !important;
   line-height: 0px;
+  width: 100%;
 }
 
 .grid-container-upgrades-right {
@@ -93,8 +97,9 @@ button:hover {
   grid-gap: 1px;
   overflow-y: scroll;
   overflow-x: hidden;
-  font-size: 1px !important;
+  direction: ltr;
   line-height: 0px;
+  width: 100%;
 }
 
 .grid-container-upgrades-left::-webkit-scrollbar {
@@ -121,11 +126,10 @@ button:hover {
 
 .grid-container-upgrades-buttons-left {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 30px 30px 30px;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 1px;
   justify-content: center;
-  justify-items: center;
   align-items: center;
   justify-self: end;
   width: 100%;
@@ -134,12 +138,13 @@ button:hover {
 
 .grid-container-upgrades-buttons-right {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 1px;
   justify-content: center;
-  justify-items: center;
   align-items: center;
+  justify-self: end;
+  width: 100%;
 }
 
 .grid-container-skills {
@@ -147,8 +152,8 @@ button:hover {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1px;
   justify-content: center;
-  justify-items: center;
   align-items: center;
+  grid-column-end: span 3;
 }
 
 .grid-container-combo {
@@ -171,13 +176,10 @@ button:hover {
 }
 
 .grid-container-marquee {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 10px;
   justify-content: center;
   justify-items: center;
   align-items: center;
-  grid-column-span: 3;
+  grid-column-end: span 3;
 }
 
 .grid-container-menu {
@@ -206,38 +208,24 @@ button:hover {
   display: grid;
   grid-template-columns: 1fr 7fr;
   grid-template-rows: 1fr 1fr 1fr;
+  grid-row-end: span 2;
+  width: 100%;
   height: 100%;
 }
 
 .grid-container-currencies {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
+  height: auto !important;
 }
 
 .grid-container-zoomed-chart-menu {
   grid-template-rows: 1fr 1fr 1fr;
 }
 
-.grid-item {
-  color: #eee;
-  width: 100%;
-  height: 100%;
-}
-
 #mainButton {
-  /*background: #dddd22;
-  width: 180px;
-  height: 180px;
-  border: 5px solid #aaaa22;
-  border-radius: 100%;
-  box-shadow: 0px 0px 50px rgba(200, 200, 100, 0.5);
-  transition: box-shadow 1s;*/
   width: 100%;
   height: 100%;
-}
-
-#mainButton:hover {
-  /*box-shadow: 0px 0px 100px rgba(200, 200, 100, 1);*/
 }
 
 #bread-image {
@@ -328,7 +316,7 @@ button:hover {
 .skill {
   color: #eee;
   background: #7681b9;
-  width: 100%;
+  width: auto;
   height: 100%;
   font-size: 20px;
   cursor: pointer;
@@ -406,7 +394,6 @@ button:hover {
 }
 
 .upgrade {
-  width: 180px;
   height: 100%;
   grid-row-end: span 3;
 }
@@ -414,16 +401,11 @@ button:hover {
 .upgrade button {
   width: 100%;
   height: 100%;
-  display: table;
+  text-align: center;
 }
 
 .upgrade-text {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
   direction: ltr;
-  width: 180px;
-  height: 90px;
   line-height: 20px;
 }
 
@@ -459,14 +441,15 @@ button:hover {
 }
 
 .buy-multiple {
+  height: 100%;
   justify-self: stretch;
-  height: 30px;
-  /*align-self: stretch;*/
+  align-self: stretch;
 }
 
 .buy-multiple button {
+  display: table;
   width: 100%;
-  height: 30px;
+  height: 100%;
   font-size: 14px;
   padding: 0;
 }
@@ -497,8 +480,8 @@ button:hover {
   border: 2px solid rgba(118,129,185, 0.5);
   border-left: none;
   border-right: none;
-  width: 1200px;
-  height: 30px;
+  width: 100%;
+  height: 50%;
   line-height: 30px;
   white-space: nowrap;
   overflow: hidden;
@@ -507,17 +490,17 @@ button:hover {
 
 .marquee p {
   font-size: 25px;
-  width: 700px;
-  height: 30px;
+  width: 100%;
+  height: auto;
   display: inline-block;
   margin-top: 12px;
-  margin-left: -200%;
-  animation: marquee 50s linear infinite;
+  margin-left: -50%;
+  animation: marquee 40s linear infinite;
 }
 
 @keyframes marquee {
   0%   { transform: translate(0, 0); }
-  100% { transform: translate(500%, 0); }
+  100% { transform: translate(200%, 0); }
 }
 
 .overlay {
@@ -685,7 +668,7 @@ button:hover {
 }
 
 .chart-overlay-content {
-  grid-template-rows: 6% 73% 7% 7%;
+  grid-template-rows: 1fr 5fr 1fr 1fr;
   grid-gap: 10px;
   height: 100%;
 }
@@ -697,8 +680,8 @@ button:hover {
 .zoomed-chart {
   background: #aaa;
   grid-column: span 3;
-  width: 99%;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 
 .button-feature0 {
@@ -780,6 +763,10 @@ button:hover {
   transform: scale(0.9, 0.9);
 }
 
+.shop-button-container {
+  height: auto !important;
+}
+
 .shop-button {
   width: 80%;
   height: 30%;
@@ -858,8 +845,9 @@ canvas {
 .chart {
   position: relative;
   grid-row-end: span 3;
-  width: 100%;
+  margin: auto;
   height: 100%;
+  width: 100%;
 }
 
 

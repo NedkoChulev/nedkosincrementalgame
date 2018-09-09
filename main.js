@@ -72,7 +72,7 @@ var comboIntervalSpeed = 50;
 var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
 var loadingBarWidth = 1;
 
-const marketUpdateTime = 60000;
+const marketUpdateTime = 1000;
 let countdown = marketUpdateTime;
 var marketUpdate = setInterval(updateMarket, marketUpdateTime);
 
@@ -101,8 +101,8 @@ var chartWindow = document.getElementById("chart-overlay");
 var zoomedChart = document.getElementById("zoomed-chart");
 var zoomedChartMenu = document.getElementById("zoomed-chart-menu");
 var chartContainer = document.getElementById("chart-container");
-var ctx = document.getElementById("eggMarket").getContext('2d');
-var chart = new Chart(ctx, {
+var eggMarketChart = document.getElementById("eggMarket").getContext('2d');
+var chart = new Chart(eggMarketChart, {
     // The type of chart we want to create
     type: 'line',
 
@@ -126,11 +126,13 @@ var chart = new Chart(ctx, {
 
     // Configuration options go here
     options: {
+    	maintainAspectRatio: false,
+    	responsive: true,
     	legend: {
     		display: false
     	},
-    configuration: {
-    		responsive: true,
+    	
+    	configuration: {
     		responsiveAnimationDuration: true
     	}
     }
@@ -801,9 +803,12 @@ function updateMarket() {
 	let marketDirection;
 	const marketDate = new Date();
 	const marketTimestamp = ("0" + marketDate.getHours()).slice(-2) + ":" + ("0" + marketDate.getMinutes()).slice(-2);
-   	const marketChange = (Math.random() * 49) * (Math.floor(Math.random()*2) == 1 ? 1 : -1)/100;
+   	let marketChange = (Math.random() * 49) * (Math.floor(Math.random()*2) == 1 ? 1 : -1)/100;
    	currentEggPrice = Math.floor((currentEggPrice + currentEggPrice * marketChange) * demand);
-   	if (currentEggPrice < 20) { currentEggPrice = 20;}
+   	if (currentEggPrice < 20) {
+   		currentEggPrice = 20;
+   		marketChange = 0;
+   	}
    	if (marketChange > 0) {
    		marketDirection = " &uarr; ";
 		marketIndex.style.color = "#599643";
@@ -816,16 +821,20 @@ function updateMarket() {
 		marketIndexOverlay.style.color = "#db3a2b";
 		archiveMarket("EGM" + marketDirection + (marketChange*100).toFixed(2) + "%", 0);
    	}
+   	if (marketChange == 0) {
+   		marketDirection = " &rarr; ";
+   		marketIndex.style.color = "#aaa";
+		marketIndexOverlay.style.color = "#aaa";
+		archiveMarket("EGM" + marketDirection + (marketChange*100).toFixed(2) + "%", 0);	
+   	}
 	marketIndex.innerHTML = marketDirection + (marketChange*100).toFixed(2) + "%";
 	marketIndexOverlay.innerHTML = marketDirection + (marketChange*100).toFixed(2) + "%";
 
 
     chart.data.datasets[0].data[25] = currentEggPrice;
-    chart.update();
-
+    chart.data.datasets[0].data.shift();
 	chart.data.labels.push(marketTimestamp);
     chart.data.labels.shift();
-    chart.data.datasets[0].data.shift();
     chart.update();
 }
 
