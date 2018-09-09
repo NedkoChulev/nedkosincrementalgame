@@ -65,7 +65,7 @@ button:hover {
 
 .grid-container-center {
   display: grid;
-  grid-template-rows: 1fr 5fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0px;
   justify-content: center;
@@ -150,10 +150,13 @@ button:hover {
 .grid-container-skills {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   grid-gap: 1px;
   justify-content: center;
   align-items: center;
   grid-column-end: span 3;
+  height: auto;
+  align-self: end;
 }
 
 .grid-container-combo {
@@ -224,14 +227,14 @@ button:hover {
 }
 
 #mainButton {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
 }
 
 #bread-image {
   width: 50%;
+  height: auto;
   margin-left: 25%;
-  margin-top: 7%;
 }
 
 .comboSequence {
@@ -308,16 +311,11 @@ button:hover {
     transition: visibility 0s 500ms, opacity 500ms linear;
   }
 
-#skills {
-  height: 100%;
-  align-self: end;
-}
-
 .skill {
   color: #eee;
   background: #7681b9;
   width: auto;
-  height: 100%;
+  height: auto;
   font-size: 20px;
   cursor: pointer;
   position: relative;
