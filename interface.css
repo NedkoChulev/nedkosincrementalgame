@@ -1,10 +1,3 @@
-/*
-Background: 222
-Text Color: eee
-Button Color: 7681b9
-Highlight: EC6F28
-*/
-
 * {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -15,6 +8,13 @@ Highlight: EC6F28
     font-family: 'Baloo Tammudu', cursive;
     /*line-height: 20px;*/
 }
+/*
+Background: 222
+Text Color: eee
+Button Color: 7681b9
+Highlight: EC6F28
+*/
+
 
 html {
   height: 100%;
