@@ -225,7 +225,7 @@ button:hover {
   grid-template-rows: 1fr 1fr 1fr;
 }
 
-#mainButton {
+#main-button {
   width: auto;
   height: auto;
 }
@@ -506,7 +506,7 @@ button:hover {
   width: 100%;
   height: auto;
   display: inline-block;
-  margin: 0.5% 0% 0.5% -50%;
+  margin: 1% 0% 0.5% -50%;
   padding-top: 0;
   animation: marquee 40s linear infinite;
 }

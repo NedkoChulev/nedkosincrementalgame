@@ -1,109 +1,117 @@
 var storage = window.localStorage;
 
 var skills = [
-	{name: "2x Passive", HTMLid: document.getElementById("skill0"), duration: 0, coolDown: 3000},
-	{name: "2x Crit DMG", HTMLid: document.getElementById("skill1"), duration: 0, coolDown: 5000},
-	{name: "Skill 3", HTMLid: document.getElementById("skill2"), duration: 0, coolDown: 10000},
-	{name: "Skill 4", HTMLid: document.getElementById("skill3"), duration: 0, coolDown: 50000},
-	{name: "Skill 5", HTMLid: document.getElementById("skill4"), duration: 0, coolDown: 60000}
+	{name: "2x Passive",	HTMLid: $("#skill0")[0], duration: 0, coolDown: 3000},
+	{name: "2x Crit DMG",	HTMLid: $("#skill1")[0], duration: 0, coolDown: 5000},
+	{name: "Skill 3",		HTMLid: $("#skill2")[0], duration: 0, coolDown: 10000},
+	{name: "Skill 4",		HTMLid: $("#skill3")[0], duration: 0, coolDown: 50000},
+	{name: "Skill 5",		HTMLid: $("#skill4")[0], duration: 0, coolDown: 60000}
 ];
 
 var features = [
-	{name: "Inventory", 	HTMLbutton: document.getElementById("button-feature0"), HTMLid: document.getElementById("feature0")},
-	{name: "Crafting", 		HTMLbutton: document.getElementById("button-feature1"), HTMLid: document.getElementById("feature1")},
-	{name: "Achievements",	HTMLbutton: document.getElementById("button-feature2"), HTMLid: document.getElementById("feature2")},
-	{name: "Pets", 			HTMLbutton: document.getElementById("button-feature3"), HTMLid: document.getElementById("feature3")},
-	{name: "Quests",		HTMLbutton: document.getElementById("button-feature4"), HTMLid: document.getElementById("feature4")},
-	{name: "Roulette",		HTMLbutton: document.getElementById("button-feature5"), HTMLid: document.getElementById("feature5")},
-	{name: "Events",		HTMLbutton: document.getElementById("button-feature6"), HTMLid: document.getElementById("feature6")},
-	{name: "Skill-Tree",	HTMLbutton: document.getElementById("button-feature7"), HTMLid: document.getElementById("feature7")}
+	{name: "Inventory", 	HTMLbutton: $("#button-feature0")[0], HTMLid: $("#feature0")[0]},
+	{name: "Crafting", 		HTMLbutton: $("#button-feature1")[0], HTMLid: $("#feature1")[0]},
+	{name: "Achievements",	HTMLbutton: $("#button-feature2")[0], HTMLid: $("#feature2")[0]},
+	{name: "Pets", 			HTMLbutton: $("#button-feature3")[0], HTMLid: $("#feature3")[0]},
+	{name: "Quests",		HTMLbutton: $("#button-feature4")[0], HTMLid: $("#feature4")[0]},
+	{name: "Roulette",		HTMLbutton: $("#button-feature5")[0], HTMLid: $("#feature5")[0]},
+	{name: "Events",		HTMLbutton: $("#button-feature6")[0], HTMLid: $("#feature6")[0]},
+	{name: "Skill-Tree",	HTMLbutton: $("#button-feature7")[0], HTMLid: $("#feature7")[0]}
 ];
 
 var menu = [
-	{name: "Profile",	HTMLbutton: document.getElementById("button-menu0"), HTMLid: document.getElementById("menu0"), HTMLclose: document.getElementById("close-profile-menu"), HTMLwindow: document.getElementById("profile-overlay"), HTMLcontent: document.getElementById("profile-overlay-content")},
-	{name: "Log",		HTMLbutton: document.getElementById("button-menu1"), HTMLid: document.getElementById("menu1"), HTMLclose: document.getElementById("close-log-menu"), HTMLwindow: document.getElementById("log-overlay"), HTMLcontent: document.getElementById("log-overlay-content")},
-	{name: "Options",	HTMLbutton: document.getElementById("button-menu2"), HTMLid: document.getElementById("menu2"), HTMLclose: document.getElementById("close-options-menu"), HTMLwindow: document.getElementById("options-overlay"), HTMLcontent: document.getElementById("options-overlay-content")},
-	{name: "Save",		HTMLbutton: document.getElementById("button-menu3"), HTMLid: document.getElementById("menu3"), HTMLclose: document.getElementById("close-save-menu"), HTMLwindow: document.getElementById("save-overlay"), HTMLcontent: document.getElementById("save-overlay-content")},
-	{name: "Load",		HTMLbutton: document.getElementById("button-menu4"), HTMLid: document.getElementById("menu4"), HTMLclose: document.getElementById("close-load-menu"), HTMLwindow: document.getElementById("load-overlay"), HTMLcontent: document.getElementById("load-overlay-content")}
+	{name: "Profile",	HTMLbutton: $("#button-menu0")[0], HTMLid: $("#menu0")[0], HTMLclose: $("#close-profile-menu")[0], HTMLwindow: $("#profile-overlay")[0], HTMLcontent: $("#profile-overlay-content")[0]},
+	{name: "Log",		HTMLbutton: $("#button-menu1")[0], HTMLid: $("#menu1")[0], HTMLclose: $("#close-log-menu")[0], HTMLwindow: $("#log-overlay")[0], HTMLcontent: $("#log-overlay-content")[0]},
+	{name: "Options",	HTMLbutton: $("#button-menu2")[0], HTMLid: $("#menu2")[0], HTMLclose: $("#close-options-menu")[0], HTMLwindow: $("#options-overlay")[0], HTMLcontent: $("#options-overlay-content")[0]},
+	{name: "Save",		HTMLbutton: $("#button-menu3")[0], HTMLid: $("#menu3")[0], HTMLclose: $("#close-save-menu")[0], HTMLwindow: $("#save-overlay")[0], HTMLcontent: $("#save-overlay-content")[0]},
+	{name: "Load",		HTMLbutton: $("#button-menu4")[0], HTMLid: $("#menu4")[0], HTMLclose: $("#close-load-menu")[0], HTMLwindow: $("#load-overlay")[0], HTMLcontent: $("#load-overlay-content")[0]}
 ];
 
 var options = [
-	{name: "Number Notations Toggle", HTMLinput: document.getElementById("number-notation-toggle")}
+	{name: "Number Notations Toggle", HTMLinput: $("#number-notation-toggle")}
 ];
 
-var leftSkyScraper =			document.getElementById("leftSkyScraper");
-var rightSkyScraper =			document.getElementById("rightSkyScraper");
-var comboSequence =				document.getElementById("comboSequence");
-var comboPointsMessage =		document.getElementById("comboPointsMessage");
-var breadCountText =			document.getElementById("bread-count-text");
-var eggsCountText =				document.getElementById("eggs-count-text");
-var goldCountText =				document.getElementById("gold-count-text");
-var mainButton =				document.getElementById("mainButton");
-var loadingBarLeft =			document.getElementById("loadingBarLeft");
-var loadingBarRight =			document.getElementById("loadingBarRight");
-var alerts =					document.getElementById("alerts");
-var marquee =					document.getElementById("marquee");
-var log =						document.getElementById("log");
-var sellStockButton =			document.getElementById("sell-stock-button");
-var buyStockButton =			document.getElementById("buy-stock-button");
-var overlaySellStockButton =	document.getElementById("overlay-sell-stock-button");
-var overlayBuyStockButton =		document.getElementById("overlay-buy-stock-button");
-var marketHistoryLog =			document.getElementById("market-history");
-var marketIndex =				document.getElementById("market-index");
-var marketIndexOverlay =		document.getElementById("market-index-overlay");
-var marketOverlayWindow = 		document.getElementById("market-history-overlay");
-var marketOverlayContent = 		document.getElementById("market-history-overlay-content");
-var marketOverlayClose =		document.getElementById("close-market-history-menu");
-
-var clickPower = 1;
-var critRate = 1;
-var critDmgMultiplier = 2;
-
-var combo;
-var baseComboReward = 100;
-var combinedComboReward = 0;
-var comboCounter = 0;
-var comboLength = 0;
-var multipleCombos = 0;
-var comboActiveColor = "#EC6F28";
-var comboInactiveColor = "#eee";
-
-var comboIntervalSpeed = 50;
-var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
-var loadingBarWidth = 1;
+const leftSkyScraper =			$("#leftSkyScraper")[0];
+const rightSkyScraper =			$("#rightSkyScraper")[0];
+const comboSequence =			$("#comboSequence")[0];
+const comboPointsMessage =		$("#comboPointsMessage")[0];
+const breadCountText =			$("#bread-count-text")[0];
+const eggsCountText =			$("#eggs-count-text")[0];
+const goldCountText =			$("#gold-count-text")[0];
+const mainButton =				$("#main-button")[0];
+const loadingBarLeft =			$("#loadingBarLeft")[0];
+const loadingBarRight =			$("#loadingBarRight")[0];
+const alerts =					$("#alerts")[0];
+const marquee =					$("#marquee")[0];
+const log =						$("#log")[0];
+const sellStockButton =			$("#sell-stock-button")[0];
+const buyStockButton =			$("#buy-stock-button")[0];
+const overlaySellStockButton =	$("#overlay-sell-stock-button")[0];
+const overlayBuyStockButton =	$("#overlay-buy-stock-button")[0];
+const marketHistoryLog =		$("#market-history")[0];
+const marketIndex =				$("#market-index")[0];
+const marketIndexOverlay =		$("#market-index-overlay")[0];
+const marketOverlayWindow = 	$("#market-history-overlay")[0];
+const marketOverlayContent = 	$("#market-history-overlay-content")[0];
+const marketOverlayClose =		$("#close-market-history-menu")[0];
+const marketTimer =				$("#market-timer")[0];
+const chartOverlayContent =		$("#chart-overlay-content")[0];
+const chartClose =				$("#close-chart-menu")[0];
+const chartZoom =				$("#chart-zoom")[0];
+const chartWindow =				$("#chart-overlay")[0];
+const zoomedChart =				$("#zoomed-chart")[0];
+const zoomedChartMenu =			$("#zoomed-chart-menu")[0];
+const chartContainer =			$("#chart-container")[0];
+const eggMarketChart =			document.getElementById("eggMarket").getContext('2d');
 
 const marketUpdateTime = 1000;
-let countdown = marketUpdateTime;
-var marketUpdate = setInterval(updateMarket, marketUpdateTime);
-
-var marketTimerInterval = setInterval(updateMarketTimer, 1000);
-
-var bread = 0;
-var eggs = 0;
-var gold = 0;
-
-var demand = 1;
 const baseEggPrice = 100;
 const minEggPrice = 20;
-var currentEggPrice = baseEggPrice;
 
-var gameSpeed = 1000;
-var gameLoop = setInterval(loop, gameSpeed);
-var numbersNotation = true; //True = Scientific; False = Alphabetical
+//Damage Stats
+let critRate = 1;
+let critDmgMultiplier = 2;
+let clickPower = 1;
 
-var birds = initiateSkyscraper("bird", leftSkyScraper);
-var machines = initiateSkyscraper("machine", rightSkyScraper);
+//Stats that change throughout the game
+let clicks = 0;
+let crits = 0;
+let bread = 0;
+let eggs = 0;
+let gold = 0;
+let demand = 1;
+let multipleCombos = 0;
 
-var marketTimer = document.getElementById("market-timer")
-var chartOverlayContent = document.getElementById("chart-overlay-content");
-var chartClose = document.getElementById("close-chart-menu");
-var chartZoom = document.getElementById("chart-zoom");
-var chartWindow = document.getElementById("chart-overlay");
-var zoomedChart = document.getElementById("zoomed-chart");
-var zoomedChartMenu = document.getElementById("zoomed-chart-menu");
-var chartContainer = document.getElementById("chart-container");
-var eggMarketChart = document.getElementById("eggMarket").getContext('2d');
-var chart = new Chart(eggMarketChart, {
+//Arrow Combo
+let combo;
+let baseComboReward = 100;
+let combinedComboReward = 0;
+let comboCounter = 0;
+let comboLength = 0;
+let comboActiveColor = "#EC6F28";
+let comboInactiveColor = "#eee";
+let loadingBarWidth = 1;
+
+let comboIntervalSpeed = 50;
+let comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
+
+let countdown = marketUpdateTime;
+let marketUpdate = setInterval(updateMarket, marketUpdateTime);
+let marketTimerInterval = setInterval(updateMarketTimer, 1000);
+
+
+
+let currentEggPrice = baseEggPrice;
+
+let gameSpeed = 1000;
+let gameLoop = setInterval(loop, gameSpeed);
+let numbersNotation = true; //True = Scientific; False = Alphabetical
+
+let birds = initiateSkyscraper("bird", leftSkyScraper);
+let machines = initiateSkyscraper("machine", rightSkyScraper);
+
+
+let chart = new Chart(eggMarketChart, {
     // The type of chart we want to create
     type: 'line',
 
@@ -141,15 +149,14 @@ var chart = new Chart(eggMarketChart, {
 
 //Basically the main method that starts the game
 window.onload = function(){
-	window.addEventListener('keydown', handleFirstTab);
+	var a = ["a", "b", "c"];
+	a.forEach(entry => console.log(entry));
+
+	initiateEventListeners(); //Keyboard and mouse
 	
 	//System initiation
-	initiateCloseAllWindows();
-	initiateMenuButtons();
 	initiateSkyscraperButtons(birds, bread);
 	initiateSkyscraperButtons(machines, gold);
-	initiateRightClick();
-	initiateCombo();
 	skillsCooldown();
 	initiateChartZoom();
 
@@ -162,23 +169,113 @@ window.onload = function(){
 	alertPlayer("Welcome!");
 };
 
-// What happens when you click the Click button
-function buttonClick() {
-	animateButton();
-	hit();
-	drawElements();
-	checkPrices(birds, bread);
-	checkPrices(machines, gold);
+function initiateEventListeners() {
+	//Keyboard listeners
+	// 9(Tab)
+	// 27(Esc)
+	// 32(Spacebar)
+	// 37(Left)
+	// 38(Up)
+	// 39(Right)
+	// 40(Down)
+	window.addEventListener('keydown', e => {
+		if (e.keyCode === 9) {
+			document.body.classList.add('user-is-tabbing');
+			window.removeEventListener('keydown', handleFirstTab);
+    	}
+		
+		if (comboSequence.firstChild) {
+			switch(e.key){
+				case 37:
+					if (combo[comboCounter] === 1) {
+		      			$("#combo" + i).css({color: comboActiveColor});
+			      		comboCounter++;
+			      	} else {
+			      		for (let i = 0; i <= combo.length - 1; i++) {
+			      			$("#combo" + i).css({color: comboInactiveColor});
+			      		}
+				      	comboCounter = 0;
+			      	}
+					checkComboCounter();
+					e.preventDefault();
+					break;
+				case 39:
+					if (combo[comboCounter] === 2) {
+		      			$("#combo" + i).css({color: comboActiveColor});
+			      		comboCounter++;
+			      	} else {
+			      		for (let i = 0; i <= combo.length - 1; i++) {
+			      			$("#combo" + i).css({color: comboInactiveColor});
+			      		}
+				      	comboCounter = 0;
+			      	}
+			   		checkComboCounter();
+			   		e.preventDefault();
+					break;
+				case 38:
+					if (combo[comboCounter] === 3) {
+		      			$("#combo" + i).css({color: comboActiveColor});
+			      		comboCounter++;
+			      	} else {
+			      		for (let i = 0; i <= combo.length - 1; i++) {
+		      				$("#combo" + i).css({color: comboInactiveColor});
+			      		}
+				      	comboCounter = 0;
+			      	}
+			      	checkComboCounter();
+			      	e.preventDefault();
+					break;
+				case 40:
+					if (combo[comboCounter] === 4) {
+		      			$("#combo" + i).css({color: comboActiveColor});
+			      		comboCounter++;
+			      	} else {
+			      		for (let i = 0; i <= combo.length - 1; i++) {
+		      				$("#combo" + i).css({color: comboInactiveColor});
+			      		}
+				    	comboCounter = 0;
+			      	}
+			      	checkComboCounter();
+			      	e.preventDefault();
+					break;
+			}
+		}
+
+		if (e.keyCode === 27) {
+			menu.forEach( menuItem => menuItem.HTMLwindow.style.display = "none");
+			closeChart();
+		}
+	}, false);
+
+	mainButton.addEventListener("contextmenu", e => {
+		e.preventDefault();
+		click();
+		animateButton();
+		drawElements();
+		checkPrices(birds, bread);
+		return false;
+	}, false);
+
+	mainButton.addEventListener("click", e => {
+		click();
+		animateButton();
+		drawElements();
+		checkPrices(birds, bread);
+	});
+
+	menu.forEach(menuItem => {
+		menuItem.HTMLbutton.addEventListener("click", e => menuItem.HTMLwindow.style.display = "block");
+		menuItem.HTMLclose.addEventListener("click", e => menuItem.HTMLwindow.style.display = "none");
+		menuItem.HTMLwindow.addEventListener("click", e => menuItem.HTMLwindow.style.display = "none");
+		menuItem.HTMLcontent.addEventListener("click", e => e.stopPropagation()); //clicking inside the window does not close it
+	});
 }
 
 // Game's main loop - passively adds bread from the upgrades
 function loop() {
-	for (var i = birds.length - 1; i >= 0; i--) {
-		eggs += birds[i].level * birds[i].multiplier;
-		drawElements();
-		checkPrices(birds, bread);
-		checkPrices(machines, gold);
-	}
+	checkPrices(birds, bread);
+	checkPrices(machines, gold);
+	drawElements();
 }
 
 // Subtracts listed price from click count
@@ -198,50 +295,50 @@ function buyUpgrade(array, currency, index) {
 }
 
 // Checks if any of the upgrades and skills are available for purchase
-function checkPrices(array, currency) {
-	for (let i = array.length - 1; i >= 0; i--) {
+function checkPrices(upgrade, currency) {
+	for (let i = upgrade.length - 1; i >= 0; i--) {
 		//Check prices for x1
-		if (currency >= array[i].cost && currency >= array[i].baseCost) {
-			array[i].HTMLid.classList.remove("disabled");
-			array[i].HTMLid.classList.add("enabled");
-			array[i].HTMLid.disabled = false;
+		if (currency >= upgrade[i].cost && currency >= upgrade[i].baseCost) {
+			upgrade[i].HTMLid.classList.remove("disabled");
+			upgrade[i].HTMLid.classList.add("enabled");
+			upgrade[i].HTMLid.disabled = false;
 		} else {
-			array[i].HTMLid.classList.remove("enabled");
-			array[i].HTMLid.classList.add("disabled");
-			array[i].HTMLid.disabled = true;
+			upgrade[i].HTMLid.classList.remove("enabled");
+			upgrade[i].HTMLid.classList.add("disabled");
+			upgrade[i].HTMLid.disabled = true;
 		}
 
 		//Check prices for x10
-		if (currency >= array[i].cost && currency >= array[i].baseCost) {
-			array[i].buttonx10.classList.remove("disabled");
-			array[i].buttonx10.classList.add("enabled");
-			array[i].buttonx10.disabled = false;
+		if (currency >= upgrade[i].cost && currency >= upgrade[i].baseCost) {
+			upgrade[i].buttonx10.classList.remove("disabled");
+			upgrade[i].buttonx10.classList.add("enabled");
+			upgrade[i].buttonx10.disabled = false;
 		} else {
-			array[i].buttonx10.classList.remove("enabled");
-			array[i].buttonx10.classList.add("disabled");
-			array[i].buttonx10.disabled = true;
+			upgrade[i].buttonx10.classList.remove("enabled");
+			upgrade[i].buttonx10.classList.add("disabled");
+			upgrade[i].buttonx10.disabled = true;
 		}
 
 		//Check prices for x100
-		if (currency >= array[i].cost && currency >= array[i].baseCost) {
-			array[i].buttonx100.classList.remove("disabled");
-			array[i].buttonx100.classList.add("enabled");
-			array[i].buttonx100.disabled = false;
+		if (currency >= upgrade[i].cost && currency >= upgrade[i].baseCost) {
+			upgrade[i].buttonx100.classList.remove("disabled");
+			upgrade[i].buttonx100.classList.add("enabled");
+			upgrade[i].buttonx100.disabled = false;
 		} else {
-			array[i].buttonx100.classList.remove("enabled");
-			array[i].buttonx100.classList.add("disabled");
-			array[i].buttonx100.disabled = true;
+			upgrade[i].buttonx100.classList.remove("enabled");
+			upgrade[i].buttonx100.classList.add("disabled");
+			upgrade[i].buttonx100.disabled = true;
 		}
 
 		//Check prices for xMAX
-		if (currency >= array[i].cost && currency >= array[i].baseCost) {
-			array[i].buttonxMAX.classList.remove("disabled");
-			array[i].buttonxMAX.classList.add("enabled");
-			array[i].buttonxMAX.disabled = false;
+		if (currency >= upgrade[i].cost && currency >= upgrade[i].baseCost) {
+			upgrade[i].buttonxMAX.classList.remove("disabled");
+			upgrade[i].buttonxMAX.classList.add("enabled");
+			upgrade[i].buttonxMAX.disabled = false;
 		} else {
-			array[i].buttonxMAX.classList.remove("enabled");
-			array[i].buttonxMAX.classList.add("disabled");
-			array[i].buttonxMAX.disabled = true;
+			upgrade[i].buttonxMAX.classList.remove("enabled");
+			upgrade[i].buttonxMAX.classList.add("disabled");
+			upgrade[i].buttonxMAX.disabled = true;
 		}
 	}
 
@@ -254,18 +351,6 @@ function checkPrices(array, currency) {
 	if (eggs <= 0){overlaySellStockButton.disabled = true;}
 	if (eggs > 0){sellStockButton.disabled = false;}
 	if (eggs > 0){overlaySellStockButton.disabled = false;}
-
-/*	for (var i = skills.length - 1; i >= 0; i--) {
-		if (bread >= skills[i].cost) {
-			skills[i].HTMLid.classList.remove("disabled");
-			skills[i].HTMLid.classList.add("enabled");
-			skills[i].HTMLid.disabled = false;
-		} else {
-			skills[i].HTMLid.classList.remove("enabled");
-			skills[i].HTMLid.classList.add("disabled");
-			skills[i].HTMLid.disabled = true;
-		}
-	}*/
 }
 
 // Updates the upgrades' price texts
@@ -284,22 +369,6 @@ function drawElements() {
 		document.getElementById(machines[i].HTMLcurrency.id).innerHTML = machines[i].bread * machines[i].level;
 		document.getElementById(machines[i].HTMLlevel.id).innerHTML = machines[i].level;
 	}
-}
-
-function get1k() {
-	bread += 1000;
-	drawElements();
-	checkPrices();
-}
-function get10k() {
-	bread += 10000;
-	drawElements();
-	checkPrices();
-}
-function get100k() {
-	bread += 100000;
-	drawElements();
-	checkPrices();
 }
 
 function doubleSpeed() {
@@ -322,100 +391,33 @@ function doubleCritDmg() {
 
 
 function saveGame() {
-	localStorage.setItem('Bread', bread);
+	localStorage.setItem("Bread", bread);
+	localStorage.setItem("Eggs", eggs);
+	localStorage.setItem("Gold", gold);
+	localStorage.setItem("Demand", demand);
+	localStorage.setItem("Clicks");
 	localStorage.setItem('CritRate', critRate);
+	localStorage.setItem('Multiple_Combos', multipleCombos);
+	localStorage.setItem("Birds", birds);
+	localStorage.setItem("Machines", machines);
 }
 
 function loadGame() {
 	bread = parseInt(localStorage.getItem('Bread'));
 	critRate = parseInt(localStorage.getItem('CritRate'));
 	drawElements();
-	checkPrices();
+	checkPrices(birds, bread);
+	checkPrices(machines, gold);
 }
 
-//If you click with the right mouse key
-function initiateRightClick() {
-	mainButton.addEventListener("contextmenu", function(event) {
-		event.preventDefault();
-		animateButton();
-		hit();
-		drawElements();
-		checkPrices();
-		return false;
-	}, false);
-}
-
-function hit() {
+function click() {
+	clicks++;
 	alertPlayer("click");
 	if (Math.random()*100 <= critRate) {
 		bread = bread + clickPower * critDmgMultiplier;
 	} else {
 		bread = bread + clickPower;
 	}
-}
-
-//Sets the function of the arrow keys
-function initiateCombo() {
-	document.addEventListener('keydown', (event) => {
-	switch(event.key){
-		case "ArrowLeft":
-			if (comboSequence.firstChild) {
-				if (combo[comboCounter] == 1) {
-		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-		      	comboCounter++;
-		      	} else {
-		      		for (var i = 0; i <= combo.length - 1; i++) {
-		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-		      		}
-			      	comboCounter = 0;
-		      	}
-		      	checkComboCounter();
-		      }
-			break;
-		case "ArrowRight":
-			if (comboSequence.firstChild) {
-				if (combo[comboCounter] == 2) {
-		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-		      	comboCounter++;
-		      	} else {
-		      		for (var i = 0; i <= combo.length - 1; i++) {
-		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-		      		}
-			      	comboCounter = 0;
-		      	}
-		      	checkComboCounter();
-		      }
-			break;
-		case "ArrowUp":
-			if (comboSequence.firstChild) {
-				if (combo[comboCounter] == 3) {
-		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-		      	comboCounter++;
-		      	} else {
-		      		for (var i = 0; i <= combo.length - 1; i++) {
-		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-		      		}
-			      	comboCounter = 0;
-		      	}
-		      	checkComboCounter();
-		      }
-			break;
-		case "ArrowDown":
-			if (comboSequence.firstChild) {
-				if (combo[comboCounter] == 4) {
-		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-		      	comboCounter++;
-		      	} else {
-		      		for (var i = 0; i <= combo.length - 1; i++) {
-		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-		      		}
-			      	comboCounter = 0;
-		      	}
-		      	checkComboCounter();
-		      }
-			break;
-		}
-	});
 }
 
 function initiateSkyscraperButtons(array, currency) {
@@ -468,13 +470,14 @@ function comboSpawner() {
 	if (comboSequence.firstChild) {
 		multipleCombos = 0;
 	}
+
 	while (comboSequence.firstChild) {
     	comboSequence.removeChild(comboSequence.firstChild);
 	}
 
 	combo = new Array(Math.floor(Math.random() * 10) + 5);
 	comboLength = combo.length;
-	for (var i = 0; i <= combo.length - 1; i++) {
+	for (let i = 0; i <= combo.length - 1; i++) {
 		combo[i] = Math.floor(Math.random() * 4) + 1;
 
 		switch(combo[i]){
@@ -521,17 +524,17 @@ function drawComboCooldown() {
 
 //Makes the main button wobble
 function animateButton() {
-	var duration = 0.3,
-	delay = 0.08;
+	let duration = 0.3;
+	let delay = 0.08;
 	TweenMax.to(mainButton, duration, {scaleY: 1.6, ease: Expo.easeOut});
 	TweenMax.to(mainButton, duration, {scaleX: 1.2, scaleY: 1, ease: Back.easeOut, easeParams: [3], delay: delay});
 	TweenMax.to(mainButton, duration * 1.25, {scaleX: 1, scaleY: 1, ease: Back.easeOut, easeParams: [6], delay: delay * 3 });
 
-	mainButton.addEventListener("mouseover", function() {
+	mainButton.addEventListener("mouseover", e => {
 		TweenMax.to(mainButton, 0.1, {scaleY: 1.1, ease: Expo.easeOut});
 		TweenMax.to(mainButton, 0.1, {scaleX: 1.1, ease: Expo.easeOut});
 	});
-	mainButton.addEventListener("mouseout", function() {
+	mainButton.addEventListener("mouseout", e => {
 		TweenMax.to(mainButton, 0.1, {scaleY: 1, ease: Expo.easeOut});
 		TweenMax.to(mainButton, 0.1, {scaleX: 1, ease: Expo.easeOut});
 	});
@@ -580,50 +583,6 @@ function alertPlayer(message) {
 			alerts.classList.toggle("show");
 		},2000);
 	}, 1000);
-}
-
-function handleFirstTab(e) {
-    if (e.keyCode === 9) { // the "I am a keyboard user" key
-        document.body.classList.add('user-is-tabbing');
-        window.removeEventListener('keydown', handleFirstTab);
-    }
-
-    //Disable Arrow Keys for Scrolling
-    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
-    }
-}
-
-
-function initiateMenuButtons() {
-	for (let i = menu.length - 1; i >= 0; i--) {
-		menu[i].HTMLbutton.addEventListener("click", function() {
-			menu[i].HTMLwindow.style.display = "block";
-		});
-
-		menu[i].HTMLclose.addEventListener("click", function () {
-			menu[i].HTMLwindow.style.display = "none";
-		});
-
-		menu[i].HTMLwindow.addEventListener("click", function() {
-    	    menu[i].HTMLwindow.style.display = "none";
-		});
-
-		menu[i].HTMLcontent.addEventListener("click", function(e) {
-			e.stopPropagation(); //clicking inside the window does not close it
-		});
-	}
-}
-
-function initiateCloseAllWindows() {
-	window.addEventListener("keydown", function(e) {
-		if (e.keyCode == 27) {
-			closeChart();
-			for (var i = menu.length - 1; i >= 0; i--) {
-				menu[i].HTMLwindow.style.display = "none";
-			}
-		}
-	});
 }
 
 //Options
