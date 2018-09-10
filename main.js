@@ -91,7 +91,8 @@ var gameSpeed = 1000;
 var gameLoop = setInterval(loop, gameSpeed);
 var numbersNotation = true; //True = Scientific; False = Alphabetical
 
-var upgrades = initiateSkyScrapers();
+var birds = initiateSkyscraper("bird", leftSkyScraper);
+var machines = initiateSkyscraper("machine", rightSkyScraper);
 
 var marketTimer = document.getElementById("market-timer")
 var chartOverlayContent = document.getElementById("chart-overlay-content");
@@ -145,7 +146,8 @@ window.onload = function(){
 	//System initiation
 	initiateCloseAllWindows();
 	initiateMenuButtons();
-	initiateUpgrades();
+	initiateSkyscraperButtons(birds, bread);
+	initiateSkyscraperButtons(machines, gold);
 	initiateRightClick();
 	initiateCombo();
 	skillsCooldown();
@@ -154,7 +156,8 @@ window.onload = function(){
 	//Visuals initiation
 	drawElements();
 	animateButton();
-	checkPrices();
+	checkPrices(birds, bread);
+	checkPrices(machines, gold);
 
 	alertPlayer("Welcome!");
 };
@@ -164,15 +167,17 @@ function buttonClick() {
 	animateButton();
 	hit();
 	drawElements();
-	checkPrices();
+	checkPrices(birds, bread);
+	checkPrices(machines, gold);
 }
 
 // Game's main loop - passively adds bread from the upgrades
 function loop() {
-	for (var i = upgrades.length - 1; i >= 0; i--) {
-		eggs += upgrades[i].amount * upgrades[i].multiplier;
+	for (var i = birds.length - 1; i >= 0; i--) {
+		eggs += birds[i].level * birds[i].multiplier;
 		drawElements();
-		checkPrices();
+		checkPrices(birds, bread);
+		checkPrices(machines, gold);
 	}
 }
 
@@ -180,62 +185,63 @@ function loop() {
 // Adds 1 to the current amount of upgrades in the upgrades array
 // Updates the upgrade's count text
 // Updates the bread count and the CPS of all upgrades
-function buyUpgrade(n) {
-	upgrades[n].cost = Math.floor(Math.pow(upgrades[n].multiplier, upgrades[n].amount) * upgrades[n].baseCost);
-	bread -= upgrades[n].cost;
+function buyUpgrade(array, currency, index) {
+	let n = index;
+	array[n].cost = Math.floor(Math.pow(array[n].multiplier, array[n].level) * array[n].baseCost);
+	bread -= array[n].cost;
 
-	upgrades[n].amount++;
-	document.getElementById(upgrades[n].HTMLamount.id).innerHTML = upgrades[n].amount;
-	upgrades[n].HTMLcost.innerHTML = upgrades[n].cost + upgrades[n].amount;
+	array[n].level++;
+	document.getElementById(array[n].HTMLlevel.id).innerHTML = array[n].level;
+	array[n].HTMLcost.innerHTML = array[n].cost + array[n].level;
 	drawElements();
-	checkPrices();
+	checkPrices(array, currency);
 }
 
 // Checks if any of the upgrades and skills are available for purchase
-function checkPrices() {
-	for (let i = upgrades.length - 1; i >= 0; i--) {
+function checkPrices(array, currency) {
+	for (let i = array.length - 1; i >= 0; i--) {
 		//Check prices for x1
-		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
-			upgrades[i].HTMLid.classList.remove("disabled");
-			upgrades[i].HTMLid.classList.add("enabled");
-			upgrades[i].HTMLid.disabled = false;
+		if (currency >= array[i].cost && currency >= array[i].baseCost) {
+			array[i].HTMLid.classList.remove("disabled");
+			array[i].HTMLid.classList.add("enabled");
+			array[i].HTMLid.disabled = false;
 		} else {
-			upgrades[i].HTMLid.classList.remove("enabled");
-			upgrades[i].HTMLid.classList.add("disabled");
-			upgrades[i].HTMLid.disabled = true;
+			array[i].HTMLid.classList.remove("enabled");
+			array[i].HTMLid.classList.add("disabled");
+			array[i].HTMLid.disabled = true;
 		}
 
 		//Check prices for x10
-		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
-			upgrades[i].buttonx10.classList.remove("disabled");
-			upgrades[i].buttonx10.classList.add("enabled");
-			upgrades[i].buttonx10.disabled = false;
+		if (currency >= array[i].cost && currency >= array[i].baseCost) {
+			array[i].buttonx10.classList.remove("disabled");
+			array[i].buttonx10.classList.add("enabled");
+			array[i].buttonx10.disabled = false;
 		} else {
-			upgrades[i].buttonx10.classList.remove("enabled");
-			upgrades[i].buttonx10.classList.add("disabled");
-			upgrades[i].buttonx10.disabled = true;
+			array[i].buttonx10.classList.remove("enabled");
+			array[i].buttonx10.classList.add("disabled");
+			array[i].buttonx10.disabled = true;
 		}
 
 		//Check prices for x100
-		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
-			upgrades[i].buttonx100.classList.remove("disabled");
-			upgrades[i].buttonx100.classList.add("enabled");
-			upgrades[i].buttonx100.disabled = false;
+		if (currency >= array[i].cost && currency >= array[i].baseCost) {
+			array[i].buttonx100.classList.remove("disabled");
+			array[i].buttonx100.classList.add("enabled");
+			array[i].buttonx100.disabled = false;
 		} else {
-			upgrades[i].buttonx100.classList.remove("enabled");
-			upgrades[i].buttonx100.classList.add("disabled");
-			upgrades[i].buttonx100.disabled = true;
+			array[i].buttonx100.classList.remove("enabled");
+			array[i].buttonx100.classList.add("disabled");
+			array[i].buttonx100.disabled = true;
 		}
 
 		//Check prices for xMAX
-		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
-			upgrades[i].buttonxMAX.classList.remove("disabled");
-			upgrades[i].buttonxMAX.classList.add("enabled");
-			upgrades[i].buttonxMAX.disabled = false;
+		if (currency >= array[i].cost && currency >= array[i].baseCost) {
+			array[i].buttonxMAX.classList.remove("disabled");
+			array[i].buttonxMAX.classList.add("enabled");
+			array[i].buttonxMAX.disabled = false;
 		} else {
-			upgrades[i].buttonxMAX.classList.remove("enabled");
-			upgrades[i].buttonxMAX.classList.add("disabled");
-			upgrades[i].buttonxMAX.disabled = true;
+			array[i].buttonxMAX.classList.remove("enabled");
+			array[i].buttonxMAX.classList.add("disabled");
+			array[i].buttonxMAX.disabled = true;
 		}
 	}
 
@@ -269,9 +275,14 @@ function drawElements() {
 	goldCountText.innerHTML = numeral(gold).format('0.00a');
 
 	// Loops through all upgrade buttons and updates their CPS value
-	for (let i = upgrades.length - 1; i >= 0; i--) {
-		document.getElementById(upgrades[i].HTMLcps.id).innerHTML = upgrades[i].cps * upgrades[i].amount;
-		document.getElementById(upgrades[i].HTMLamount.id).innerHTML = upgrades[i].amount;
+	for (let i = birds.length - 1; i >= 0; i--) {
+		document.getElementById(birds[i].HTMLcurrency.id).innerHTML = birds[i].eggs * birds[i].level;
+		document.getElementById(birds[i].HTMLlevel.id).innerHTML = birds[i].level;
+	}
+
+	for (let i = machines.length - 1; i >= 0; i--) {
+		document.getElementById(machines[i].HTMLcurrency.id).innerHTML = machines[i].bread * machines[i].level;
+		document.getElementById(machines[i].HTMLlevel.id).innerHTML = machines[i].level;
 	}
 }
 
@@ -407,33 +418,32 @@ function initiateCombo() {
 	});
 }
 
-function initiateUpgrades() {
-	for (let i = upgrades.length - 1; i >= 0; i--) {
-			upgrades[i].HTMLid.addEventListener("click", function() {
-				buyUpgrade(i);
+function initiateSkyscraperButtons(array, currency) {
+	for (let i = array.length - 1; i >= 0; i--) {
+			array[i].HTMLid.addEventListener("click", function() {
+				buyUpgrade(array, currency, i);
 			});
 
-			upgrades[i].buttonx10.addEventListener("click", function() {
+			array[i].buttonx10.addEventListener("click", function() {
 				for (var j = 0; j < 10; j++) {
-					checkPrices();
-					buyUpgrade(i);
+					buyUpgrade(array, currency, i);
 				}
 			});
 
-			upgrades[i].buttonx100.addEventListener("click", function() {
+			array[i].buttonx100.addEventListener("click", function() {
 				for (var j = 0; j < 10; j++) {
-					buyUpgrade(i);
+					buyUpgrade(array, currency, i);
 				}
 			});
 
-			upgrades[i].buttonxMAX.addEventListener("click", function() {
+			array[i].buttonxMAX.addEventListener("click", function() {
 				for (var j = 0; j < 10; j++) {
-					buyUpgrade(i);
+					buyUpgrade(array, currency, i);
 				}
 			});
 
-			upgrades[i].HTMLcost.innerHTML = upgrades[i].baseCost.toLocaleString("en-EN");;
-			upgrades[i].HTMLcps.innerHTML = upgrades[i].cps.toLocaleString("en-EN");;
+			array[i].HTMLcost.innerHTML = array[i].baseCost.toLocaleString("en-EN");;
+			array[i].HTMLcurrency.innerHTML = array[i].eggs.toLocaleString("en-EN");;
 	}
 }
 
@@ -627,128 +637,81 @@ function saveOptions() {
 	}
 }
 
-function initiateSkyScrapers() {
-	let upgradesArray = [];
+function initiateSkyscraper(identifier, parent) {
+	let array = [];
 	for (let i = 9; i >= 0; i--) {
+		let wrapper = document.createElement("DIV");
+
 		let container = document.createElement("DIV");
+		let button = document.createElement("BUTTON");
+		
 		let divx10 = document.createElement("DIV");
 		let divx100 = document.createElement("DIV");
 		let divxMAX = document.createElement("DIV");
 		let btnx10 = document.createElement("BUTTON");
 		let btnx100 = document.createElement("BUTTON");
 		let btnxMAX = document.createElement("BUTTON");
-		let upgradeContainer = document.createElement("DIV");
-		let btnUpgrade = document.createElement("BUTTON");
-		let upgradeTextContainer = document.createElement("DIV");
-		let upgradeAmount = document.createElement("SPAN");
-		let upgradeCPS = document.createElement("SPAN");
-		let upgradeCost = document.createElement("SPAN");
 
-		container.classList.add("grid-container-upgrades-buttons-left");
-		upgradeContainer.classList.add("upgrade");
-		upgradeTextContainer.classList.add("upgrade-text");
+		let textContainer = document.createElement("DIV");
+		let level = document.createElement("SPAN");
+		let currency = document.createElement("SPAN");
+		let cost = document.createElement("SPAN");
+
+		wrapper.classList.add("grid-container-birds-buttons");
+		container.classList.add("bird");
+		textContainer.classList.add("bird-text");
 		divx10.classList.add("buy-multiple");
 		divx100.classList.add("buy-multiple");
 		divxMAX.classList.add("buy-multiple");
 
-		btnx10.id = "upgrade" + i + "x10";
+		btnx10.id = "bird" + i + "x10";
 		btnx10.innerHTML = "x10";
-		btnx100.id = "upgrade" + i + "x100";
+		btnx100.id = "bird" + i + "x100";
 		btnx100.innerHTML = "x100";
-		btnxMAX.id = "upgrade" + i + "xMAX";
+		btnxMAX.id = "bird" + i + "xMAX";
 		btnxMAX.innerHTML = "MAX";
-		btnUpgrade.id = "upgrade" + i;
-		upgradeAmount.id = "amount-upgrade" + i;
-		upgradeCPS.id = "cps-upgrade" + i;
-		upgradeCost.id = "cost-upgrade" + i;
+		button.id = "bird" + i;
+		level.id = "level-bird" + i;
+		currency.id = "eggs-bird" + i;
+		cost.id = "cost-bird" + i;
 
-		upgradeTextContainer.innerHTML = "Upgrade " + i + " [";
-		upgradeTextContainer.appendChild(upgradeAmount);
-		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + "]<br>" + "(CPS: ";
-		upgradeTextContainer.appendChild(upgradeCPS);
-		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + ")<br>" + "Cost: ";
-		upgradeTextContainer.appendChild(upgradeCost);
+		textContainer.innerHTML = "Upgrade " + i + " [";
+		textContainer.appendChild(level);
+		textContainer.innerHTML = textContainer.innerHTML + "]<br>" + "(CPS: ";
+		textContainer.appendChild(currency);
+		textContainer.innerHTML = textContainer.innerHTML + ")<br>" + "Cost: ";
+		textContainer.appendChild(cost);
 
-		btnUpgrade.appendChild(upgradeTextContainer);
-		upgradeContainer.appendChild(btnUpgrade);
+		button.appendChild(textContainer);
+		container.appendChild(button);
 
 		divx10.appendChild(btnx10);
 		divx100.appendChild(btnx100);
 		divxMAX.appendChild(btnxMAX);
 
-		container.appendChild(divx10);
-		container.appendChild(upgradeContainer);
-		container.appendChild(divx100);
-		container.appendChild(divxMAX);
+		wrapper.appendChild(divx10);
+		wrapper.appendChild(container);
+		wrapper.appendChild(divx100);
+		wrapper.appendChild(divxMAX);
 
-		leftSkyScraper.appendChild(container);
+		parent.appendChild(wrapper);
 
-		let elem = {name: "Upgrade " + i,  amount: 0, multiplier: 1.07, cps: 5, cost: 0, baseCost: 50, HTMLamount: upgradeAmount, HTMLcps: upgradeCPS, HTMLcost: upgradeCost, HTMLid: btnUpgrade, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
-		upgradesArray.push(elem);
+		let elem = {name: "Bird " + i,  
+					level: 0,
+					multiplier: 1, //To be used in the cost formula
+					baseCost: 50, //Base cost of the unit
+					cost: 0, //Calculated current cost
+					
+					eggs: 1, //Eggs generated in one iteration
+					productionCycle: 59000, //Time it takes to produce eggs
+					productionCost: 0, //Bread it takes to have the bird start producing eggs
+
+					HTMLlevel: level, HTMLcurrency: currency, HTMLcost: cost, HTMLid: button, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
+		array.push(elem);
 	}
 
-	for (let j = 19; j >= 10; j--) {
-		let container = document.createElement("DIV");
-		let divx10 = document.createElement("DIV");
-		let divx100 = document.createElement("DIV");
-		let divxMAX = document.createElement("DIV");
-		let btnx10 = document.createElement("BUTTON");
-		let btnx100 = document.createElement("BUTTON");
-		let btnxMAX = document.createElement("BUTTON");
-		let upgradeContainer = document.createElement("DIV");
-		let btnUpgrade = document.createElement("BUTTON");
-		let upgradeTextContainer = document.createElement("DIV");
-		let upgradeAmount = document.createElement("SPAN");
-		let upgradeCPS = document.createElement("SPAN");
-		let upgradeCost = document.createElement("SPAN");
-
-		container.classList.add("grid-container-upgrades-buttons-right");
-		upgradeContainer.classList.add("upgrade");
-		upgradeTextContainer.classList.add("upgrade-text");
-		divx10.classList.add("buy-multiple");
-		divx100.classList.add("buy-multiple");
-		divxMAX.classList.add("buy-multiple");
-
-		btnx10.id = "upgrade" + j + "x10";
-		btnx10.innerHTML = "x10";
-		btnx100.id = "upgrade" + j + "x100";
-		btnx100.innerHTML = "x100";
-		btnxMAX.id = "upgrade" + j + "xMAX";
-		btnxMAX.innerHTML = "MAX";
-		btnUpgrade.id = "upgrade" + j;
-		upgradeAmount.id = "amount-upgrade" + j;
-		upgradeCPS.id = "cps-upgrade" + j;
-		upgradeCost.id = "cost-upgrade" + j;
-
-		upgradeTextContainer.innerHTML = "Upgrade " + j + " [";
-		upgradeTextContainer.appendChild(upgradeAmount);
-		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + "]<br>" + "(CPS: ";
-		upgradeTextContainer.appendChild(upgradeCPS);
-		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + ")<br>" + "Cost: ";
-		upgradeTextContainer.appendChild(upgradeCost);
-
-
-		btnUpgrade.appendChild(upgradeTextContainer);
-		upgradeContainer.appendChild(btnUpgrade);
-
-		divx10.appendChild(btnx10);
-		divx100.appendChild(btnx100);
-		divxMAX.appendChild(btnxMAX);
-
-		container.appendChild(divx10);
-		container.appendChild(upgradeContainer);
-		container.appendChild(divx100);
-		container.appendChild(divxMAX);
-
-		rightSkyScraper.appendChild(container);
-
-		let elem = {name: "Upgrade " + j,  amount: 0, multiplier: 1.07, cps: 5, cost: 0, baseCost: 50, HTMLamount: upgradeAmount, HTMLcps: upgradeCPS, HTMLcost: upgradeCost, HTMLid: btnUpgrade, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
-		upgradesArray.push(elem);
-	}
-
-	leftSkyScraper.scrollTop = leftSkyScraper.scrollHeight;
-	rightSkyScraper.scrollTop = rightSkyScraper.scrollHeight;
-	return upgradesArray
+	parent.scrollTop = parent.scrollHeight;
+	return array;
 }
 
 function skillsCooldown() {
