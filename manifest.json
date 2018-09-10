@@ -1,0 +1,20 @@
+{
+  "short_name": "Bread",
+  "name": "Chicken Bread",
+  "icons": [
+    {
+      "src": "/images/bread.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/bread.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "orientation": "landscape",
+  "theme_color": "#3367D6"
+}
