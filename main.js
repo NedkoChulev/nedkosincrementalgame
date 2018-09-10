@@ -529,7 +529,7 @@ function animateButton() {
 
 function comboPointsAnimation(n, m) {
 	comboPointsMessage.innerHTML = "+" + n;
-	alertPlayer("Combo X" + m + " [+" + n + "]");
+	alertPlayer("Combo X" + m);
 
 	comboPointsMessage.classList.toggle("show");
 	setTimeout(function() {

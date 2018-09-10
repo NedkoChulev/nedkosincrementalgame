@@ -53,9 +53,6 @@
 		</div>
 
 		<div class="grid-item grid-container-combo">
-			<div class="grid-item comboPointsPopUp">
-	  				<span class="comboPointsMessage" id="comboPointsMessage"></span>
-			</div>
 			<div class="comboSequence grid-item" id="comboSequence"></div>
 			<div class="grid-item" id="loadingBarWrapper">
 				<div id="loadingBarLeft"></div>
@@ -76,7 +73,9 @@
 		<div class="grid-item grid-container-center">
 			<div class="grid-item"></div>
 			<div class="grid-container-alerts alerts grid-item">
-				<div class="grid-item"></div>
+				<div class="grid-item comboPointsPopUp">
+	  				<span class="comboPointsMessage" id="comboPointsMessage"></span>
+				</div>
 				
 				<div class="alert grid-item" id="alerts"></div>
 			</div>
@@ -118,7 +117,17 @@
 		<div id="rightSkyScraper" class="grid-item grid-container-upgrades-right"></div>
 
 <!-- ROW 3 -->
-		<div class="grid-item"></div>
+		<div class="grid-item grid-container-currencies">
+			<div id="bread-count" class="grid-item">
+				Bread: <span id="bread-count-text">0</span>
+			</div>
+			<div id="eggs" class="grid-item">
+				Eggs: <span id="eggs-count-text">0</span>
+			</div>
+			<div id="gold" class="grid-item">
+				Gold: <span id="gold-count-text">0</span>
+			</div>
+		</div>
 
 		<div class="grid-item grid-container-chart">
 			<!-- Chart Row 1-->
@@ -143,34 +152,22 @@
 			</div>
 		</div>
 		
-		<div class="grid-item grid-container-menu">
-			<div class="menu grid-item" id="menu0"><button id="button-menu0">P</button></div>
-			<div class="menu grid-item" id="menu1"><button id="button-menu1">L</button></div>
-			<div class="menu grid-item" id="menu2"><button id="button-menu2">O</button></div>
-			<div class="menu grid-item" id="menu3"><button id="button-menu3" onclick="saveGame()">S</button></div>
-			<div class="menu grid-item" id="menu4"><button id="button-menu4" onclick="loadGame()">L</button></div>
-		</div>
+		<div class="grid-item bottom-right-menu">
+			<div class="grid-item grid-container-menu">
+				<div class="menu grid-item" id="menu0"><button id="button-menu0">P</button></div>
+				<div class="menu grid-item" id="menu1"><button id="button-menu1">L</button></div>
+				<div class="menu grid-item" id="menu2"><button id="button-menu2">O</button></div>
+				<div class="menu grid-item" id="menu3"><button id="button-menu3" onclick="saveGame()">S</button></div>
+				<div class="menu grid-item" id="menu4"><button id="button-menu4" onclick="loadGame()">L</button></div>
+			</div>
 
+			<div class="grid-item shop-button-container">
+				<button class="shop-button">
+					<span>SHOP</span>
+				</button>
+			</div>
+		</div>
 <!-- ROW 4 -->
-		<div class="grid-item grid-container-currencies">
-			<div id="bread-count" class="grid-item">
-				Bread: <span id="bread-count-text">0</span>
-			</div>
-			<div id="eggs" class="grid-item">
-				Eggs: <span id="eggs-count-text">0</span>
-			</div>
-			<div id="gold" class="grid-item">
-				Gold: <span id="gold-count-text">0</span>
-			</div>
-		</div>
-
-		<div class="grid-item shop-button-container">
-			<button class="shop-button">
-				<span>SHOP</span>
-			</button>
-		</div>
-
-<!-- ROW 5 -->
 			<div class="grid-item grid-container-marquee">
 				<div class="marquee">
 					<p id="marquee">Welcome!</p>

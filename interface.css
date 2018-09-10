@@ -32,6 +32,7 @@ body:not(.user-is-tabbing) button:focus, body:not(.user-is-tabbing) input:focus,
 button {
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 
 button:hover {
@@ -54,7 +55,7 @@ button:hover {
   /*grid-template-columns: 230px 58% 230px;
   grid-template-rows: 100px 400px 68px auto 100px;*/
   grid-template-columns: 20% 50% 20%;
-  grid-template-rows: 10% 50% 5% 15% 5%;
+  grid-template-rows: 10% 50% 30% 5%;
   grid-gap: 2%;
   justify-content: center;
   justify-items: center;
@@ -162,7 +163,7 @@ button:hover {
 .grid-container-combo {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 10fr 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-gap: 0px;
   justify-content: center;
   justify-items: center;
@@ -172,6 +173,7 @@ button:hover {
 .grid-container-features {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   grid-gap: 0px;
   justify-content: center;
   justify-items: center;
@@ -211,7 +213,6 @@ button:hover {
   display: grid;
   grid-template-columns: 1fr 7fr;
   grid-template-rows: 1fr 1fr 1fr;
-  grid-row-end: span 2;
   width: 100%;
   height: 100%;
 }
@@ -219,7 +220,6 @@ button:hover {
 .grid-container-currencies {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
-  height: auto !important;
 }
 
 .grid-container-zoomed-chart-menu {
@@ -232,32 +232,33 @@ button:hover {
 }
 
 #bread-image {
-  width: 50%;
+  max-width: 20vw;
+  max-height: 15vh;
+  width: auto;
   height: auto;
-  margin-left: 25%;
 }
 
 .comboSequence {
   text-align: center;
-  height: 40px;
-  font-size: 40px;
-  line-height: 55px;
+  height: 100%;
+  font-size: 6vh;
+  line-height: 6vh;
 }
 
 #loadingBarWrapper{
-  width: 75%;
+  height: auto;
 }
 
 #loadingBarLeft {
   float: right;
-  height: 12px;
+  height: 1vh;
   width: 0px;
   background-color: #7681b9;
   border-radius: 16px;
 }
 
 #loadingBarRight {
-  height: 12px;
+  height: 1vh;
   width: 0px;
   background-color: #7681b9;
   border-radius: 16px;
@@ -265,6 +266,7 @@ button:hover {
 
 .comboPointsPopUp {
     width: 100%;
+    height: auto;
 }
 
 /* The actual popup */
@@ -272,8 +274,7 @@ button:hover {
     visibility: hidden;
     display: inline-block;
     text-align: center;
-    width: 30%;
-    margin-left: 35%;
+    width: 100%;
     padding-top: 5px;
     background-color: #555;
     color: #fff;
@@ -315,8 +316,8 @@ button:hover {
   color: #eee;
   background: #7681b9;
   width: auto;
-  height: auto;
-  font-size: 20px;
+  height: 100%;
+  font-size: 1vw;
   cursor: pointer;
   position: relative;
 }
@@ -388,7 +389,7 @@ button:hover {
 }
 
 .skill-text {
-  line-height: 35px;
+  line-height: 1vw;
 }
 
 .upgrade {
@@ -479,20 +480,19 @@ button:hover {
   border-left: none;
   border-right: none;
   width: 100%;
-  height: 50%;
-  line-height: 30px;
+  max-height: 4vh;
+  line-height: 1vh;
   white-space: nowrap;
   overflow: hidden;
   z-index: 1;
 }
 
 .marquee p {
-  font-size: 25px;
+  font-size: 3vh;
   width: 100%;
   height: auto;
   display: inline-block;
-  margin-top: 12px;
-  margin-left: -50%;
+  margin-left: 0% 0% 0% -50%;
   animation: marquee 40s linear infinite;
 }
 
@@ -740,7 +740,7 @@ button:hover {
 
 .menu {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .menu button {
@@ -762,20 +762,18 @@ button:hover {
 }
 
 .shop-button-container {
-  height: auto !important;
+  height: auto;
 }
 
 .shop-button {
-  width: 80%;
-  height: 30%;
-  margin-left: 10%;
-  margin-top: 35%;
+  width: 100%;
+  height: auto;
   text-align: center;
 }
 
 .shop-button span {
   display: inline-block;
-  font-size: 30px;
+  font-size: 4vh;
   margin-top: 7%;
 }
 
@@ -786,7 +784,9 @@ button:hover {
   height: 34px;
 }
 
-.switch input {display:none;}
+.switch input {
+  display:none;
+}
 
 .slider {
   position: absolute;
@@ -966,4 +966,20 @@ canvas {
   margin-bottom: 10px;
   margin-top: -5px;
   border: 2px solid #222;
+}
+
+.sell-stock {
+  height: 100%;
+  width: 100%;
+}
+
+.buy-stock {
+  height: 100%;
+  width: 100%;
+}
+
+.bottom-right-menu {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
 }
