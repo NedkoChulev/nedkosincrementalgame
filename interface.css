@@ -5,8 +5,7 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
-    font-family: 'Baloo Tammudu', cursive;
-    /*line-height: 20px;*/
+    font-family: "Baloo Tammudu", sans-serif;
 }
 /*
 Background: 222
@@ -83,7 +82,7 @@ button:hover {
   align-items: center;
 }
 
-.grid-container-upgrades-left {
+.grid-container-birds {
   display: grid;
   grid-gap: 1px;
   overflow-y: scroll;
@@ -93,7 +92,7 @@ button:hover {
   width: 100%;
 }
 
-.grid-container-upgrades-right {
+.grid-container-machines {
   display: grid;
   grid-gap: 1px;
   overflow-y: scroll;
@@ -103,29 +102,29 @@ button:hover {
   width: 100%;
 }
 
-.grid-container-upgrades-left::-webkit-scrollbar {
+.grid-container-birds::-webkit-scrollbar {
   width: 10px;
 }
-.grid-container-upgrades-left::-webkit-scrollbar-thumb {
+.grid-container-birds::-webkit-scrollbar-thumb {
   background: rgba(118,129,185, 0.5);
   border-radius: 10px;
 }
-.grid-container-upgrades-left::-webkit-scrollbar-thumb:hover {
+.grid-container-birds::-webkit-scrollbar-thumb:hover {
     background: rgba(118,129,185, 0.7);
 }
 
-.grid-container-upgrades-right::-webkit-scrollbar {
+.grid-container-machines::-webkit-scrollbar {
   width: 10px;
 }
-.grid-container-upgrades-right::-webkit-scrollbar-thumb {
+.grid-container-machines::-webkit-scrollbar-thumb {
   background: rgba(118,129,185, 0.5);
   border-radius: 10px;
 }
-.grid-container-upgrades-right::-webkit-scrollbar-thumb:hover {
+.grid-container-machines::-webkit-scrollbar-thumb:hover {
     background: rgba(118,129,185, 0.7);
 }
 
-.grid-container-upgrades-buttons-left {
+.grid-container-birds-buttons {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -137,7 +136,7 @@ button:hover {
   margin-left: 10px;
 }
 
-.grid-container-upgrades-buttons-right {
+.grid-container-machines-buttons {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -226,7 +225,7 @@ button:hover {
   grid-template-rows: 1fr 1fr 1fr;
 }
 
-#mainButton {
+#main-button {
   width: auto;
   height: auto;
 }
@@ -392,24 +391,40 @@ button:hover {
   line-height: 1vw;
 }
 
-.upgrade {
+.bird {
   height: 100%;
   grid-row-end: span 3;
 }
 
-.upgrade button {
+.bird button {
   width: 100%;
   height: 100%;
   text-align: center;
 }
 
-.upgrade-text {
+.bird-text {
   direction: ltr;
-  line-height: 20px;
+  line-height: 1vw;
+}
+
+.machine {
+  height: 100%;
+  grid-row-end: span 3;
+}
+
+.machine button {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.machine-text {
+  direction: ltr;
+  line-height: 1vw;
 }
 
 .enabled {
-  font-size: 18px;
+  font-size: 1vw;
   color: #eee;
   padding: 0px 0px;
   background-color: #7681b9;
@@ -433,7 +448,6 @@ button:hover {
 }
 
 .disabled {
-  font-size: 18px;
   color: #aaa;
   padding: 0px 0px;
   background-color: #777;
@@ -488,11 +502,12 @@ button:hover {
 }
 
 .marquee p {
-  font-size: 3vh;
+  font-size: 2vh;
   width: 100%;
   height: auto;
   display: inline-block;
-  margin-left: 0% 0% 0% -50%;
+  margin: 1% 0% 0.5% -50%;
+  padding-top: 0;
   animation: marquee 40s linear infinite;
 }
 

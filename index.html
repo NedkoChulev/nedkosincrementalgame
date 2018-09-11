@@ -37,6 +37,7 @@
 		<p>Combo points</p>
 		<p>Stock Market Events</p>
 		<p>Assets</p>
+		<p>inflation</p>
 	</div>
 
 	<div class="main">
@@ -68,7 +69,7 @@
 		</div>
 
 <!-- ROW 2 -->
-		<div id="leftSkyScraper" class="grid-item grid-container-upgrades-left"></div>
+		<div id="leftSkyScraper" class="grid-item grid-container-birds"></div>
 		
 		<div class="grid-item grid-container-center">
 			<div class="grid-item"></div>
@@ -82,7 +83,7 @@
 			<div class="grid-item"></div>
 
 			<div class="grid-item"></div>
-			<div class="grid-item" id="mainButton" onclick="buttonClick()"><img id="bread-image" src="https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/bread.png"></div>
+			<div class="grid-item" id="main-button"><img id="bread-image" src="https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/bread.png"></div>
 			<div class="grid-item"></div>
 
 			<div class="grid-container-skills" id="skills">
@@ -114,7 +115,7 @@
 			</div>	
 		</div>
 
-		<div id="rightSkyScraper" class="grid-item grid-container-upgrades-right"></div>
+		<div id="rightSkyScraper" class="grid-item grid-container-machines"></div>
 
 <!-- ROW 3 -->
 		<div class="grid-item grid-container-currencies">
@@ -143,12 +144,12 @@
 
 			<!-- Chart Row 2-->
 			<div class="grid-item">
-				<button id="sell-stock-button" class="sell-stock" onclick="sellEggStock(this)">Sell Stock</button>
+				<button id="sell-stock-button" class="sell-stock">Sell Stock</button>
 			</div>
 
 			<!-- Chart Row 3-->
 			<div class="grid-item">
-				<button id="buy-stock-button" class="buy-stock" onclick="buyEggStock(this)">Buy Stock</button>
+				<button id="buy-stock-button" class="buy-stock">Buy Stock</button>
 			</div>
 		</div>
 		
@@ -157,8 +158,8 @@
 				<div class="menu grid-item" id="menu0"><button id="button-menu0">P</button></div>
 				<div class="menu grid-item" id="menu1"><button id="button-menu1">L</button></div>
 				<div class="menu grid-item" id="menu2"><button id="button-menu2">O</button></div>
-				<div class="menu grid-item" id="menu3"><button id="button-menu3" onclick="saveGame()">S</button></div>
-				<div class="menu grid-item" id="menu4"><button id="button-menu4" onclick="loadGame()">L</button></div>
+				<div class="menu grid-item" id="menu3"><button id="button-menu3">S</button></div>
+				<div class="menu grid-item" id="menu4"><button id="button-menu4">L</button></div>
 			</div>
 
 			<div class="grid-item shop-button-container">
@@ -300,11 +301,11 @@
 					<p id="market-index-overlay">0.00%</p>
 				</div>
   				<div class="grid-item">
-  					<button id="overlay-buy-stock-button" onclick="buyEggStock(this)">Buy Stock</button>
-  					<button id="overlay-sell-stock-button" onclick="sellEggStock(this)">Sell Stock</button>
+  					<button id="overlay-buy-stock-button">Buy Stock</button>
+  					<button id="overlay-sell-stock-button">Sell Stock</button>
   				</div>
   				<div class="grid-item">
-  					<button id="market-history-button" onclick="openMarketHistory()">History</button>
+  					<button id="market-history-button">History</button>
   				</div>
 			</div>
 			</div>
@@ -325,6 +326,7 @@
 	</div>
 <button onclick="gridToggle()">Grid <span id="gridToggle">OFF</span></button>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 	<script src="https://www.chartjs.org/dist/master/Chart.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.12.1/TweenMax.min.js"></script>

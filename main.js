@@ -1,470 +1,426 @@
 var storage = window.localStorage;
 
 var skills = [
-	{name: "2x Passive", HTMLid: document.getElementById("skill0"), duration: 0, coolDown: 3000},
-	{name: "2x Crit DMG", HTMLid: document.getElementById("skill1"), duration: 0, coolDown: 5000},
-	{name: "Skill 3", HTMLid: document.getElementById("skill2"), duration: 0, coolDown: 10000},
-	{name: "Skill 4", HTMLid: document.getElementById("skill3"), duration: 0, coolDown: 50000},
-	{name: "Skill 5", HTMLid: document.getElementById("skill4"), duration: 0, coolDown: 60000}
+	{name: "2x Passive",	HTMLelement: $("#skill0")[0], duration: 0, coolDown: 3000},
+	{name: "2x Crit DMG",	HTMLelement: $("#skill1")[0], duration: 0, coolDown: 5000},
+	{name: "Skill 3",		HTMLelement: $("#skill2")[0], duration: 0, coolDown: 10000},
+	{name: "Skill 4",		HTMLelement: $("#skill3")[0], duration: 0, coolDown: 50000},
+	{name: "Skill 5",		HTMLelement: $("#skill4")[0], duration: 0, coolDown: 60000}
 ];
 
-var features = [
-	{name: "Inventory", 	HTMLbutton: document.getElementById("button-feature0"), HTMLid: document.getElementById("feature0")},
-	{name: "Crafting", 		HTMLbutton: document.getElementById("button-feature1"), HTMLid: document.getElementById("feature1")},
-	{name: "Achievements",	HTMLbutton: document.getElementById("button-feature2"), HTMLid: document.getElementById("feature2")},
-	{name: "Pets", 			HTMLbutton: document.getElementById("button-feature3"), HTMLid: document.getElementById("feature3")},
-	{name: "Quests",		HTMLbutton: document.getElementById("button-feature4"), HTMLid: document.getElementById("feature4")},
-	{name: "Roulette",		HTMLbutton: document.getElementById("button-feature5"), HTMLid: document.getElementById("feature5")},
-	{name: "Events",		HTMLbutton: document.getElementById("button-feature6"), HTMLid: document.getElementById("feature6")},
-	{name: "Skill-Tree",	HTMLbutton: document.getElementById("button-feature7"), HTMLid: document.getElementById("feature7")}
-];
-
-var menu = [
-	{name: "Profile",	HTMLbutton: document.getElementById("button-menu0"), HTMLid: document.getElementById("menu0"), HTMLclose: document.getElementById("close-profile-menu"), HTMLwindow: document.getElementById("profile-overlay"), HTMLcontent: document.getElementById("profile-overlay-content")},
-	{name: "Log",		HTMLbutton: document.getElementById("button-menu1"), HTMLid: document.getElementById("menu1"), HTMLclose: document.getElementById("close-log-menu"), HTMLwindow: document.getElementById("log-overlay"), HTMLcontent: document.getElementById("log-overlay-content")},
-	{name: "Options",	HTMLbutton: document.getElementById("button-menu2"), HTMLid: document.getElementById("menu2"), HTMLclose: document.getElementById("close-options-menu"), HTMLwindow: document.getElementById("options-overlay"), HTMLcontent: document.getElementById("options-overlay-content")},
-	{name: "Save",		HTMLbutton: document.getElementById("button-menu3"), HTMLid: document.getElementById("menu3"), HTMLclose: document.getElementById("close-save-menu"), HTMLwindow: document.getElementById("save-overlay"), HTMLcontent: document.getElementById("save-overlay-content")},
-	{name: "Load",		HTMLbutton: document.getElementById("button-menu4"), HTMLid: document.getElementById("menu4"), HTMLclose: document.getElementById("close-load-menu"), HTMLwindow: document.getElementById("load-overlay"), HTMLcontent: document.getElementById("load-overlay-content")}
-];
+var featuresNames = ["Inventory", "Crafting", "Achievements", "Pets", "Quests",	"Roulette",	"Events", "Skill-Tree"];
+var menuNames = ["Profile", "Log", "Options", "Save", "Load"];
+var menuIdentifiers = ["profile", "log", "options", "save", "load"];
 
 var options = [
-	{name: "Number Notations Toggle", HTMLinput: document.getElementById("number-notation-toggle")}
+	{name: "Number Notations Toggle", HTMLinput: $("#number-notation-toggle")[0]}
 ];
 
-var leftSkyScraper =			document.getElementById("leftSkyScraper");
-var rightSkyScraper =			document.getElementById("rightSkyScraper");
-var comboSequence =				document.getElementById("comboSequence");
-var comboPointsMessage =		document.getElementById("comboPointsMessage");
-var breadCountText =			document.getElementById("bread-count-text");
-var eggsCountText =				document.getElementById("eggs-count-text");
-var goldCountText =				document.getElementById("gold-count-text");
-var mainButton =				document.getElementById("mainButton");
-var loadingBarLeft =			document.getElementById("loadingBarLeft");
-var loadingBarRight =			document.getElementById("loadingBarRight");
-var alerts =					document.getElementById("alerts");
-var marquee =					document.getElementById("marquee");
-var log =						document.getElementById("log");
-var sellStockButton =			document.getElementById("sell-stock-button");
-var buyStockButton =			document.getElementById("buy-stock-button");
-var overlaySellStockButton =	document.getElementById("overlay-sell-stock-button");
-var overlayBuyStockButton =		document.getElementById("overlay-buy-stock-button");
-var marketHistoryLog =			document.getElementById("market-history");
-var marketIndex =				document.getElementById("market-index");
-var marketIndexOverlay =		document.getElementById("market-index-overlay");
-var marketOverlayWindow = 		document.getElementById("market-history-overlay");
-var marketOverlayContent = 		document.getElementById("market-history-overlay-content");
-var marketOverlayClose =		document.getElementById("close-market-history-menu");
 
-var clickPower = 1;
-var critRate = 1;
-var critDmgMultiplier = 2;
+const leftSkyScraper =			$("#leftSkyScraper")[0];
+const rightSkyScraper =			$("#rightSkyScraper")[0];
+const comboSequence =			$("#comboSequence")[0];
+const comboPointsMessage =		$("#comboPointsMessage")[0];
+const breadCountText =			$("#bread-count-text")[0];
+const eggsCountText =			$("#eggs-count-text")[0];
+const goldCountText =			$("#gold-count-text")[0];
+const mainButton =				$("#main-button")[0];
+const loadingBarLeft =			$("#loadingBarLeft")[0];
+const loadingBarRight =			$("#loadingBarRight")[0];
+const alerts =					$("#alerts")[0];
+const marquee =					$("#marquee")[0];
+const log =						$("#log")[0];
+const sellStockButton =			$("#sell-stock-button")[0];
+const buyStockButton =			$("#buy-stock-button")[0];
+const overlaySellStockButton =	$("#overlay-sell-stock-button")[0];
+const overlayBuyStockButton =	$("#overlay-buy-stock-button")[0];
+const marketHistoryLog =		$("#market-history")[0];
+const marketIndex =				$("#market-index")[0];
+const marketIndexOverlay =		$("#market-index-overlay")[0];
+const marketHistoryButton =		$("#market-history-button")[0];
+const marketOverlayWindow = 	$("#market-history-overlay")[0];
+const marketOverlayContent = 	$("#market-history-overlay-content")[0];
+const marketOverlayClose =		$("#close-market-history-menu")[0];
+const marketTimer =				$("#market-timer")[0];
+const chartOverlayContent =		$("#chart-overlay-content")[0];
+const chartClose =				$("#close-chart-menu")[0];
+const chartZoom =				$("#chart-zoom")[0];
+const chartWindow =				$("#chart-overlay")[0];
+const zoomedChart =				$("#zoomed-chart")[0];
+const zoomedChartMenu =			$("#zoomed-chart-menu")[0];
+const chartContainer =			$("#chart-container")[0];
+const eggMarketChart =			document.getElementById("eggMarket").getContext('2d');
 
-var combo;
-var baseComboReward = 100;
-var combinedComboReward = 0;
-var comboCounter = 0;
-var comboLength = 0;
-var multipleCombos = 0;
-var comboActiveColor = "#EC6F28";
-var comboInactiveColor = "#eee";
-
-var comboIntervalSpeed = 50;
-var comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
-var loadingBarWidth = 1;
-
+const gameSpeed = 1000;
 const marketUpdateTime = 1000;
-let countdown = marketUpdateTime;
-var marketUpdate = setInterval(updateMarket, marketUpdateTime);
-
-var marketTimerInterval = setInterval(updateMarketTimer, 1000);
-
-var bread = 0;
-var eggs = 0;
-var gold = 0;
-
-var demand = 1;
+const clickPower = 1;
 const baseEggPrice = 100;
 const minEggPrice = 20;
-var currentEggPrice = baseEggPrice;
+const baseComboReward = 100;
+const comboActiveColor = "#EC6F28";
+const comboInactiveColor = "#eee";
 
-var gameSpeed = 1000;
-var gameLoop = setInterval(loop, gameSpeed);
-var numbersNotation = true; //True = Scientific; False = Alphabetical
+//Stats that will be saved
+let clicks = 0;
+let crits = 0;
+let critRate = 1;
+let critDmgMultiplier = 2;
+let bread = 0;
+let eggs = 0;
+let gold = 0;
+let demand = 1;
+let inflation = 0;
+let multipleCombos = 0;
+let minComboLength = 5;
+let maxComboLength = 10;
 
-var upgrades = initiateSkyScrapers();
+//Arrow Combo
+let combinedComboReward = 0;
+let comboArrowsCounter = 0;
+let comboLength = 0;
+let loadingBarWidth = 1;
+let comboIntervalSpeed = 50;
 
-var marketTimer = document.getElementById("market-timer")
-var chartOverlayContent = document.getElementById("chart-overlay-content");
-var chartClose = document.getElementById("close-chart-menu");
-var chartZoom = document.getElementById("chart-zoom");
-var chartWindow = document.getElementById("chart-overlay");
-var zoomedChart = document.getElementById("zoomed-chart");
-var zoomedChartMenu = document.getElementById("zoomed-chart-menu");
-var chartContainer = document.getElementById("chart-container");
-var eggMarketChart = document.getElementById("eggMarket").getContext('2d');
-var chart = new Chart(eggMarketChart, {
-    // The type of chart we want to create
-    type: 'line',
+//Market variables
+let countdown = marketUpdateTime;
+let currentEggPrice = baseEggPrice;
 
-    // The data for our dataset
-    data: {
-        labels: [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        		 " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
-        		 " ", " ", " ", " ", " "
-        ],
-        datasets: [{
-            label: "EGM",
-            borderColor: 'rgb(255, 99, 132)',
-            data: [baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
-            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
-            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
-            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
-            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice
-            ],
-        }]
-    },
+//Settings
+let numbersNotation = true; //True = Scientific; False = Alphabetical
 
-    // Configuration options go here
-    options: {
-    	maintainAspectRatio: false,
-    	responsive: true,
-    	legend: {
-    		display: false
-    	},
-    	
-    	configuration: {
-    		responsiveAnimationDuration: true
-    	}
-    }
-});
+//Variable declarations
+let features, menus, combo, comboInterval, birds, machines, chart, marketUpdate, marketTimerInterval, gameLoop;
 
-//Basically the main method that starts the game
-window.onload = function(){
-	window.addEventListener('keydown', handleFirstTab);
+//Main function that starts the game
+window.onload = () => {
+	comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
 	
-	//System initiation
-	initiateCloseAllWindows();
-	initiateMenuButtons();
-	initiateUpgrades();
-	initiateRightClick();
-	initiateCombo();
-	skillsCooldown();
-	initiateChartZoom();
+	birds = initiateSkyscraper("bird", leftSkyScraper);
+	machines = initiateSkyscraper("machine", rightSkyScraper);
 
-	//Visuals initiation
-	drawElements();
-	animateButton();
-	checkPrices();
+	marketUpdate = setInterval(updateMarket, marketUpdateTime);
+	marketTimerInterval = setInterval(updateMarketCountdown, 1000);
+	gameLoop = setInterval(loop, gameSpeed);
 
+	initiateFeatures();
+	initiateMenus();
+	initiateKeyboardListeners();
+	initiateButtons();
+	initiateChart();
+	
+	checkPrices(birds, bread);
+	checkPrices(machines, gold);
+
+	drawUpdate();
 	alertPlayer("Welcome!");
 };
 
-// What happens when you click the Click button
-function buttonClick() {
-	animateButton();
-	hit();
-	drawElements();
-	checkPrices();
-}
-
 // Game's main loop - passively adds bread from the upgrades
 function loop() {
-	for (var i = upgrades.length - 1; i >= 0; i--) {
-		eggs += upgrades[i].amount * upgrades[i].multiplier;
-		drawElements();
-		checkPrices();
+	checkPrices(birds, bread);
+	checkPrices(machines, gold);
+	drawUpdate();
+}
+
+/*----------------------------------------------------------INITIATIONS----------------------------------------------------------------------------------------*/
+//Create the features bar
+function initiateFeatures() {
+	features = [];
+	for (var i = featuresNames.length - 1; i >= 0; i--) {
+		let feature = {
+			name: featuresNames[i],
+			HTMLbutton: $("#button-feature" + i)[0],
+			HTMLelement: $("#feature" + i)[0]};
+		features.push(feature);
 	}
 }
 
-// Subtracts listed price from click count
-// Adds 1 to the current amount of upgrades in the upgrades array
-// Updates the upgrade's count text
-// Updates the bread count and the CPS of all upgrades
-function buyUpgrade(n) {
-	upgrades[n].cost = Math.floor(Math.pow(upgrades[n].multiplier, upgrades[n].amount) * upgrades[n].baseCost);
-	bread -= upgrades[n].cost;
-
-	upgrades[n].amount++;
-	document.getElementById(upgrades[n].HTMLamount.id).innerHTML = upgrades[n].amount;
-	upgrades[n].HTMLcost.innerHTML = upgrades[n].cost + upgrades[n].amount;
-	drawElements();
-	checkPrices();
-}
-
-// Checks if any of the upgrades and skills are available for purchase
-function checkPrices() {
-	for (let i = upgrades.length - 1; i >= 0; i--) {
-		//Check prices for x1
-		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
-			upgrades[i].HTMLid.classList.remove("disabled");
-			upgrades[i].HTMLid.classList.add("enabled");
-			upgrades[i].HTMLid.disabled = false;
-		} else {
-			upgrades[i].HTMLid.classList.remove("enabled");
-			upgrades[i].HTMLid.classList.add("disabled");
-			upgrades[i].HTMLid.disabled = true;
-		}
-
-		//Check prices for x10
-		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
-			upgrades[i].buttonx10.classList.remove("disabled");
-			upgrades[i].buttonx10.classList.add("enabled");
-			upgrades[i].buttonx10.disabled = false;
-		} else {
-			upgrades[i].buttonx10.classList.remove("enabled");
-			upgrades[i].buttonx10.classList.add("disabled");
-			upgrades[i].buttonx10.disabled = true;
-		}
-
-		//Check prices for x100
-		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
-			upgrades[i].buttonx100.classList.remove("disabled");
-			upgrades[i].buttonx100.classList.add("enabled");
-			upgrades[i].buttonx100.disabled = false;
-		} else {
-			upgrades[i].buttonx100.classList.remove("enabled");
-			upgrades[i].buttonx100.classList.add("disabled");
-			upgrades[i].buttonx100.disabled = true;
-		}
-
-		//Check prices for xMAX
-		if (bread >= upgrades[i].cost && bread >= upgrades[i].baseCost) {
-			upgrades[i].buttonxMAX.classList.remove("disabled");
-			upgrades[i].buttonxMAX.classList.add("enabled");
-			upgrades[i].buttonxMAX.disabled = false;
-		} else {
-			upgrades[i].buttonxMAX.classList.remove("enabled");
-			upgrades[i].buttonxMAX.classList.add("disabled");
-			upgrades[i].buttonxMAX.disabled = true;
-		}
-	}
-
-	if (gold < currentEggPrice){buyStockButton.disabled = true;}
-	if (gold < currentEggPrice){overlayBuyStockButton.disabled = true;}
-	if (gold >= currentEggPrice){buyStockButton.disabled = false;}
-	if (gold >= currentEggPrice){overlayBuyStockButton.disabled = false;}
-
-	if (eggs <= 0){sellStockButton.disabled = true;}
-	if (eggs <= 0){overlaySellStockButton.disabled = true;}
-	if (eggs > 0){sellStockButton.disabled = false;}
-	if (eggs > 0){overlaySellStockButton.disabled = false;}
-
-/*	for (var i = skills.length - 1; i >= 0; i--) {
-		if (bread >= skills[i].cost) {
-			skills[i].HTMLid.classList.remove("disabled");
-			skills[i].HTMLid.classList.add("enabled");
-			skills[i].HTMLid.disabled = false;
-		} else {
-			skills[i].HTMLid.classList.remove("enabled");
-			skills[i].HTMLid.classList.add("disabled");
-			skills[i].HTMLid.disabled = true;
-		}
-	}*/
-}
-
-// Updates the upgrades' price texts
-function drawElements() {
-	breadCountText.innerHTML = numeral(bread).format('0.00a');//bread.toExponential(2);//.toLocaleString("en-EN");
-	eggsCountText.innerHTML = numeral(eggs).format('0.00a');
-	goldCountText.innerHTML = numeral(gold).format('0.00a');
-
-	// Loops through all upgrade buttons and updates their CPS value
-	for (let i = upgrades.length - 1; i >= 0; i--) {
-		document.getElementById(upgrades[i].HTMLcps.id).innerHTML = upgrades[i].cps * upgrades[i].amount;
-		document.getElementById(upgrades[i].HTMLamount.id).innerHTML = upgrades[i].amount;
+//Create the menu bar
+function initiateMenus() {
+	menus = [];
+	for (var i = menuNames.length - 1; i >= 0; i--) {
+		let menuItem = {
+			name: menuNames[i],
+			HTMLbutton: $("#button-menu" + i)[0],
+			HTMLelement: $("#menu" + i)[0],
+			HTMLclose: $("#close-" + menuIdentifiers[i] + "-menu")[0],
+			HTMLwindow: $("#" + menuIdentifiers[i] + "-overlay")[0],
+			HTMLcontent: $("#" + menuIdentifiers[i] + "-overlay-content")[0]};
+		menus.push(menuItem);
 	}
 }
 
-function get1k() {
-	bread += 1000;
-	drawElements();
-	checkPrices();
-}
-function get10k() {
-	bread += 10000;
-	drawElements();
-	checkPrices();
-}
-function get100k() {
-	bread += 100000;
-	drawElements();
-	checkPrices();
-}
+//Set up Event handlers for keyboard input
+function initiateKeyboardListeners() {
+	//Keyboard listeners
+	// 9(Tab)	27(Esc)		32(Spacebar)	37(Left)	38(Up)	39(Right)	40(Down)
+	window.addEventListener('keydown', e => {
+		if (e.keyCode === 9) {
+			document.body.classList.add('user-is-tabbing');
+			window.removeEventListener('keydown', handleFirstTab);
+    	}
 
-function doubleSpeed() {
-	clearInterval(gameLoop);
-	gameSpeed = 500;
-	gameLoop = setInterval(loop, gameSpeed);
+		if (comboSequence.firstChild) {
+			switch(e.keyCode){
+				case 37:
+					if (combo[comboArrowsCounter] === 1) {
+		      			$("#combo" + comboArrowsCounter).css({"color": comboActiveColor});
+			      		comboArrowsCounter++;
+			      	} else {
+			      		for (let i = 0; i <= combo.length - 1; i++) {
+			      			$("#combo" + i).css({"color": comboInactiveColor});
+			      		}
+				      	comboArrowsCounter = 0;
+			      	}
+					validateCombo();
+					e.preventDefault();
+					break;
+				case 39:
+					if (combo[comboArrowsCounter] === 2) {
+		      			$("#combo" + comboArrowsCounter).css({"color": comboActiveColor});
+			      		comboArrowsCounter++;
+			      	} else {
+			      		for (let i = 0; i <= combo.length - 1; i++) {
+			      			$("#combo" + i).css({"color": comboInactiveColor});
+			      		}
+				      	comboArrowsCounter = 0;
+			      	}
+			   		validateCombo();
+			   		e.preventDefault();
+					break;
+				case 38:
+					if (combo[comboArrowsCounter] === 3) {
+		      			$("#combo" + comboArrowsCounter).css({"color": comboActiveColor});
+			      		comboArrowsCounter++;
+			      	} else {
+			      		for (let i = 0; i <= combo.length - 1; i++) {
+		      				$("#combo" + i).css({"color": comboInactiveColor});
+			      		}
+				      	comboArrowsCounter = 0;
+			      	}
+			      	validateCombo();
+			      	e.preventDefault();
+					break;
+				case 40:
+					if (combo[comboArrowsCounter] === 4) {
+		      			$("#combo" + comboArrowsCounter).css({"color": comboActiveColor});
+			      		comboArrowsCounter++;
+			      	} else {
+			      		for (var i = 0; i <= combo.length - 1; i++) {
+		      				$("#combo" + i).css({"color": comboInactiveColor});
+			      		}
+				    	comboArrowsCounter = 0;
+			      	}
+			      	validateCombo();
+			      	e.preventDefault();
+					break;
+			}
+		}
 
-	setTimeout(function() {
-		clearInterval(gameLoop);
-		gameSpeed = 1000;
-		gameLoop = setInterval(loop, gameSpeed);
-	}, 5000);
-}
-
-function doubleCritDmg() {
-	setTimeout(function() {
-		critDmgMultiplier *= 2;
-	}, 5000);
-}
-
-
-function saveGame() {
-	localStorage.setItem('Bread', bread);
-	localStorage.setItem('CritRate', critRate);
-}
-
-function loadGame() {
-	bread = parseInt(localStorage.getItem('Bread'));
-	critRate = parseInt(localStorage.getItem('CritRate'));
-	drawElements();
-	checkPrices();
-}
-
-//If you click with the right mouse key
-function initiateRightClick() {
-	mainButton.addEventListener("contextmenu", function(event) {
-		event.preventDefault();
-		animateButton();
-		hit();
-		drawElements();
-		checkPrices();
-		return false;
+		if (e.keyCode === 27) {
+			menus.forEach( menuItem => menuItem.HTMLwindow.style.display = "none");
+			closeChart();
+		}
 	}, false);
 }
 
-function hit() {
-	alertPlayer("click");
-	if (Math.random()*100 <= critRate) {
-		bread = bread + clickPower * critDmgMultiplier;
-	} else {
-		bread = bread + clickPower;
+//Set up Event handlers for all buttons in the game
+function initiateButtons() {
+	let duration = 0.3;
+	let delay = 0.08;
+	TweenMax.to(mainButton, duration, {scaleY: 1.6, ease: Expo.easeOut});
+	TweenMax.to(mainButton, duration, {scaleX: 1.2, scaleY: 1, ease: Back.easeOut, easeParams: [3], delay: delay});
+	TweenMax.to(mainButton, duration * 1.25, {scaleX: 1, scaleY: 1, ease: Back.easeOut, easeParams: [6], delay: delay * 3 });
+
+	mainButton.addEventListener("mouseover", e => {
+		TweenMax.to(mainButton, 0.1, {scaleY: 1.1, ease: Expo.easeOut});
+		TweenMax.to(mainButton, 0.1, {scaleX: 1.1, ease: Expo.easeOut});
+	});
+	mainButton.addEventListener("mouseout", e => {
+		TweenMax.to(mainButton, 0.1, {scaleY: 1, ease: Expo.easeOut});
+		TweenMax.to(mainButton, 0.1, {scaleX: 1, ease: Expo.easeOut});
+	});
+
+	mainButton.addEventListener("contextmenu", e => {
+		e.preventDefault();
+		click();
+		animateButton();
+		drawElements();
+		checkPrices(birds, bread);
+		return false;
+	}, false);
+
+	mainButton.addEventListener("click", e => {
+		click();
+		animateButton();
+		drawElements();
+		checkPrices(birds, bread);
+	});
+
+	menus.forEach(menuItem => {
+		menuItem.HTMLbutton.addEventListener("click", e => menuItem.HTMLwindow.style.display = "block");
+		menuItem.HTMLclose.addEventListener("click", e => menuItem.HTMLwindow.style.display = "none");
+		menuItem.HTMLwindow.addEventListener("click", e => menuItem.HTMLwindow.style.display = "none");
+		menuItem.HTMLcontent.addEventListener("click", e => e.stopPropagation()); //clicking inside the window does not close it
+	});
+
+	for (let i = skills.length - 1; i >= 0; i--) {
+		skills[i].HTMLelement.addEventListener("click", e => {
+			let c = skills[i].coolDown/1000;
+			skills[i].HTMLelement.innerHTML = c + "s";
+			skills[i].HTMLelement.style.fontSize = "2vw";
+			skills[i].HTMLelement.style.color = "#EC6F28";
+
+			let int = setInterval(() => {
+				c--;
+				skills[i].HTMLelement.innerHTML = c + "s";
+				if (c == 0) {
+					clearInterval(int);
+				}
+			}, 1000);
+
+			skills[i].HTMLelement.disabled = true;
+			setTimeout(() => {
+    			skills[i].HTMLelement.disabled = false;
+				skills[i].HTMLelement.innerHTML = skills[i].name;
+				skills[i].HTMLelement.style.fontSize = "18px";
+				skills[i].HTMLelement.style.color = "#eee";
+			}, skills[i].coolDown);
+		});
 	}
+
+	birds.forEach( bird => {
+		bird.HTMLelement.addEventListener("click", e => buyUpgrade(birds, bird, currency));
+		bird.buttonx10.addEventListener("click", e => buyUpgrade(birds, bird, currency));
+		bird.buttonx100.addEventListener("click", e => buyUpgrade(birds, bird, currency));
+		bird.buttonxMAX.addEventListener("click", e => buyUpgrade(birds, bird, currency));
+	});
+	
+	machines.forEach( machine => {
+		machine.HTMLelement.addEventListener("click", e => buyUpgrade(machines, machine, currency));
+		machine.buttonx10.addEventListener("click", e => buyUpgrade(machines, machine, currency));
+		machine.buttonx100.addEventListener("click", e => buyUpgrade(machines, machine, currency));
+		machine.buttonxMAX.addEventListener("click", e => buyUpgrade(machines, machine, currency));
+	});
+
+	chartZoom.addEventListener("click", e => {
+		chartWindow.style.display = "block";
+		zoomedChart.appendChild(document.getElementById("eggMarket"));
+	});
+
+	chartWindow.addEventListener("click", e => {
+		chartWindow.style.display = "none";
+		chartContainer.appendChild(document.getElementById("eggMarket"));
+	});
+
+	chartClose.addEventListener("click", e => {
+		marketOverlayWindow.style.display = "none";
+		chartWindow.style.display = "none";
+		chartContainer.appendChild(document.getElementById("eggMarket"));
+	});
+
+	//Market Overlay Events
+	chartOverlayContent.addEventListener("click", e => e.stopPropagation());
+	marketOverlayClose.addEventListener("click", e => marketOverlayWindow.style.display = "none");
+	marketOverlayWindow.addEventListener("click", e => marketOverlayWindow.style.display = "none");
+	marketOverlayContent.addEventListener("click", e => {
+		e.stopPropagation();
+		overlayBuyStockButton.startPropagation();
+		overlaySellStockButton.startPropagation();
+	});
+
+	marketHistoryButton.addEventListener("click", e => marketOverlayWindow.style.display = "block");
+
+	buyStockButton.addEventListener("click", e => buyEggStock());
+	overlayBuyStockButton.addEventListener("click", e => buyEggStock());
+	sellStockButton.addEventListener("click", e => sellEggStock());
+	overlaySellStockButton.addEventListener("click", e => sellEggStock());
 }
 
-//Sets the function of the arrow keys
-function initiateCombo() {
-	document.addEventListener('keydown', (event) => {
-	switch(event.key){
-		case "ArrowLeft":
-			if (comboSequence.firstChild) {
-				if (combo[comboCounter] == 1) {
-		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-		      	comboCounter++;
-		      	} else {
-		      		for (var i = 0; i <= combo.length - 1; i++) {
-		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-		      		}
-			      	comboCounter = 0;
-		      	}
-		      	checkComboCounter();
-		      }
-			break;
-		case "ArrowRight":
-			if (comboSequence.firstChild) {
-				if (combo[comboCounter] == 2) {
-		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-		      	comboCounter++;
-		      	} else {
-		      		for (var i = 0; i <= combo.length - 1; i++) {
-		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-		      		}
-			      	comboCounter = 0;
-		      	}
-		      	checkComboCounter();
-		      }
-			break;
-		case "ArrowUp":
-			if (comboSequence.firstChild) {
-				if (combo[comboCounter] == 3) {
-		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-		      	comboCounter++;
-		      	} else {
-		      		for (var i = 0; i <= combo.length - 1; i++) {
-		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-		      		}
-			      	comboCounter = 0;
-		      	}
-		      	checkComboCounter();
-		      }
-			break;
-		case "ArrowDown":
-			if (comboSequence.firstChild) {
-				if (combo[comboCounter] == 4) {
-		      		document.getElementById("combo" + comboCounter).style.color = comboActiveColor;
-		      	comboCounter++;
-		      	} else {
-		      		for (var i = 0; i <= combo.length - 1; i++) {
-		      			document.getElementById("combo" + i).style.color = comboInactiveColor;
-		      		}
-			      	comboCounter = 0;
-		      	}
-		      	checkComboCounter();
-		      }
-			break;
-		}
+//Fill the Egg Market Chart with data
+function initiateChart() {
+	chart = new Chart(eggMarketChart, {
+	    // The type of chart we want to create
+	    type: 'line',
+
+	    // The data for our dataset
+	    data: {
+	        labels: [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
+	        		 " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
+	        		 " ", " ", " ", " ", " "
+	        ],
+	        datasets: [{
+	            label: "EGM",
+	            borderColor: 'rgb(255, 99, 132)',
+	            data: [baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
+	            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
+	            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
+	            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice,
+	            	   baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice, baseEggPrice
+	            ],
+	        }]
+	    },
+
+	    // Configuration options go here
+	    options: {
+	    	maintainAspectRatio: false,
+	    	responsive: true,
+	    	legend: {
+	    		display: false
+	    	},
+	    	
+	    	configuration: {
+	    		responsiveAnimationDuration: true
+	    	}
+	    }
 	});
 }
 
-function initiateUpgrades() {
-	for (let i = upgrades.length - 1; i >= 0; i--) {
-			upgrades[i].HTMLid.addEventListener("click", function() {
-				buyUpgrade(i);
-			});
+/*----------------------------------------------------------VISUAL UPDATES----------------------------------------------------------------------------------------*/
+//Sends a short pop up notification
+//Adds an entry to the log menu
+//Updates the text in the marquee area
+function alertPlayer(message) {
+	const date = new Date();
+	const timestamp = "[" + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2) + "]";
 
-			upgrades[i].buttonx10.addEventListener("click", function() {
-				for (var j = 0; j < 10; j++) {
-					checkPrices();
-					buyUpgrade(i);
-				}
-			});
+	marquee.innerHTML = "";
+	marquee.innerHTML = timestamp + ": " + message;
 
-			upgrades[i].buttonx100.addEventListener("click", function() {
-				for (var j = 0; j < 10; j++) {
-					buyUpgrade(i);
-				}
-			});
+	const ts = document.createElement("SPAN");
+	const e = document.createElement("SPAN");
+	const logEntry = document.createElement("P");
 
-			upgrades[i].buttonxMAX.addEventListener("click", function() {
-				for (var j = 0; j < 10; j++) {
-					buyUpgrade(i);
-				}
-			});
+	ts.innerHTML = timestamp + ": ";
+	ts.classList.add("timestamp");
+	e.innerHTML = message;
+	logEntry.appendChild(ts);
+	logEntry.appendChild(e);
 
-			upgrades[i].HTMLcost.innerHTML = upgrades[i].baseCost.toLocaleString("en-EN");;
-			upgrades[i].HTMLcps.innerHTML = upgrades[i].cps.toLocaleString("en-EN");;
-	}
-}
-
-function checkComboCounter() {
-	if (comboCounter >= combo.length) {
-		multipleCombos++;
-		combinedComboReward = baseComboReward * comboLength * multipleCombos;
-		bread = bread + combinedComboReward;
-		comboPointsAnimation(combinedComboReward, multipleCombos);
-		drawElements();
-		while (comboSequence.firstChild) {
-    		comboSequence.removeChild(comboSequence.firstChild);
-			}
-		comboCounter = 0;
-	}
+	log.appendChild(document.createElement("HR"));
+	log.appendChild(logEntry);
+	
+	alerts.innerHTML = message;
+	alerts.classList.toggle("show");
+	setTimeout(function() {
+		alerts.classList.toggle("hide");
+		setTimeout(function() {
+			alerts.classList.toggle("hide");
+			alerts.classList.toggle("show");
+		},2000);
+	}, 1000);
 }
 
 //Removes any existing combo
-//Generates a random combo between 5 and 10 moves long
-function comboSpawner() {
-	comboCounter = 0;
-	if (comboSequence.firstChild) {
-		multipleCombos = 0;
-	}
-	while (comboSequence.firstChild) {
-    	comboSequence.removeChild(comboSequence.firstChild);
-	}
+//Generates a random combo between minComboLength and maxComboLength moves long
+function comboGenerator() {
+	comboArrowsCounter = 0;
+	multipleCombos = comboSequence.firstChild ? 0 : multipleCombos;
+	while (comboSequence.firstChild) {comboSequence.removeChild(comboSequence.firstChild);}
 
-	combo = new Array(Math.floor(Math.random() * 10) + 5);
+	combo = new Array(randomNumberGenerator(minComboLength, maxComboLength));
 	comboLength = combo.length;
-	for (var i = 0; i <= combo.length - 1; i++) {
+	for (let i = 0; i <= combo.length - 1; i++) {
 		combo[i] = Math.floor(Math.random() * 4) + 1;
 
 		switch(combo[i]){
@@ -496,41 +452,25 @@ function comboSpawner() {
 	}
 }
 
+//Controls the values of the combo bar animation
 function drawComboCooldown() {
-        if (loadingBarWidth >= 52) {
-        	comboSpawner();
-            loadingBarWidth = 1;
-    		loadingBarLeft.style.width = 0;
-    		loadingBarRight.style.width = 0;
-        } else {
-            loadingBarWidth += 0.5; 
-            loadingBarLeft.style.width = loadingBarWidth + '%'; 
-            loadingBarRight.style.width = loadingBarWidth + '%'; 
-        }
+    if (loadingBarWidth >= 52) {
+    	comboGenerator();
+        loadingBarWidth = 1;
+		loadingBarLeft.style.width = 0;
+		loadingBarRight.style.width = 0;
+    } else {
+        loadingBarWidth += 0.5; 
+        loadingBarLeft.style.width = loadingBarWidth + '%'; 
+        loadingBarRight.style.width = loadingBarWidth + '%'; 
     }
-
-//Makes the main button wobble
-function animateButton() {
-	var duration = 0.3,
-	delay = 0.08;
-	TweenMax.to(mainButton, duration, {scaleY: 1.6, ease: Expo.easeOut});
-	TweenMax.to(mainButton, duration, {scaleX: 1.2, scaleY: 1, ease: Back.easeOut, easeParams: [3], delay: delay});
-	TweenMax.to(mainButton, duration * 1.25, {scaleX: 1, scaleY: 1, ease: Back.easeOut, easeParams: [6], delay: delay * 3 });
-
-	mainButton.addEventListener("mouseover", function() {
-		TweenMax.to(mainButton, 0.1, {scaleY: 1.1, ease: Expo.easeOut});
-		TweenMax.to(mainButton, 0.1, {scaleX: 1.1, ease: Expo.easeOut});
-	});
-	mainButton.addEventListener("mouseout", function() {
-		TweenMax.to(mainButton, 0.1, {scaleY: 1, ease: Expo.easeOut});
-		TweenMax.to(mainButton, 0.1, {scaleX: 1, ease: Expo.easeOut});
-	});
 }
 
+//Creates a short pop up if the player completes an arrow combo
 function comboPointsAnimation(n, m) {
-	comboPointsMessage.innerHTML = "+" + n;
 	alertPlayer("Combo X" + m);
 
+	comboPointsMessage.innerHTML = "+" + n;
 	comboPointsMessage.classList.toggle("show");
 	setTimeout(function() {
 		comboPointsMessage.classList.toggle("hide");
@@ -541,274 +481,59 @@ function comboPointsAnimation(n, m) {
 	}, 200);
 }
 
-function alertPlayer(message) {
-	date = new Date();
-	timestamp = "[" + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2) + "]";
+//Updates the Bread text in the Currencies panel
+/*bread.toExponential(2);//.toLocaleString("en-EN");*/
+function drawBread() {breadCountText.innerHTML = numeral(bread).format('0.00a');}
 
-	marquee.innerHTML = "";
-	marquee.innerHTML = timestamp + ": " + message;
+//Updates the Eggs text in the Currencies panel
+function drawEggs() {eggsCountText.innerHTML = numeral(eggs).format('0.00a');}
 
-	const ts = document.createElement("SPAN");
-	const e = document.createElement("SPAN");
-	const logEntry = document.createElement("P");
+//Updates the Gold text in the Currencies panel
+function drawGold() {goldCountText.innerHTML = numeral(gold).format('0.00a');}
 
-	ts.innerHTML = timestamp + ": ";
-	ts.classList.add("timestamp");
-	e.innerHTML = message;
-	logEntry.appendChild(ts);
-	logEntry.appendChild(e);
-
-	log.appendChild(document.createElement("HR"));
-	log.appendChild(logEntry);
-	
-	alerts.innerHTML = message;
-	alerts.classList.toggle("show");
-	setTimeout(function() {
-		alerts.classList.toggle("hide");
-		setTimeout(function() {
-			alerts.classList.toggle("hide");
-			alerts.classList.toggle("show");
-		},2000);
-	}, 1000);
-}
-
-function handleFirstTab(e) {
-    if (e.keyCode === 9) { // the "I am a keyboard user" key
-        document.body.classList.add('user-is-tabbing');
-        window.removeEventListener('keydown', handleFirstTab);
-    }
-
-    //Disable Arrow Keys for Scrolling
-    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
-    }
-}
-
-
-function initiateMenuButtons() {
-	for (let i = menu.length - 1; i >= 0; i--) {
-		menu[i].HTMLbutton.addEventListener("click", function() {
-			menu[i].HTMLwindow.style.display = "block";
-		});
-
-		menu[i].HTMLclose.addEventListener("click", function () {
-			menu[i].HTMLwindow.style.display = "none";
-		});
-
-		menu[i].HTMLwindow.addEventListener("click", function() {
-    	    menu[i].HTMLwindow.style.display = "none";
-		});
-
-		menu[i].HTMLcontent.addEventListener("click", function(e) {
-			e.stopPropagation(); //clicking inside the window does not close it
-		});
+//Updates the text in the Birds buttons
+function drawBirds() {
+	for (let bird of birds) {
+		$("#" + bird.HTMLcurrency.id).html((bird.currency).toLocaleString("en-EN"));
+		$("#" + bird.HTMLlevel.id).html(bird.level);
+		$("#" + bird.HTMLcost.id).html(bird.baseCost.toLocaleString("en-EN"));
 	}
 }
 
-function initiateCloseAllWindows() {
-	window.addEventListener("keydown", function(e) {
-		if (e.keyCode == 27) {
-			closeChart();
-			for (var i = menu.length - 1; i >= 0; i--) {
-				menu[i].HTMLwindow.style.display = "none";
-			}
-		}
-	});
-}
-
-//Options
-function resetOptions() {
-	options[0].HTMLinput.checked = true;
-}
-
-function saveOptions() {
-	if (options[0].HTMLinput.checked) {
-
+//Updates the text in the Machines buttons
+function drawMachines() {
+	for (let machine of machines) {
+		$("#" + machine.HTMLcurrency.id).html((machine.currency).toLocaleString("en-EN"));
+		$("#" + machine.HTMLlevel.id).html(machine.level);
+		$("#" + machine.HTMLcost.id).html(machine.baseCost.toLocaleString("en-EN"));
 	}
 }
 
-function initiateSkyScrapers() {
-	let upgradesArray = [];
-	for (let i = 9; i >= 0; i--) {
-		let container = document.createElement("DIV");
-		let divx10 = document.createElement("DIV");
-		let divx100 = document.createElement("DIV");
-		let divxMAX = document.createElement("DIV");
-		let btnx10 = document.createElement("BUTTON");
-		let btnx100 = document.createElement("BUTTON");
-		let btnxMAX = document.createElement("BUTTON");
-		let upgradeContainer = document.createElement("DIV");
-		let btnUpgrade = document.createElement("BUTTON");
-		let upgradeTextContainer = document.createElement("DIV");
-		let upgradeAmount = document.createElement("SPAN");
-		let upgradeCPS = document.createElement("SPAN");
-		let upgradeCost = document.createElement("SPAN");
-
-		container.classList.add("grid-container-upgrades-buttons-left");
-		upgradeContainer.classList.add("upgrade");
-		upgradeTextContainer.classList.add("upgrade-text");
-		divx10.classList.add("buy-multiple");
-		divx100.classList.add("buy-multiple");
-		divxMAX.classList.add("buy-multiple");
-
-		btnx10.id = "upgrade" + i + "x10";
-		btnx10.innerHTML = "x10";
-		btnx100.id = "upgrade" + i + "x100";
-		btnx100.innerHTML = "x100";
-		btnxMAX.id = "upgrade" + i + "xMAX";
-		btnxMAX.innerHTML = "MAX";
-		btnUpgrade.id = "upgrade" + i;
-		upgradeAmount.id = "amount-upgrade" + i;
-		upgradeCPS.id = "cps-upgrade" + i;
-		upgradeCost.id = "cost-upgrade" + i;
-
-		upgradeTextContainer.innerHTML = "Upgrade " + i + " [";
-		upgradeTextContainer.appendChild(upgradeAmount);
-		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + "]<br>" + "(CPS: ";
-		upgradeTextContainer.appendChild(upgradeCPS);
-		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + ")<br>" + "Cost: ";
-		upgradeTextContainer.appendChild(upgradeCost);
-
-		btnUpgrade.appendChild(upgradeTextContainer);
-		upgradeContainer.appendChild(btnUpgrade);
-
-		divx10.appendChild(btnx10);
-		divx100.appendChild(btnx100);
-		divxMAX.appendChild(btnxMAX);
-
-		container.appendChild(divx10);
-		container.appendChild(upgradeContainer);
-		container.appendChild(divx100);
-		container.appendChild(divxMAX);
-
-		leftSkyScraper.appendChild(container);
-
-		let elem = {name: "Upgrade " + i,  amount: 0, multiplier: 1.07, cps: 5, cost: 0, baseCost: 50, HTMLamount: upgradeAmount, HTMLcps: upgradeCPS, HTMLcost: upgradeCost, HTMLid: btnUpgrade, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
-		upgradesArray.push(elem);
-	}
-
-	for (let j = 19; j >= 10; j--) {
-		let container = document.createElement("DIV");
-		let divx10 = document.createElement("DIV");
-		let divx100 = document.createElement("DIV");
-		let divxMAX = document.createElement("DIV");
-		let btnx10 = document.createElement("BUTTON");
-		let btnx100 = document.createElement("BUTTON");
-		let btnxMAX = document.createElement("BUTTON");
-		let upgradeContainer = document.createElement("DIV");
-		let btnUpgrade = document.createElement("BUTTON");
-		let upgradeTextContainer = document.createElement("DIV");
-		let upgradeAmount = document.createElement("SPAN");
-		let upgradeCPS = document.createElement("SPAN");
-		let upgradeCost = document.createElement("SPAN");
-
-		container.classList.add("grid-container-upgrades-buttons-right");
-		upgradeContainer.classList.add("upgrade");
-		upgradeTextContainer.classList.add("upgrade-text");
-		divx10.classList.add("buy-multiple");
-		divx100.classList.add("buy-multiple");
-		divxMAX.classList.add("buy-multiple");
-
-		btnx10.id = "upgrade" + j + "x10";
-		btnx10.innerHTML = "x10";
-		btnx100.id = "upgrade" + j + "x100";
-		btnx100.innerHTML = "x100";
-		btnxMAX.id = "upgrade" + j + "xMAX";
-		btnxMAX.innerHTML = "MAX";
-		btnUpgrade.id = "upgrade" + j;
-		upgradeAmount.id = "amount-upgrade" + j;
-		upgradeCPS.id = "cps-upgrade" + j;
-		upgradeCost.id = "cost-upgrade" + j;
-
-		upgradeTextContainer.innerHTML = "Upgrade " + j + " [";
-		upgradeTextContainer.appendChild(upgradeAmount);
-		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + "]<br>" + "(CPS: ";
-		upgradeTextContainer.appendChild(upgradeCPS);
-		upgradeTextContainer.innerHTML = upgradeTextContainer.innerHTML + ")<br>" + "Cost: ";
-		upgradeTextContainer.appendChild(upgradeCost);
-
-
-		btnUpgrade.appendChild(upgradeTextContainer);
-		upgradeContainer.appendChild(btnUpgrade);
-
-		divx10.appendChild(btnx10);
-		divx100.appendChild(btnx100);
-		divxMAX.appendChild(btnxMAX);
-
-		container.appendChild(divx10);
-		container.appendChild(upgradeContainer);
-		container.appendChild(divx100);
-		container.appendChild(divxMAX);
-
-		rightSkyScraper.appendChild(container);
-
-		let elem = {name: "Upgrade " + j,  amount: 0, multiplier: 1.07, cps: 5, cost: 0, baseCost: 50, HTMLamount: upgradeAmount, HTMLcps: upgradeCPS, HTMLcost: upgradeCost, HTMLid: btnUpgrade, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
-		upgradesArray.push(elem);
-	}
-
-	leftSkyScraper.scrollTop = leftSkyScraper.scrollHeight;
-	rightSkyScraper.scrollTop = rightSkyScraper.scrollHeight;
-	return upgradesArray
+//Draws all currencies, birds buttons and machines buttons
+function drawUpdate() {
+	drawBread();
+	drawEggs();
+	drawGold();
+	drawBirds();
+	drawMachines();
 }
 
-function skillsCooldown() {
-	for (let i = skills.length - 1; i >= 0; i--) {
-		skills[i].HTMLid.addEventListener("click", function() {
-			let c = skills[i].coolDown/1000;
-			skills[i].HTMLid.innerHTML = c + "s";
-			skills[i].HTMLid.style.fontSize = "30px";
-			skills[i].HTMLid.style.color = "#EC6F28";
-
-			let int = setInterval(function () {
-				c--;
-				skills[i].HTMLid.innerHTML = c + "s";
-				if (c == 0) {
-					clearInterval(int);
-				}
-			}, 1000);
-
-			skills[i].HTMLid.disabled = true;
-			setTimeout(function(){
-    			skills[i].HTMLid.disabled = false;
-				skills[i].HTMLid.innerHTML = skills[i].name;
-				skills[i].HTMLid.style.fontSize = "18px";
-				skills[i].HTMLid.style.color = "#eee";
-			}, skills[i].coolDown);
-		});
-	}
-}
-
-function gridToggle() {
-	let gridElements = document.getElementsByClassName("grid-item");
-	let toggleCheck = document.getElementById("gridToggle");
-
-	if (toggleCheck.innerHTML == "ON") {
-		for (var i = gridElements.length - 1; i >= 0; i--) {
-			gridElements[i].style.border = "none";
-		}
-		toggleCheck.innerHTML = "OFF";
-		return;
-	}
-
-	if (toggleCheck.innerHTML == "OFF") {
-		for (var i = gridElements.length - 1; i >= 0; i--) {
-			gridElements[i].style.border = "1px solid darkmagenta";
-		}
-		toggleCheck.innerHTML = "ON";
-		return;
-	}
-}
-
+//Changes the Market Index by a random value between 0 and 50
+//Updates the Chart with the changed value
 function updateMarket() {
-	let marketDirection;
+	//Declaration
+	let marketDirection, marketChange;
 	const marketDate = new Date();
 	const marketTimestamp = ("0" + marketDate.getHours()).slice(-2) + ":" + ("0" + marketDate.getMinutes()).slice(-2);
-   	let marketChange = (Math.random() * 49) * (Math.floor(Math.random()*2) == 1 ? 1 : -1)/100;
+
+   	//Initialisation
+   	marketChange = (Math.random() * 49) * (Math.floor(Math.random()*2) === 1 ? 1 : -1)/100;
    	currentEggPrice = Math.floor((currentEggPrice + currentEggPrice * marketChange) * demand);
-   	if (currentEggPrice < 20) {
-   		currentEggPrice = 20;
-   		marketChange = 0;
-   	}
+
+   	//Verification
+   	currentEggPrice = currentEggPrice <= 20 ? 20 : currentEggPrice;
+   	marketChange = currentEggPrice <= 20 ? 0 : marketChange;
+
    	if (marketChange > 0) {
    		marketDirection = " &uarr; ";
 		marketIndex.style.color = "#599643";
@@ -821,12 +546,13 @@ function updateMarket() {
 		marketIndexOverlay.style.color = "#db3a2b";
 		archiveMarket("EGM" + marketDirection + (marketChange*100).toFixed(2) + "%", 0);
    	}
-   	if (marketChange == 0) {
+   	if (marketChange === 0) {
    		marketDirection = " &rarr; ";
    		marketIndex.style.color = "#aaa";
 		marketIndexOverlay.style.color = "#aaa";
 		archiveMarket("EGM" + marketDirection + (marketChange*100).toFixed(2) + "%", 0);	
    	}
+
 	marketIndex.innerHTML = marketDirection + (marketChange*100).toFixed(2) + "%";
 	marketIndexOverlay.innerHTML = marketDirection + (marketChange*100).toFixed(2) + "%";
 
@@ -838,83 +564,7 @@ function updateMarket() {
     chart.update();
 }
 
-function buyEggStock(b) {
-	b.startPropagation;
-
-	demand += 0.001;
-	eggs++;
-	gold = gold - currentEggPrice;
-
-	checkPrices();
-	drawElements();
-}
-
-function sellEggStock(b) {
-	b.startPropagation;
-
-	if (demand > 1) {demand -= 0.001;}
-	eggs--;
-	gold = gold + currentEggPrice;
-
-	checkPrices();
-	drawElements();
-}
-
-function updateMarketTimer() {
-	let minutes, seconds;
-	countdown-=1000;
-	seconds = Math.floor(countdown / 1000);
-	minutes = Math.floor(seconds / 60);
-	marketTimer.innerHTML = ("0" + minutes).slice(-2) + ":" + ("0" + (seconds % 60)).slice(-2);
-
-	if (countdown <= 0) {
-		countdown = marketUpdateTime;
-	}
-}
-
-function initiateChartZoom() {
-	chartZoom.addEventListener("click", function() {
-		chartWindow.style.display = "block";
-		zoomedChart.appendChild(document.getElementById("eggMarket"));
-	});
-
-	chartWindow.addEventListener("click", function() {
-		chartWindow.style.display = "none";
-		chartContainer.appendChild(document.getElementById("eggMarket"));
-	});
-
-	chartClose.addEventListener("click", function() {
-		chartWindow.style.display = "none";
-		chartContainer.appendChild(document.getElementById("eggMarket"));
-	});
-
-	chartOverlayContent.addEventListener("click", function(e) {
-		e.stopPropagation();
-	});
-}
-
-function closeChart() {
-	marketOverlayWindow.style.display = "none";
-	chartWindow.style.display = "none";
-	chartContainer.appendChild(document.getElementById("eggMarket"));
-}
-
-function openMarketHistory() {
-	marketOverlayWindow.style.display = "block";
-
-	marketOverlayClose.addEventListener("click", function () {
-		marketOverlayWindow.style.display = "none";
-	});
-
-	marketOverlayWindow.addEventListener("click", function() {
-	    marketOverlayWindow.style.display = "none";
-	});
-
-	marketOverlayContent.addEventListener("click", function(e) {
-		e.stopPropagation(); //clicking inside the window does not close it
-	});
-}
-
+//Creates an entry in the history with the change of the index and a timestamp
 function archiveMarket(message, direction) {
 	const date = new Date();
 	const timestamp = "[" + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2) + "]";
@@ -923,8 +573,7 @@ function archiveMarket(message, direction) {
 	const entry = document.createElement("SPAN");
 	const entryContainer = document.createElement("P");
 
-	if (direction == 1) {entry.style.color = "#599643";}
-	if (direction == 0) {entry.style.color = "#db3a2b";}
+	entry.style.color = direction === 1 ? "#599643" : "#db3a2b";
 
 	ts.innerHTML = timestamp + ": ";
 	ts.classList.add("timestamp");
@@ -934,4 +583,314 @@ function archiveMarket(message, direction) {
 
 	marketHistoryLog.appendChild(document.createElement("HR"));
 	marketHistoryLog.appendChild(entryContainer);
+}
+
+//Creates a countdown for when the market index will update
+function updateMarketCountdown() {
+	let minutes, seconds;
+	countdown-=1000;
+	seconds = Math.floor(countdown / 1000);
+	minutes = Math.floor(seconds / 60);
+	marketTimer.innerHTML = ("0" + minutes).slice(-2) + ":" + ("0" + (seconds % 60)).slice(-2);
+	countdown = countdown <= 0 ? marketUpdateTime : countdown;
+}
+
+/*----------------------------------------------------------GAME LOGIC----------------------------------------------------------------------------------------*/
+
+//Makes bread, increases click count and crit count
+function click() {
+	let didItCrit = Math.random()*100 <= critRate ? true : false;
+
+	clicks++;
+	crits = didItCrit ? crits++ : crits;
+
+	addBread(didItCrit ? bread + clickPower * critDmgMultiplier : bread + clickPower);
+
+	alertPlayer("Peck!");
+}
+
+//Generates a random number between min and max
+function randomNumberGenerator(min, max) {return Math.floor(Math.random() * (max - min + 1) ) + min;}
+
+//Confirms if an arrow combo has been complete and gives bread if it has
+function validateCombo() {
+	if (comboArrowsCounter >= combo.length) {
+		multipleCombos++;
+		combinedComboReward = baseComboReward * comboLength * multipleCombos;
+		addBread(combinedComboReward)
+
+		comboPointsAnimation(combinedComboReward, multipleCombos);
+		while (comboSequence.firstChild) {comboSequence.removeChild(comboSequence.firstChild);}
+		comboArrowsCounter = 0;
+	}
+}
+
+//Adds more bread
+function addBread(amount) {bread += amount;}
+
+//Adds more eggs
+//Increases the demand
+function addEggs(amount) {eggs += amount;}
+
+//Adds more gold
+function addGold(amount) {gold += amount;}
+
+//TO DO
+function initiateSkyscraper(identifier, parent) {
+	let array = [];
+	for (let i = 9; i >= 0; i--) {
+		let wrapper = document.createElement("DIV");
+
+		let container = document.createElement("DIV");
+		let button = document.createElement("BUTTON");
+		
+		let divx10 = document.createElement("DIV");
+		let divx100 = document.createElement("DIV");
+		let divxMAX = document.createElement("DIV");
+		let btnx10 = document.createElement("BUTTON");
+		let btnx100 = document.createElement("BUTTON");
+		let btnxMAX = document.createElement("BUTTON");
+
+		let textContainer = document.createElement("DIV");
+		let level = document.createElement("SPAN");
+		let currency = document.createElement("SPAN");
+		let cost = document.createElement("SPAN");
+
+		wrapper.classList.add("grid-container-birds-buttons");
+		container.classList.add("bird");
+		textContainer.classList.add("bird-text");
+		divx10.classList.add("buy-multiple");
+		divx100.classList.add("buy-multiple");
+		divxMAX.classList.add("buy-multiple");
+
+		btnx10.id = "bird" + i + "x10";
+		btnx10.innerHTML = "x10";
+		btnx100.id = "bird" + i + "x100";
+		btnx100.innerHTML = "x100";
+		btnxMAX.id = "bird" + i + "xMAX";
+		btnxMAX.innerHTML = "MAX";
+		button.id = "bird" + i;
+		level.id = "level-bird" + i;
+		currency.id = "eggs-bird" + i;
+		cost.id = "cost-bird" + i;
+
+		textContainer.innerHTML = "Upgrade " + i + " [";
+		textContainer.appendChild(level);
+		textContainer.innerHTML = textContainer.innerHTML + "]<br>" + "(CPS: ";
+		textContainer.appendChild(currency);
+		textContainer.innerHTML = textContainer.innerHTML + ")<br>" + "Cost: ";
+		textContainer.appendChild(cost);
+
+		button.appendChild(textContainer);
+		container.appendChild(button);
+
+		divx10.appendChild(btnx10);
+		divx100.appendChild(btnx100);
+		divxMAX.appendChild(btnxMAX);
+
+		wrapper.appendChild(divx10);
+		wrapper.appendChild(container);
+		wrapper.appendChild(divx100);
+		wrapper.appendChild(divxMAX);
+
+		parent.appendChild(wrapper);
+
+		let elem = {name: "",  
+					level: 0,
+					multiplier: 0, //To be used in the cost formula
+					baseCost: 0, //Base cost of the unit
+					cost: 0, //Calculated current cost
+					currency: 0, //Eggs generated in one iteration
+					productionCycle: 0, //Time it takes to produce eggs
+					productionCost: 0, //Bread it takes to have the bird start producing eggs
+
+					HTMLlevel: level, HTMLcurrency: currency, HTMLcost: cost, HTMLelement: button, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
+		array.push(elem);
+	}
+
+	parent.scrollTop = parent.scrollHeight;
+	return array;
+}
+
+//TO DO
+function checkPrices(upgrade, currency) {
+	for (let element of upgrade) {
+		//Check prices for x1
+		if (currency >= element.cost && currency >= element.baseCost) {
+			element.HTMLelement.classList.remove("disabled");
+			element.HTMLelement.classList.add("enabled");
+			element.HTMLelement.disabled = false;
+		} else {
+			element.HTMLelement.classList.remove("enabled");
+			element.HTMLelement.classList.add("disabled");
+			element.HTMLelement.disabled = true;
+		}
+
+		//Check prices for x10
+		if (currency >= element.cost && currency >= element.baseCost) {
+			element.buttonx10.classList.remove("disabled");
+			element.buttonx10.classList.add("enabled");
+			element.buttonx10.disabled = false;
+		} else {
+			element.buttonx10.classList.remove("enabled");
+			element.buttonx10.classList.add("disabled");
+			element.buttonx10.disabled = true;
+		}
+
+		//Check prices for x100
+		if (currency >= element.cost && currency >= element.baseCost) {
+			element.buttonx100.classList.remove("disabled");
+			element.buttonx100.classList.add("enabled");
+			element.buttonx100.disabled = false;
+		} else {
+			element.buttonx100.classList.remove("enabled");
+			element.buttonx100.classList.add("disabled");
+			element.buttonx100.disabled = true;
+		}
+
+		//Check prices for xMAX
+		if (currency >= element.cost && currency >= element.baseCost) {
+			element.buttonxMAX.classList.remove("disabled");
+			element.buttonxMAX.classList.add("enabled");
+			element.buttonxMAX.disabled = false;
+		} else {
+			element.buttonxMAX.classList.remove("enabled");
+			element.buttonxMAX.classList.add("disabled");
+			element.buttonxMAX.disabled = true;
+		}
+	}
+
+	if (gold < currentEggPrice){
+		buyStockButton.disabled = true;
+		overlayBuyStockButton.disabled = true;
+	}
+	if (gold >= currentEggPrice){
+		buyStockButton.disabled = false;
+		overlayBuyStockButton.disabled = false;
+	}
+
+	if (eggs <= 0){
+		sellStockButton.disabled = true;
+		overlaySellStockButton.disabled = true;
+	}
+	if (eggs > 0){
+		sellStockButton.disabled = false;
+		overlaySellStockButton.disabled = false;
+	}
+}
+
+//TO DO
+function buyUpgrade(array, arrayItem, currency) {
+	arrayItem.cost = Math.floor(Math.pow(arrayItem.multiplier, arrayItem.level) * arrayItem.baseCost);
+	bread -= arrayItem.cost;
+	arrayItem.level++;
+	$("#" + arrayItem.HTMLlevel.id)[0].html(arrayItem.level);
+	arrayItem.HTMLcost.innerHTML = arrayItem.cost + arrayItem.level;
+	drawElements();
+	checkPrices(array, currency);
+}
+
+//Spend Gold to buy Eggs
+function buyEggStock() {
+	demand += 0.001;
+	eggs++;
+	gold -= currentEggPrice;
+
+	checkPrices();
+	addEggs();
+	addGold();
+}
+
+//Spend Eggs to buy Gold
+//Reduces the demand
+function sellEggStock() {
+	demand = demand > 1 ? demand - 0.001 : demand;
+	eggs--;
+	gold += currentEggPrice;
+
+	checkPrices();
+	addEggs();
+	addGold();
+}
+
+/*----------------------------------------------------------SKILLS----------------------------------------------------------------------------------------*/
+//Doubles the game speed for 5 seconds
+function doubleSpeed() {
+	clearInterval(gameLoop);
+	gameSpeed = 500;
+	gameLoop = setInterval(loop, gameSpeed);
+
+	setTimeout(() => {
+		clearInterval(gameLoop);
+		gameSpeed = 1000;
+		gameLoop = setInterval(loop, gameSpeed);
+	}, 5000);
+}
+
+//Doubles the crit damage for 5 seconds
+function doubleCritDmg() {setTimeout(() => {critDmgMultiplier *= 2;}, 5000);}
+
+/*----------------------------------------------------------MENUS----------------------------------------------------------------------------------------*/
+//Saves the game
+function saveGame() {
+	localStorage.setItem("Bread", bread);
+	localStorage.setItem("Eggs", eggs);
+	localStorage.setItem("Gold", gold);
+	localStorage.setItem("Demand", demand);
+	localStorage.setItem("Inflation", inflation);
+	localStorage.setItem("Clicks", clicks);
+	localStorage.setItem('CritRate', critRate);
+	localStorage.setItem('Multiple_Combos', multipleCombos);
+	localStorage.setItem("Birds", birds);
+	localStorage.setItem("Machines", machines);
+}
+
+//Loads the game
+function loadGame() {
+	bread = parseInt(localStorage.getItem('Bread'));
+	critRate = parseInt(localStorage.getItem('CritRate'));
+}
+
+//Resets the options menu to its default values
+function resetOptions() {
+	options[0].HTMLinput.checked = true;
+	options[0].HTMLinput.checked = true;
+}
+
+//Saves the user selected values in the options menu
+function saveOptions() {}
+
+/*----------------------------------------------------------DEVELOPER TOOLS----------------------------------------------------------------------------------------*/
+
+function get1k() {
+	addBread(1000);
+}
+
+function get10k() {
+	addBread(10000);
+}
+
+function get100k() {
+	addBread(100000);
+}
+
+function gridToggle() {
+	let gridElements = $(".grid-item");
+	let toggleCheck = $("#gridToggle")[0];
+
+	if (toggleCheck.innerHTML == "ON") {
+		for (let element of gridElements) {
+			element.style.border = "none";
+		}
+		toggleCheck.innerHTML = "OFF";
+		return;
+	}
+
+	if (toggleCheck.innerHTML == "OFF") {
+		for (let element of gridElements) {
+			element.style.border = "1px solid darkmagenta";
+		}
+		toggleCheck.innerHTML = "ON";
+		return;
+	}
 }
