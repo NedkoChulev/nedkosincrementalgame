@@ -95,12 +95,16 @@ let features, menus, combo, comboInterval, birds, machines, chart, marketUpdate,
 window.onload = () => {
 	comboInterval = setInterval(drawComboCooldown, comboIntervalSpeed);
 	
-	birds = initiateSkyscraper("bird", leftSkyScraper);
-	machines = initiateSkyscraper("machine", rightSkyScraper);
+	birds = createSkyscraper("bird", leftSkyScraper, "eggs");
+	birds.forEach(bird => initiateSkyscraper(bird, 0, 1, 50, 0, 1, 59000, 100));
+
+	machines = createSkyscraper("machine", rightSkyScraper, "bread");
+	machines.forEach(machine => initiateSkyscraper(machine, 0, 1, 50, 0, 10, 59000, 100));
 
 	marketUpdate = setInterval(updateMarket, marketUpdateTime);
 	marketTimerInterval = setInterval(updateMarketCountdown, 1000);
 	gameLoop = setInterval(loop, gameSpeed);
+
 
 	initiateFeatures();
 	initiateMenus();
@@ -290,17 +294,11 @@ function initiateButtons() {
 	}
 
 	birds.forEach( bird => {
-		bird.HTMLelement.addEventListener("click", e => buyUpgrade(birds, bird, currency));
-		bird.buttonx10.addEventListener("click", e => buyUpgrade(birds, bird, currency));
-		bird.buttonx100.addEventListener("click", e => buyUpgrade(birds, bird, currency));
-		bird.buttonxMAX.addEventListener("click", e => buyUpgrade(birds, bird, currency));
+		bird.HTMLelement.addEventListener("click", e => buyUpgrade(birds, bird, produce));
 	});
 	
 	machines.forEach( machine => {
-		machine.HTMLelement.addEventListener("click", e => buyUpgrade(machines, machine, currency));
-		machine.buttonx10.addEventListener("click", e => buyUpgrade(machines, machine, currency));
-		machine.buttonx100.addEventListener("click", e => buyUpgrade(machines, machine, currency));
-		machine.buttonxMAX.addEventListener("click", e => buyUpgrade(machines, machine, currency));
+		machine.HTMLelement.addEventListener("click", e => buyUpgrade(machines, machine, produce));
 	});
 
 	chartZoom.addEventListener("click", e => {
@@ -411,6 +409,57 @@ function alertPlayer(message) {
 	}, 1000);
 }
 
+//Creates the buttons for bird and machines and declares the values in the array
+function createSkyscraper(identifier, parent, produceIdentifier) {
+	let array = [];
+	for (let i = 9; i >= 0; i--) {
+
+		let container = document.createElement("DIV");
+		let button = document.createElement("BUTTON");
+		
+		let textContainer = document.createElement("DIV");
+		let level = document.createElement("SPAN");
+		let produce = document.createElement("SPAN");
+		let cost = document.createElement("SPAN");
+
+		container.classList.add(identifier);
+		textContainer.classList.add(identifier + "-text");
+
+		button.id = identifier + i;
+		level.id = "level-" + identifier + i;
+		produce.id = "eggs-" + identifier + i;
+		cost.id = "cost-" + identifier + i;
+
+		textContainer.innerHTML = identifier + " " + i + " [";
+		textContainer.appendChild(level);
+		textContainer.innerHTML = textContainer.innerHTML + "]<br>" + "(" + produceIdentifier + " production: ";
+		textContainer.appendChild(produce);
+		textContainer.innerHTML = textContainer.innerHTML + ")<br>" + "Cost: ";
+		textContainer.appendChild(cost);
+		textContainer.innerHTML = textContainer.innerHTML + " Gold";
+
+		button.appendChild(textContainer);
+		container.appendChild(button);
+
+		parent.appendChild(container);
+
+		let elem = {name: "",  
+					level: 0,
+					multiplier: 0, //To be used in the cost formula
+					baseCost: 0, //Base cost of the unit
+					cost: 0, //Calculated current cost
+					produce: 0, //Eggs generated in one iteration
+					productionCycle: 0, //Time it takes to produce eggs
+					productionCost: 0, //Bread it takes to have the bird start producing eggs
+
+					HTMLlevel: level, HTMLproduce: produce, HTMLcost: cost, HTMLelement: button};
+		array.push(elem);
+	}
+
+	parent.scrollTop = parent.scrollHeight;
+	return array;
+}
+
 //Removes any existing combo
 //Generates a random combo between minComboLength and maxComboLength moves long
 function comboGenerator() {
@@ -494,7 +543,7 @@ function drawGold() {goldCountText.innerHTML = numeral(gold).format('0.00a');}
 //Updates the text in the Birds buttons
 function drawBirds() {
 	for (let bird of birds) {
-		$("#" + bird.HTMLcurrency.id).html((bird.currency).toLocaleString("en-EN"));
+		$("#" + bird.HTMLproduce.id).html((bird.produce).toLocaleString("en-EN"));
 		$("#" + bird.HTMLlevel.id).html(bird.level);
 		$("#" + bird.HTMLcost.id).html(bird.baseCost.toLocaleString("en-EN"));
 	}
@@ -503,7 +552,7 @@ function drawBirds() {
 //Updates the text in the Machines buttons
 function drawMachines() {
 	for (let machine of machines) {
-		$("#" + machine.HTMLcurrency.id).html((machine.currency).toLocaleString("en-EN"));
+		$("#" + machine.HTMLproduce.id).html((machine.produce).toLocaleString("en-EN"));
 		$("#" + machine.HTMLlevel.id).html(machine.level);
 		$("#" + machine.HTMLcost.id).html(machine.baseCost.toLocaleString("en-EN"));
 	}
@@ -612,6 +661,17 @@ function click() {
 //Generates a random number between min and max
 function randomNumberGenerator(min, max) {return Math.floor(Math.random() * (max - min + 1) ) + min;}
 
+//
+function initiateSkyscraper(arrayItem, level, multiplier, baseCost, cost, produce, productionCycle, productionCost) {
+	arrayItem.level = level;
+	arrayItem.multiplier = multiplier; //To be used in the cost formula
+	arrayItem.baseCost = baseCost; //Base cost of the unit
+	arrayItem.cost = cost; //Calculated current cost
+	arrayItem.produce = produce; //Eggs generated in one iteration
+	arrayItem.productionCycle = productionCycle; //Time it takes to produce eggs
+	arrayItem.productionCost = productionCost; //Bread it takes to have the bird start producing eggs
+}
+
 //Confirms if an arrow combo has been complete and gives bread if it has
 function validateCombo() {
 	if (comboArrowsCounter >= combo.length) {
@@ -636,87 +696,10 @@ function addEggs(amount) {eggs += amount;}
 function addGold(amount) {gold += amount;}
 
 //TO DO
-function initiateSkyscraper(identifier, parent) {
-	let array = [];
-	for (let i = 9; i >= 0; i--) {
-		let wrapper = document.createElement("DIV");
-
-		let container = document.createElement("DIV");
-		let button = document.createElement("BUTTON");
-		
-		let divx10 = document.createElement("DIV");
-		let divx100 = document.createElement("DIV");
-		let divxMAX = document.createElement("DIV");
-		let btnx10 = document.createElement("BUTTON");
-		let btnx100 = document.createElement("BUTTON");
-		let btnxMAX = document.createElement("BUTTON");
-
-		let textContainer = document.createElement("DIV");
-		let level = document.createElement("SPAN");
-		let currency = document.createElement("SPAN");
-		let cost = document.createElement("SPAN");
-
-		wrapper.classList.add("grid-container-birds-buttons");
-		container.classList.add("bird");
-		textContainer.classList.add("bird-text");
-		divx10.classList.add("buy-multiple");
-		divx100.classList.add("buy-multiple");
-		divxMAX.classList.add("buy-multiple");
-
-		btnx10.id = "bird" + i + "x10";
-		btnx10.innerHTML = "x10";
-		btnx100.id = "bird" + i + "x100";
-		btnx100.innerHTML = "x100";
-		btnxMAX.id = "bird" + i + "xMAX";
-		btnxMAX.innerHTML = "MAX";
-		button.id = "bird" + i;
-		level.id = "level-bird" + i;
-		currency.id = "eggs-bird" + i;
-		cost.id = "cost-bird" + i;
-
-		textContainer.innerHTML = "Upgrade " + i + " [";
-		textContainer.appendChild(level);
-		textContainer.innerHTML = textContainer.innerHTML + "]<br>" + "(CPS: ";
-		textContainer.appendChild(currency);
-		textContainer.innerHTML = textContainer.innerHTML + ")<br>" + "Cost: ";
-		textContainer.appendChild(cost);
-
-		button.appendChild(textContainer);
-		container.appendChild(button);
-
-		divx10.appendChild(btnx10);
-		divx100.appendChild(btnx100);
-		divxMAX.appendChild(btnxMAX);
-
-		wrapper.appendChild(divx10);
-		wrapper.appendChild(container);
-		wrapper.appendChild(divx100);
-		wrapper.appendChild(divxMAX);
-
-		parent.appendChild(wrapper);
-
-		let elem = {name: "",  
-					level: 0,
-					multiplier: 0, //To be used in the cost formula
-					baseCost: 0, //Base cost of the unit
-					cost: 0, //Calculated current cost
-					currency: 0, //Eggs generated in one iteration
-					productionCycle: 0, //Time it takes to produce eggs
-					productionCost: 0, //Bread it takes to have the bird start producing eggs
-
-					HTMLlevel: level, HTMLcurrency: currency, HTMLcost: cost, HTMLelement: button, buttonx10: btnx10, buttonx100: btnx100, buttonxMAX: btnxMAX};
-		array.push(elem);
-	}
-
-	parent.scrollTop = parent.scrollHeight;
-	return array;
-}
-
-//TO DO
-function checkPrices(upgrade, currency) {
+function checkPrices(upgrade, produce) {
 	for (let element of upgrade) {
 		//Check prices for x1
-		if (currency >= element.cost && currency >= element.baseCost) {
+		if (produce >= element.cost && produce >= element.baseCost) {
 			element.HTMLelement.classList.remove("disabled");
 			element.HTMLelement.classList.add("enabled");
 			element.HTMLelement.disabled = false;
@@ -724,39 +707,6 @@ function checkPrices(upgrade, currency) {
 			element.HTMLelement.classList.remove("enabled");
 			element.HTMLelement.classList.add("disabled");
 			element.HTMLelement.disabled = true;
-		}
-
-		//Check prices for x10
-		if (currency >= element.cost && currency >= element.baseCost) {
-			element.buttonx10.classList.remove("disabled");
-			element.buttonx10.classList.add("enabled");
-			element.buttonx10.disabled = false;
-		} else {
-			element.buttonx10.classList.remove("enabled");
-			element.buttonx10.classList.add("disabled");
-			element.buttonx10.disabled = true;
-		}
-
-		//Check prices for x100
-		if (currency >= element.cost && currency >= element.baseCost) {
-			element.buttonx100.classList.remove("disabled");
-			element.buttonx100.classList.add("enabled");
-			element.buttonx100.disabled = false;
-		} else {
-			element.buttonx100.classList.remove("enabled");
-			element.buttonx100.classList.add("disabled");
-			element.buttonx100.disabled = true;
-		}
-
-		//Check prices for xMAX
-		if (currency >= element.cost && currency >= element.baseCost) {
-			element.buttonxMAX.classList.remove("disabled");
-			element.buttonxMAX.classList.add("enabled");
-			element.buttonxMAX.disabled = false;
-		} else {
-			element.buttonxMAX.classList.remove("enabled");
-			element.buttonxMAX.classList.add("disabled");
-			element.buttonxMAX.disabled = true;
 		}
 	}
 
@@ -780,14 +730,14 @@ function checkPrices(upgrade, currency) {
 }
 
 //TO DO
-function buyUpgrade(array, arrayItem, currency) {
+function buyUpgrade(array, arrayItem, produce) {
 	arrayItem.cost = Math.floor(Math.pow(arrayItem.multiplier, arrayItem.level) * arrayItem.baseCost);
 	bread -= arrayItem.cost;
 	arrayItem.level++;
 	$("#" + arrayItem.HTMLlevel.id)[0].html(arrayItem.level);
 	arrayItem.HTMLcost.innerHTML = arrayItem.cost + arrayItem.level;
 	drawElements();
-	checkPrices(array, currency);
+	checkPrices(array, produce);
 }
 
 //Spend Gold to buy Eggs
@@ -862,17 +812,11 @@ function saveOptions() {}
 
 /*----------------------------------------------------------DEVELOPER TOOLS----------------------------------------------------------------------------------------*/
 
-function get1k() {
-	addBread(1000);
-}
+function get1k() {addBread(1000);}
 
-function get10k() {
-	addBread(10000);
-}
+function get10k() {addBread(10000);}
 
-function get100k() {
-	addBread(100000);
-}
+function get100k() {addBread(100000);}
 
 function gridToggle() {
 	let gridElements = $(".grid-item");
