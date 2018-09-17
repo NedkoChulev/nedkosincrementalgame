@@ -266,7 +266,10 @@ function initiateButtons() {
 	});
 
 	menus.forEach(menuItem => {
-		menuItem.HTMLbutton.addEventListener("click", e => menuItem.HTMLwindow.style.display = "block");
+		menuItem.HTMLbutton.addEventListener("click", e => {
+			menuItem.HTMLwindow.style.display = "block";
+			document.getElementsByClassName("log-overlay-middle grid-item")[0].scrollTop = document.getElementsByClassName("log-overlay-middle grid-item")[0].scrollHeight;
+		});
 		menuItem.HTMLclose.addEventListener("click", e => menuItem.HTMLwindow.style.display = "none");
 		menuItem.HTMLwindow.addEventListener("click", e => menuItem.HTMLwindow.style.display = "none");
 		menuItem.HTMLcontent.addEventListener("click", e => e.stopPropagation()); //clicking inside the window does not close it
@@ -457,7 +460,6 @@ function createSkyscraper(identifier, parent, produceIdentifier) {
 					HTMLlevel: level, HTMLproduce: produce, HTMLcost: cost, HTMLelement: button};
 		array.push(elem);
 	}
-
 	parent.scrollTop = parent.scrollHeight;
 	return array;
 }
@@ -660,6 +662,13 @@ function archiveMarket(message, direction) {
 
 	marketHistoryLog.appendChild(document.createElement("HR"));
 	marketHistoryLog.appendChild(entryContainer);
+
+	marketHistoryLog.parentElement.scrollTop = marketHistoryLog.parentElement.scrollHeight;
+	
+	if (marketHistoryLog.childElementCount >= 200) {
+		marketHistoryLog.removeChild(marketHistoryLog.childNodes[0]);
+		marketHistoryLog.removeChild(marketHistoryLog.childNodes[0]);
+	}
 }
 
 //Creates a countdown for when the market index will update
