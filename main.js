@@ -104,14 +104,16 @@ window.onload = () => {
 	//identifier, parent, produceIdentifier
 	birds = createSkyscraper("bird", leftSkyScraper, "eggs");
 	//arrayItem, level, multiplier, baseCost, cost, produce, productionCycle, productionCost, happiness
-	for (var i = 0; i < birds.length; i++) {
+	for (let i = 0; i < birds.length; i++) {
 		initiateSkyscraper(birds[i], 0, 1, initialBaseCost*(i+1), 0, 1, 59000, 100, 1);
 	}
 
 	//identifier, parent, produceIdentifier
 	machines = createSkyscraper("machine", rightSkyScraper, "bread");
 	//arrayItem, level, multiplier, baseCost, cost, produce, productionCycle, productionCost, happiness
-	machines.forEach(machine => initiateSkyscraper(machine, 0, 1, 50, 0, 10, 59000, 100, 1));
+	for (let i = 0; i < machines.length; i++) {
+		initiateSkyscraper(machines[i], 0, 1, initialBaseCost*(i+1), 0, 1, 59000, 100, 1);
+	}
 
 	initiateChart();
 	marketUpdate = setInterval(updateMarket, marketUpdateTime);
@@ -416,7 +418,7 @@ function alertPlayer(message) {
 //Creates the buttons for bird and machines and declares the values in the array
 function createSkyscraper(identifier, parent, produceIdentifier) {
 	let array = [];
-	for (let i = 9; i >= 0; i--) {
+	for (let i = 9; i > 0; i--) {
 
 		let container = document.createElement("DIV");
 		let button = document.createElement("BUTTON");
@@ -458,7 +460,7 @@ function createSkyscraper(identifier, parent, produceIdentifier) {
 					happiness: 0, //Random multiplier for each group of upgrades
 
 					HTMLlevel: level, HTMLproduce: produce, HTMLcost: cost, HTMLelement: button};
-		array.push(elem);
+		array.unshift(elem);
 	}
 	parent.scrollTop = parent.scrollHeight;
 	return array;
@@ -580,7 +582,6 @@ function drawGold() {goldCountText.innerHTML = numeral(gold).format('0.00a');}
 //Updates the text in the Birds buttons
 function drawBirds() {
 	for (let bird of birds) {
-		console.log(bird);
 		$("#" + bird.HTMLproduce.id).html((bird.produce).toLocaleString("en-EN"));
 		$("#" + bird.HTMLlevel.id).html(bird.level);
 		$("#" + bird.HTMLcost.id).html(bird.baseCost.toLocaleString("en-EN"));
@@ -632,8 +633,8 @@ function updateMarket() {
 		archiveMarket("EGM " + numeral(currentEggPrice).format('0.00a') + "&#8370; (" + marketDirection + (marketChangePercentage*100).toFixed(2) + "%)", 0);	
    	}
 
-	marketIndex.innerHTML = marketDirection + (marketChangePercentage*100).toFixed(2) + "%";
-	marketIndexOverlay.innerHTML = marketDirection + (marketChangePercentage*100).toFixed(2) + "%";
+	marketIndex.innerHTML = marketDirection + (marketChangePercentage*100).toFixed(2) + "%</br>" + numeral(currentEggPrice).format('0.00a') + " &#8370;";
+	marketIndexOverlay.innerHTML = marketDirection + (marketChangePercentage*100).toFixed(2) + "%</br>" + numeral(currentEggPrice).format('0.00a') + " &#8370;";
 
 
     chart.data.datasets[0].data[25] = currentEggPrice;
@@ -724,7 +725,10 @@ function validateCombo() {
 }
 
 //Adds more bread
-function addBread(amount) {bread += amount;}
+function addBread(amount) {
+	bread += amount;
+	drawBread();
+}
 
 //Adds more eggs
 //Increases the demand
