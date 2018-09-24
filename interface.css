@@ -89,6 +89,7 @@ button:hover {
   overflow-x: hidden;
   direction: rtl;
   width: 100%;
+  padding-left: 10px;
 }
 
 .grid-container-machines {
@@ -406,9 +407,15 @@ button:hover {
   width: 100%;
   height: 100%;
   text-align: center;
+  background-image: url(images/bird.png);
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position:center;
+  background-color: transparent;
 }
 
 .bird-text {
+  color: #222;
   direction: ltr;
   line-height: 1vw;
 }
@@ -423,9 +430,15 @@ button:hover {
   width: 100%;
   height: 100%;
   text-align: center;
+  background-image: url(images/machine.png);
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position:center;
+  background-color: transparent;
 }
 
 .machine-text {
+  color: #222;
   direction: ltr;
   line-height: 1vw;
 }
