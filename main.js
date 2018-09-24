@@ -69,7 +69,7 @@ let critRate = 1;
 let critDmgMultiplier = 2;
 let bread = 0;
 let eggs = 0;
-let gold = 0;
+let gold = 50;
 let demand = 1;
 let inflation = 1;
 let multipleCombos = 0;
@@ -126,8 +126,8 @@ window.onload = () => {
 	initiateKeyboardListeners();
 	initiateButtons();
 	
-	checkPrices(birds, bread);
-	checkPrices(machines, gold);
+	checkPrices(birds);
+	checkPrices(machines);
 
 	drawUpdate();
 	alertPlayer("Welcome!");
@@ -284,11 +284,11 @@ function initiateButtons() {
 	}
 
 	birds.forEach( bird => {
-		bird.HTMLelement.addEventListener("click", e => buyUpgrade(birds, bird, produce));
+		bird.HTMLelement.addEventListener("click", e => buyUpgrade(birds, bird));
 	});
 	
 	machines.forEach( machine => {
-		machine.HTMLelement.addEventListener("click", e => buyUpgrade(machines, machine, produce));
+		machine.HTMLelement.addEventListener("click", e => buyUpgrade(machines, machine));
 	});
 
 	chartZoom.addEventListener("click", e => {
@@ -579,21 +579,12 @@ function drawEggs() {eggsCountText.innerHTML = numeral(eggs).format('0.00a');}
 //Updates the Gold text in the Currencies panel
 function drawGold() {goldCountText.innerHTML = numeral(gold).format('0.00a');}
 
-//Updates the text in the Birds buttons
-function drawBirds() {
-	for (let bird of birds) {
-		$("#" + bird.HTMLproduce.id).html((bird.produce).toLocaleString("en-EN"));
-		$("#" + bird.HTMLlevel.id).html(bird.level);
-		$("#" + bird.HTMLcost.id).html(bird.baseCost.toLocaleString("en-EN"));
-	}
-}
-
-//Updates the text in the Machines buttons
-function drawMachines() {
-	for (let machine of machines) {
-		$("#" + machine.HTMLproduce.id).html((machine.produce).toLocaleString("en-EN"));
-		$("#" + machine.HTMLlevel.id).html(machine.level);
-		$("#" + machine.HTMLcost.id).html(machine.baseCost.toLocaleString("en-EN"));
+//Updates the text in the Birds/Machines buttons
+function drawSkyScraper(array) {
+	for (let element of array) {
+		$("#" + element.HTMLproduce.id).html((element.produce).toLocaleString("en-EN"));
+		$("#" + element.HTMLlevel.id).html(element.level);
+		$("#" + element.HTMLcost.id).html(element.baseCost.toLocaleString("en-EN"));
 	}
 }
 
@@ -602,8 +593,8 @@ function drawUpdate() {
 	drawBread();
 	drawEggs();
 	drawGold();
-	drawBirds();
-	drawMachines();
+	drawSkyScraper(birds);
+	drawSkyScraper(machines);
 }
 
 //Updates the Chart with the changed value
@@ -738,10 +729,10 @@ function addEggs(amount) {eggs += amount;}
 function addGold(amount) {gold += amount;}
 
 //TO DO
-function checkPrices(upgrade, produce) {
+function checkPrices(upgrade) {
 	for (let element of upgrade) {
 		//Check prices for x1
-		if (produce >= element.cost && produce >= element.baseCost) {
+		if (gold >= element.cost && gold >= element.baseCost) {
 			element.HTMLelement.classList.remove("disabled");
 			element.HTMLelement.classList.add("enabled");
 			element.HTMLelement.disabled = false;
@@ -772,14 +763,14 @@ function checkPrices(upgrade, produce) {
 }
 
 //TO DO
-function buyUpgrade(array, arrayItem, produce) {
+function buyUpgrade(array, arrayItem) {
 	arrayItem.cost = Math.floor(Math.pow(arrayItem.multiplier, arrayItem.level) * arrayItem.baseCost);
-	bread -= arrayItem.cost;
+	gold -= arrayItem.cost;
 	arrayItem.level++;
-	$("#" + arrayItem.HTMLlevel.id)[0].html(arrayItem.level);
+	$("#" + arrayItem.HTMLlevel.id).html(arrayItem.level);
 	arrayItem.HTMLcost.innerHTML = arrayItem.cost + arrayItem.level;
-	drawElements();
-	checkPrices(array, produce);
+	checkPrices(array);
+	drawSkyScraper(array);
 }
 
 //50% = up 1-8%

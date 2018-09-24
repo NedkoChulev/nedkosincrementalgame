@@ -1,11 +1,11 @@
 * {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
-    font-family: "Baloo Tammudu", sans-serif;
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+  font-family: "Baloo Tammudu", sans-serif;
 }
 /*
 Background: 222
@@ -28,14 +28,10 @@ body:not(.user-is-tabbing) button:focus, body:not(.user-is-tabbing) input:focus,
   outline: none;
 }
 
-button {
+button, button:hover {
   border: none;
   cursor: pointer;
   padding: 0;
-}
-
-button:hover {
-  cursor: pointer;
 }
 
 .main {
@@ -51,11 +47,9 @@ button:hover {
 
 .grid-container {
   display: grid;
-  /*grid-template-columns: 230px 58% 230px;
-  grid-template-rows: 100px 400px 68px auto 100px;*/
-  grid-template-columns: 20% 50% 20%;
+  grid-template-columns: 15% 60% 15%;
   grid-template-rows: 10% 50% 30% 5%;
-  grid-gap: 2%;
+  grid-gap: 1%;
   justify-content: center;
   justify-items: center;
   align-items: center;
@@ -82,69 +76,30 @@ button:hover {
   align-items: center;
 }
 
-.grid-container-birds {
+.grid-container-birds, .grid-container-machines {
   display: grid;
   grid-gap: 5px;
   overflow-y: scroll;
   overflow-x: hidden;
-  direction: rtl;
   width: 100%;
   padding-left: 10px;
 }
 
-.grid-container-machines {
-  display: grid;
-  grid-gap: 5px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  direction: ltr;
-  width: 100%;
-}
+.grid-container-birds {direction: rtl;}
+.grid-container-machines {direction: ltr;}
 
-.grid-container-birds::-webkit-scrollbar {
-  width: 10px;
-}
+.grid-container-birds::-webkit-scrollbar {width: 10px;}
 .grid-container-birds::-webkit-scrollbar-thumb {
   background: rgba(118,129,185, 0.5);
   border-radius: 10px;
 }
-.grid-container-birds::-webkit-scrollbar-thumb:hover {
-    background: rgba(118,129,185, 0.7);
-}
-
-.grid-container-machines::-webkit-scrollbar {
-  width: 10px;
-}
+.grid-container-birds::-webkit-scrollbar-thumb:hover {background: rgba(118,129,185, 0.7);}
+.grid-container-machines::-webkit-scrollbar {width: 10px;}
 .grid-container-machines::-webkit-scrollbar-thumb {
   background: rgba(118,129,185, 0.5);
   border-radius: 10px;
 }
-.grid-container-machines::-webkit-scrollbar-thumb:hover {
-    background: rgba(118,129,185, 0.7);
-}
-
-.grid-container-birds-buttons {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  grid-gap: 1px;
-  justify-content: center;
-  align-items: center;
-  justify-self: end;
-  width: 100%;
-  margin-left: 10px;
-}
-
-.grid-container-machines-buttons {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 1px;
-  justify-content: center;
-  align-items: center;
-  justify-self: end;
-  width: 100%;
-}
+.grid-container-machines::-webkit-scrollbar-thumb:hover {background: rgba(118,129,185, 0.7);}
 
 .grid-container-buy-multiple {
   display: grid;
@@ -167,7 +122,7 @@ button:hover {
 .grid-container-combo {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 6fr 1fr;
   grid-gap: 0px;
   justify-content: center;
   justify-items: center;
@@ -202,7 +157,7 @@ button:hover {
 
 .grid-container-overlay {
   display: grid;
-  grid-template-rows: 6% 47% 47%;
+  grid-template-rows: 1fr 5fr 5fr;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
   justify-content: center;
@@ -254,20 +209,14 @@ button:hover {
   height: auto;
 }
 
-#loadingBarLeft {
-  float: right;
+#loadingBarRight, #loadingBarLeft {
   height: 1vh;
   width: 0px;
   background-color: #7681b9;
   border-radius: 16px;
 }
 
-#loadingBarRight {
-  height: 1vh;
-  width: 0px;
-  background-color: #7681b9;
-  border-radius: 16px;
-}
+#loadingBarLeft {float: right;}
 
 .comboPointsPopUp {
     width: 100%;
@@ -334,110 +283,44 @@ button:hover {
 }
 
 /*SKILLS COOLDOWNS*/
-#skill0:disabled:after {
+#skill0:disabled:after, #skill1:disabled:after, #skill2:disabled:after, #skill3:disabled:after, #skill4:disabled:after {
   content: '';
   position: absolute;
   bottom: 0;
   width: 100%;
   left: 0;
   background: rgba(84,96,151, 0.7);
-  animation: skill 3s linear;
 }
-
-#skill1:disabled:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  background: rgba(84,96,151, 0.7);
-  animation: skill 5s linear;
-}
-
-#skill2:disabled:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  background: rgba(84,96,151, 0.7);
-  animation: skill 10s linear;
-}
-
-#skill3:disabled:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  background: rgba(84,96,151, 0.7);
-  animation: skill 50s linear;
-}
-
-#skill4:disabled:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  background: rgba(84,96,151, 0.7);
-  animation: skill 60s linear;
-}
+#skill0:disabled:after {animation: skill 3s linear;}
+#skill1:disabled:after {animation: skill 5s linear;}
+#skill2:disabled:after {animation: skill 10s linear;}
+#skill3:disabled:after {animation: skill 50s linear;}
+#skill4:disabled:after {animation: skill 60s linear;}
 
 @keyframes skill {
-  0% {
-    height: 100%;
-  }
-  100% {
-    height: 0;
-  }
+  0% {height: 100%;}
+  100% {height: 0;}
 }
 
-.skill-text {
-  line-height: 1vw;
-}
-
-.bird {
+.bird, .machine {
   height: 100%;
-  padding-top: 5%;
-  padding-bottom: 5%;
+  width: 100%;
 }
 
-.bird button {
+.bird button, .machine button {
   width: 100%;
   height: 100%;
   text-align: center;
-  background-image: url(images/bird.png);
   background-repeat: no-repeat;
   background-size:contain;
   background-position:center;
   background-color: transparent;
 }
 
-.bird-text {
-  color: #222;
-  direction: ltr;
-  line-height: 1vw;
-}
+.bird button {background-image: url(images/bird.png);}
+.machine button {background-image: url(images/machine.png);}
 
-.machine {
-  height: 100%;
-  padding-top: 5%;
-  padding-bottom: 5%;
-}
-
-.machine button {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  background-image: url(images/machine.png);
-  background-repeat: no-repeat;
-  background-size:contain;
-  background-position:center;
-  background-color: transparent;
-}
-
-.machine-text {
+.bird-text, .machine-text, .skill-text {
   color: #222;
   direction: ltr;
   line-height: 1vw;
@@ -571,10 +454,8 @@ button:hover {
 .close {
     color: #555;
     float: right;
-    font-size: 40px;
+    font-size: 5vh;
     font-weight: bold;
-    padding-right: 5px;
-    margin-top: -15px;
     cursor: pointer;
 }
 
@@ -588,15 +469,10 @@ button:hover {
 }
 
 /* width */
-.log-overlay-middle::-webkit-scrollbar {
-    width: 20px;
-}
+.log-overlay-middle::-webkit-scrollbar {width: 20px;}
 
 /* Track */
-.log-overlay-middle::-webkit-scrollbar-track {
-    /*box-shadow: inset 0 0 5px grey; */
-    border-radius: 10px;
-}
+.log-overlay-middle::-webkit-scrollbar-track {border-radius: 10px;}
  
 /* Handle */
 .log-overlay-middle::-webkit-scrollbar-thumb {
@@ -605,26 +481,23 @@ button:hover {
 }
 
 /* Handle on hover */
-.log-overlay-middle::-webkit-scrollbar-thumb:hover {
-    background: #6570a8; 
-}
+.log-overlay-middle::-webkit-scrollbar-thumb:hover {background: #6570a8;}
 
 .overlay-headline {
   color: #eee;
-  font-size: 35px;
-  padding-left: 10px;
-  margin-top: -10px;
+  font-size: 5vh;
   justify-self: start;
   align-self: start;
+  grid-column-end: span 2;
 }
 
-.overlay-headline-hr {
-  width: 150%;
+.overlay-headline hr {
   margin-top: -26px;
 }
 
-.save-overlay-middle {
+.save-overlay-middle, .load-overlay-middle {
   grid-column-end: span 3;
+  grid-row-end: span 2;
 }
 
 .save-overlay-middle p {
@@ -634,10 +507,6 @@ button:hover {
 
 .save-overlay-middle input {
   width: 100%;
-}
-
-.load-overlay-middle {
-  grid-column-end: span 3;
 }
 
 .load-overlay-middle p {
@@ -657,7 +526,7 @@ button:hover {
 }
 
 .log-overlay-content {
-  grid-template-rows: 6% 47% 47%;
+  grid-template-rows: 1fr 10fr;
 }
 
 .log {
@@ -717,61 +586,19 @@ button:hover {
   height: 100%;
 }
 
-.button-feature0 {
-  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterI.jpg);
+.button-feature0, .button-feature1, .button-feature2, .button-feature3, .button-feature4, .button-feature5, .button-feature6, .button-feature7 {
   background-repeat: no-repeat;
   height: 40px;
   width: 40px;
 }
-
-.button-feature1 {
-  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterC.jpg);
-  background-repeat: no-repeat;
-  height: 40px;
-  width: 40px;
-}
-
-.button-feature2 {
-  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterA.jpg);
-  background-repeat: no-repeat;
-  height: 40px;
-  width: 40px;
-}
-
-.button-feature3 {
-  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterP.jpg);
-  background-repeat: no-repeat;
-  height: 40px;
-  width: 40px;
-}
-
-.button-feature4 {
-  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterQ.jpg);
-  background-repeat: no-repeat;
-  height: 40px;
-  width: 40px;
-}
-
-.button-feature5 {
-  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterR.jpg);
-  background-repeat: no-repeat;
-  height: 40px;
-  width: 40px;
-}
-
-.button-feature6 {
-  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/20d8f44ad658b9a72e99443ed2b83d7fef2529bc/images/letterE.jpg);
-  background-repeat: no-repeat;
-  height: 40px;
-  width: 40px;
-}
-
-.button-feature7 {
-  background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterS.jpg);
-  background-repeat: no-repeat;
-  height: 40px;
-  width: 40px;
-}
+.button-feature0 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterI.jpg);}
+.button-feature1 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterC.jpg);}
+.button-feature2 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterA.jpg);}
+.button-feature3 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterP.jpg);}
+.button-feature4 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterQ.jpg);}
+.button-feature5 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterR.jpg);}
+.button-feature6 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterE.jpg);}
+.button-feature7 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterS.jpg);}
 
 .menu {
   width: 100%;
@@ -796,13 +623,12 @@ button:hover {
   transform: scale(0.9, 0.9);
 }
 
-.shop-button-container {
+.shop-button-container, .shop-button {
   height: auto;
 }
 
 .shop-button {
   width: 100%;
-  height: auto;
   text-align: center;
 }
 
@@ -883,7 +709,6 @@ canvas {
   width: 100%;
 }
 
-
 .chart:hover .chart-zoom {
   opacity: 1;
   cursor: pointer;
@@ -919,25 +744,19 @@ canvas {
   border-radius: 20px;
 }
 
-.market-index h2 {
-  text-align: center;
-  margin: 0px;
-  padding-top: 10px;
-  line-height: 35px;
-}
+.market-index h2 {padding-top: 10px;}
 
-.market-index p {
+.market-index p, .market-index h2 {
   text-align: center;
   margin: 0px;
   line-height: 20px;
 }
 
-.market-index-overlay span {
+.market-index-overlay span, .market-index-overlay p {
   margin: 0px;
 }
 
 .market-index-overlay p {
-  margin: 0px;
   display: inline-block;
 }
 
@@ -945,18 +764,14 @@ canvas {
   display: grid;
   height: 100%;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 10fr;
 }
 
 /* width */
-.market-history-overlay-middle::-webkit-scrollbar {
-    width: 20px;
-}
+.market-history-overlay-middle::-webkit-scrollbar {width: 20px;}
 
 /* Track */
-.market-history-overlay-middle::-webkit-scrollbar-track {
-    /*box-shadow: inset 0 0 5px grey; */
-    border-radius: 10px;
-}
+.market-history-overlay-middle::-webkit-scrollbar-track {border-radius: 10px;}
  
 /* Handle */
 .market-history-overlay-middle::-webkit-scrollbar-thumb {
@@ -965,9 +780,7 @@ canvas {
 }
 
 /* Handle on hover */
-.market-history-overlay-middle::-webkit-scrollbar-thumb:hover {
-    background: #6570a8; 
-}
+.market-history-overlay-middle::-webkit-scrollbar-thumb:hover {background: #6570a8;}
 
 .market-history-overlay-middle {
   grid-column-end: span 3;
@@ -1003,12 +816,7 @@ canvas {
   border: 2px solid #222;
 }
 
-.sell-stock {
-  height: 100%;
-  width: 100%;
-}
-
-.buy-stock {
+.sell-stock, .buy-stock {
   height: 100%;
   width: 100%;
 }
