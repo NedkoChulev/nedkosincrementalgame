@@ -1,3 +1,5 @@
+/*VERSION Alpha 0.0.4*/
+
 var storage = window.localStorage;
 
 var skills = [
