@@ -6,6 +6,11 @@
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
   font-family: "Baloo Tammudu", sans-serif;
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position:cover;
+  background-color: transparent;
 }
 /*
 Background: 222
@@ -14,6 +19,45 @@ Button Color: 7681b9
 Highlight: EC6F28
 */
 
+/*-------------------------------Background Images For Main Grid----------------------------------------*/
+/*Cell 1:1 and 1:3*/
+.grid-container-features {background-image: url(images/features.png);}
+
+/*Cell 1:2*/
+.grid-container-combo {background-image: url(images/combo.png);}
+
+/*Cell 2:1*/
+.grid-container-birds {background-image: url(images/skyscraper.png);}
+
+/*Cell 2:2*/
+.grid-container-center {background-image: url(images/center.png);}
+
+/*Cell 2:3*/
+.grid-container-machines {background-image: url(images/skyscraper.png);}
+
+/*Cell 3:1*/
+.grid-container-bottom-left {background-image: url(images/currencies.png);}
+
+/*Cell 3:2*/
+.grid-container-chart {background-image: url(images/chart.png);}
+
+/*Cell 3:3*/
+.bottom-right-menu {background-image: url(images/currencies.png);}
+/*-----------------------------------------------------------------------------------------*/
+
+.bird button {background-image: url(images/bird.png);}
+.machine button {background-image: url(images/machine.png);}
+
+.button-feature0 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterI.jpg);}
+.button-feature1 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterC.jpg);}
+.button-feature2 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterA.jpg);}
+.button-feature3 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterP.jpg);}
+.button-feature4 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterQ.jpg);}
+.button-feature5 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterR.jpg);}
+.button-feature6 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterE.jpg);}
+.button-feature7 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterS.jpg);}
+
+.disabled {background-image: url(images/disabled.png) !important;}
 
 html {
   height: 100%;
@@ -317,13 +361,6 @@ button, button:hover {
   background-color: transparent;
 }
 
-.bird button {background-image: url(images/bird.png);}
-.machine button {background-image: url(images/machine.png);}
-
-.disabled {
-  color: #aaa;
-}
-
 .bird-text, .machine-text, .skill-text {
   color: #222;
   direction: ltr;
@@ -338,7 +375,7 @@ button, button:hover {
 
 .enabled:hover {
   cursor: pointer;
-  transform: scale(0.95);
+  transform: scale(1.05);
   }
 
 .enabled:active {
@@ -576,18 +613,9 @@ button, button:hover {
 }
 
 .button-feature0, .button-feature1, .button-feature2, .button-feature3, .button-feature4, .button-feature5, .button-feature6, .button-feature7 {
-  background-repeat: no-repeat;
   height: 40px;
   width: 40px;
 }
-.button-feature0 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterI.jpg);}
-.button-feature1 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterC.jpg);}
-.button-feature2 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterA.jpg);}
-.button-feature3 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterP.jpg);}
-.button-feature4 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterQ.jpg);}
-.button-feature5 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterR.jpg);}
-.button-feature6 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterE.jpg);}
-.button-feature7 {background: url(https://raw.githubusercontent.com/NedkoChulev/nedkosincrementalgame/master/images/letterS.jpg);}
 
 .menu {
   width: 100%;

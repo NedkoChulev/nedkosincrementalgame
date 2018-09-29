@@ -1,5 +1,3 @@
-/*VERSION Alpha 0.0.4*/
-
 var storage = window.localStorage;
 
 var skills = [
@@ -54,7 +52,7 @@ const chartContainer =			$("#chart-container")[0];
 const eggMarketChart =			document.getElementById("eggMarket").getContext('2d');
 
 const gameSpeed = 1000;
-const marketUpdateTime = 1000;
+const marketUpdateTime = 60000;
 const clickPower = 1;
 const baseEggPrice = 100;
 const minEggPrice = 20;
@@ -71,7 +69,7 @@ let critRate = 1;
 let critDmgMultiplier = 2;
 let bread = 0;
 let eggs = 0;
-let gold = 50;
+let gold = 500;
 let demand = 1;
 let inflation = 1;
 let multipleCombos = 0;
@@ -107,7 +105,7 @@ window.onload = () => {
 	birds = createSkyscraper("bird", leftSkyScraper, "eggs");
 	//arrayItem, level, multiplier, baseCost, cost, produce, productionCycle, productionCost, happiness
 	for (let i = 0; i < birds.length; i++) {
-		initiateSkyscraper(birds[i], 0, 1, initialBaseCost*(i+1), 0, 1, 59000, 100, 1);
+		initiateSkyscraper(birds[i], 0, 2, initialBaseCost*(i+1), 0, 1, 59000, 100, 1);
 	}
 
 	//identifier, parent, produceIdentifier
@@ -128,8 +126,7 @@ window.onload = () => {
 	initiateKeyboardListeners();
 	initiateButtons();
 	
-	checkPrices(birds);
-	checkPrices(machines);
+	checkAllPrices();
 
 	drawUpdate();
 	alertPlayer("Welcome!");
@@ -137,9 +134,6 @@ window.onload = () => {
 
 // Game's main loop - passively adds bread from the upgrades
 function loop() {
-	//checkPrices(birds, bread);
-	//checkPrices(machines, gold);
-	//drawUpdate();
 }
 
 /*----------------------------------------------------------INITIATION METHODS----------------------------------------------------------------------------------------*/
@@ -168,6 +162,18 @@ function initiateMenus() {
 			HTMLcontent: $("#" + menuIdentifiers[i] + "-overlay-content")[0]};
 		menus.push(menuItem);
 	}
+}
+
+//Fills the skyscrapers' data
+function initiateSkyscraper(arrayItem, level, multiplier, baseCost, cost, produce, productionCycle, productionCost, happiness) {
+	arrayItem.level = level;
+	arrayItem.multiplier = multiplier; //To be used in the cost formula
+	arrayItem.baseCost = baseCost; //Base cost of the unit
+	arrayItem.cost = baseCost; //Calculated current cost
+	arrayItem.produce = produce; //Eggs generated in one iteration
+	arrayItem.productionCycle = productionCycle; //Time it takes to produce eggs
+	arrayItem.productionCost = productionCost; //Bread it takes to have the bird start producing eggs
+	arrayItem.happiness = happiness;
 }
 
 //Set up Event handlers for keyboard input
@@ -259,14 +265,12 @@ function initiateButtons() {
 		e.preventDefault();
 		animateMainButton();
 		click();
-		checkPrices(birds, bread);
 		return false;
 	}, false);
 
 	mainButton.addEventListener("click", e => {
 		animateMainButton();
 		click();
-		checkPrices(birds, bread);
 	});
 
 	menus.forEach(menuItem => {
@@ -584,10 +588,15 @@ function drawGold() {goldCountText.innerHTML = numeral(gold).format('0.00a');}
 //Updates the text in the Birds/Machines buttons
 function drawSkyScraper(array) {
 	for (let element of array) {
-		$("#" + element.HTMLproduce.id).html((element.produce).toLocaleString("en-EN"));
-		$("#" + element.HTMLlevel.id).html(element.level);
-		$("#" + element.HTMLcost.id).html(element.baseCost.toLocaleString("en-EN"));
+		drawSkyScraperItem(element);
 	}
+}
+
+//Updates the text in a Birds/Machines button
+function drawSkyScraperItem(arrayItem) {
+	$("#" + arrayItem.HTMLproduce.id).html((arrayItem.produce).toLocaleString("en-EN"));
+	$("#" + arrayItem.HTMLlevel.id).html(arrayItem.level);
+	$("#" + arrayItem.HTMLcost.id).html(arrayItem.cost.toLocaleString("en-EN"));
 }
 
 //Draws all currencies, birds buttons and machines buttons
@@ -692,18 +701,6 @@ function click() {
 //Generates a random number between min and max
 function randomNumberGenerator(min, max) {return Math.floor(Math.random() * (max - min + 1) ) + min;}
 
-//
-function initiateSkyscraper(arrayItem, level, multiplier, baseCost, cost, produce, productionCycle, productionCost, happiness) {
-	arrayItem.level = level;
-	arrayItem.multiplier = multiplier; //To be used in the cost formula
-	arrayItem.baseCost = baseCost; //Base cost of the unit
-	arrayItem.cost = cost; //Calculated current cost
-	arrayItem.produce = produce; //Eggs generated in one iteration
-	arrayItem.productionCycle = productionCycle; //Time it takes to produce eggs
-	arrayItem.productionCost = productionCost; //Bread it takes to have the bird start producing eggs
-	arrayItem.happiness = happiness;
-}
-
 //Confirms if an arrow combo has been complete and gives bread if it has
 function validateCombo() {
 	if (comboArrowsCounter >= combo.length) {
@@ -723,18 +720,41 @@ function addBread(amount) {
 	drawBread();
 }
 
+//Subtracts from the bread
+function subtractBread(amount) {
+	bread -= amount;
+	drawBread();
+}
+
 //Adds more eggs
-//Increases the demand
-function addEggs(amount) {eggs += amount;}
+function addEggs(amount) {
+	eggs += amount;
+	drawEggs();
+}
+
+//Subtracts from the eggs
+function subtractEggs(amount) {
+	eggs -= amount;
+	drawEggs();
+}
 
 //Adds more gold
-function addGold(amount) {gold += amount;}
+function addGold(amount) {
+	gold += amount;
+	drawGold();
+}
 
-//TO DO
-function checkPrices(upgrade) {
-	for (let element of upgrade) {
+//Subtracts from the gold
+function subtractGold(amount) {
+	gold -= amount;
+	drawGold();
+}
+
+//Checks if you can buy the next level all upgrades
+function checkUpgradesPrices(array) {
+	for (let element of array) {
 		//Check prices for x1
-		if (gold >= element.cost && gold >= element.baseCost) {
+		if (gold >= element.cost) {
 			element.HTMLelement.classList.remove("disabled");
 			element.HTMLelement.classList.add("enabled");
 			element.HTMLelement.disabled = false;
@@ -744,11 +764,15 @@ function checkPrices(upgrade) {
 			element.HTMLelement.disabled = true;
 		}
 	}
+}
 
+//Checks if you can make any market transaction
+function checkMarketPrices() {
 	if (gold < currentEggPrice){
 		buyStockButton.disabled = true;
 		overlayBuyStockButton.disabled = true;
 	}
+
 	if (gold >= currentEggPrice){
 		buyStockButton.disabled = false;
 		overlayBuyStockButton.disabled = false;
@@ -758,21 +782,29 @@ function checkPrices(upgrade) {
 		sellStockButton.disabled = true;
 		overlaySellStockButton.disabled = true;
 	}
+
 	if (eggs > 0){
 		sellStockButton.disabled = false;
 		overlaySellStockButton.disabled = false;
 	}
 }
 
-//TO DO
+//Checks if you can buy the next level all upgrades
+//Checks if you can make any market transaction
+function checkAllPrices() {
+	checkMarketPrices();
+	checkUpgradesPrices(birds);
+	checkUpgradesPrices(machines);
+}
+
+//Buys the next level of an upgrade
 function buyUpgrade(array, arrayItem) {
-	arrayItem.cost = Math.floor(Math.pow(arrayItem.multiplier, arrayItem.level) * arrayItem.baseCost);
-	gold -= arrayItem.cost;
+	subtractGold(arrayItem.cost);
 	arrayItem.level++;
-	$("#" + arrayItem.HTMLlevel.id).html(arrayItem.level);
-	arrayItem.HTMLcost.innerHTML = arrayItem.cost + arrayItem.level;
-	checkPrices(array);
-	drawSkyScraper(array);
+	arrayItem.cost = Math.pow(arrayItem.multiplier, arrayItem.level) * arrayItem.baseCost;
+
+	checkAllPrices();
+	drawSkyScraperItem(arrayItem);
 }
 
 //50% = up 1-8%
@@ -800,7 +832,7 @@ function buyEggStock() {
 	eggs++;
 	gold -= currentEggPrice;
 
-	checkPrices();
+	checkAllPrices();
 	addEggs();
 	addGold();
 }
@@ -812,7 +844,7 @@ function sellEggStock() {
 	eggs--;
 	gold += currentEggPrice;
 
-	checkPrices();
+	checkAllPrices();
 	addEggs();
 	addGold();
 }
