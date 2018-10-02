@@ -19,14 +19,14 @@ var options = [
 
 const leftSkyScraper =			$("#leftSkyScraper")[0];
 const rightSkyScraper =			$("#rightSkyScraper")[0];
-const comboSequence =			$("#comboSequence")[0];
-const comboPointsMessage =		$("#comboPointsMessage")[0];
+const comboSequence =			$("#combo-sequence")[0];
+const comboPointsMessage =		$("#combo-points-message")[0];
 const breadCountText =			$("#bread-count-text")[0];
 const eggsCountText =			$("#eggs-count-text")[0];
 const goldCountText =			$("#gold-count-text")[0];
 const mainButton =				$("#main-button")[0];
-const loadingBarLeft =			$("#loadingBarLeft")[0];
-const loadingBarRight =			$("#loadingBarRight")[0];
+const loadingBarLeft =			$("#loading-bar-left")[0];
+const loadingBarRight =			$("#loading-bar-right")[0];
 const alerts =					$("#alerts")[0];
 const marquee =					$("#marquee")[0];
 const log =						$("#log")[0];
@@ -44,7 +44,7 @@ const marketOverlayClose =		$("#close-market-history-menu")[0];
 const marketTimer =				$("#market-timer")[0];
 const chartOverlayContent =		$("#chart-overlay-content")[0];
 const chartClose =				$("#close-chart-menu")[0];
-const chartZoom =				$("#chart-zoom")[0];
+const chartZoom =				$("#chart-zoom-button")[0];
 const chartWindow =				$("#chart-overlay")[0];
 const zoomedChart =				$("#zoomed-chart")[0];
 const zoomedChartMenu =			$("#zoomed-chart-menu")[0];
@@ -299,18 +299,15 @@ function initiateButtons() {
 
 	chartZoom.addEventListener("click", e => {
 		chartWindow.style.display = "block";
-		zoomedChart.appendChild(document.getElementById("eggMarket"));
 	});
 
 	chartWindow.addEventListener("click", e => {
 		chartWindow.style.display = "none";
-		chartContainer.appendChild(document.getElementById("eggMarket"));
 	});
 
 	chartClose.addEventListener("click", e => {
 		marketOverlayWindow.style.display = "none";
 		chartWindow.style.display = "none";
-		chartContainer.appendChild(document.getElementById("eggMarket"));
 	});
 
 	//Market Overlay Events

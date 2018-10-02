@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!--VERSION Alpha 0.0.5-->
+	<!--VERSION Alpha 0.0.6-->
 	<title>Incremental Game</title>
 
 	<meta name="viewport" content="width=1200px, maximum-scale=1.0" />
@@ -55,11 +55,25 @@
 		</div>
 
 		<div class="grid-item grid-container-combo">
-			<div class="comboSequence grid-item" id="comboSequence"></div>
-			<div class="grid-item" id="loadingBarWrapper">
-				<div id="loadingBarLeft"></div>
-				<div id="loadingBarRight"></div>
+			<div class="grid-item grid-container-currencies">
+				<div id="bread-count" class="grid-item">
+					Bread: <span id="bread-count-text">0</span>
+				</div>
+				<div id="eggs" class="grid-item">
+					Eggs: <span id="eggs-count-text">0</span>
+				</div>
+				<div id="gold" class="grid-item">
+					Gold: <span id="gold-count-text">0</span>
+				</div>
 			</div>
+			<div class="combo-sequence grid-item" id="combo-sequence"></div>
+
+			<div><p>Test</p></div>
+			<div class="grid-item" id="loading-bar-wrapper">
+				<div id="loading-bar-left"></div>
+				<div id="loading-bar-right"></div>
+			</div>
+			<div><p>Test</p></div>
 		</div>
 
 		<div class="grid-item grid-container-features">
@@ -76,7 +90,7 @@
 			<div class="grid-item"></div>
 			<div class="grid-container-alerts alerts grid-item">
 				<div class="grid-item comboPointsPopUp">
-	  				<span class="comboPointsMessage" id="comboPointsMessage"></span>
+	  				<span class="combo-points-message" id="combo-points-message"></span>
 				</div>
 				
 				<div class="alert grid-item" id="alerts"></div>
@@ -120,15 +134,6 @@
 
 <!-- ROW 3 -->
 		<div class="grid-item grid-container-bottom-left">
-			<div id="bread-count" class="grid-item">
-				Bread: <span id="bread-count-text">0</span>
-			</div>
-			<div id="eggs" class="grid-item">
-				Eggs: <span id="eggs-count-text">0</span>
-			</div>
-			<div id="gold" class="grid-item">
-				Gold: <span id="gold-count-text">0</span>
-			</div>
 			<div class="grid-item grid-container-buy-multiple">
 				<div class="buy-multiple"><button class="grid-item" id="x1">x1</button></div>
 				<div class="buy-multiple"><button class="grid-item" id="x10">x10</button></div>
@@ -144,9 +149,8 @@
 				<p id="market-index">&rarr; 0.00%</p>
 			</div>
 			
-			<div id="chart-container" class="chart grid-item">
-				<canvas id="eggMarket"></canvas>
-				<div class="chart-zoom" id="chart-zoom"><span><p>+</p></span></div>
+			<div class="grid-item">
+				<button id="chart-zoom-button" class="chart-zoom">Show Chart</button>
 			</div>
 
 			<!-- Chart Row 2-->
@@ -160,20 +164,12 @@
 			</div>
 		</div>
 		
-		<div class="grid-item bottom-right-menu">
-			<div class="grid-item grid-container-menu">
-				<div class="menu grid-item" id="menu0"><button id="button-menu0">P</button></div>
-				<div class="menu grid-item" id="menu1"><button id="button-menu1">L</button></div>
-				<div class="menu grid-item" id="menu2"><button id="button-menu2">O</button></div>
-				<div class="menu grid-item" id="menu3"><button id="button-menu3">S</button></div>
-				<div class="menu grid-item" id="menu4"><button id="button-menu4">L</button></div>
-			</div>
-
-			<div class="grid-item shop-button-container">
-				<button class="shop-button">
-					<span>SHOP</span>
-				</button>
-			</div>
+		<div class="grid-item grid-container-menu">
+			<div class="menu grid-item" id="menu0"><button id="button-menu0">P</button></div>
+			<div class="menu grid-item" id="menu1"><button id="button-menu1">L</button></div>
+			<div class="menu grid-item" id="menu2"><button id="button-menu2">O</button></div>
+			<div class="menu grid-item" id="menu3"><button id="button-menu3">S</button></div>
+			<div class="menu grid-item" id="menu4"><button id="button-menu4">L</button></div>
 		</div>
 <!-- ROW 4 -->
 			<div class="grid-item grid-container-marquee">
@@ -273,13 +269,14 @@
 		  </div>
 		  </div>
 		</div>
+
 		<div id="chart-overlay" class="overlay">
 	  		<div id="chart-overlay-content" class="overlay-content">
 	  			<div class="grid-container-overlay chart-overlay-content">
 	  			<div class="overlay-headline grid-item">Egg Market<hr></div>
 	  			<div class="close-container grid-item"><span id="close-chart-menu" class="close">Esc x</span></div>
 
-	  			<div id="zoomed-chart" class="grid-item zoomed-chart"></div>
+	  			<div id="zoomed-chart" class="grid-item zoomed-chart"><canvas id="eggMarket"></canvas></div>
 
 	  			<div class="grid-item">
 	  				Time until next update:
